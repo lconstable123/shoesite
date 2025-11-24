@@ -1,0 +1,155 @@
+"use client";
+import React, { useState } from "react";
+import {
+  ChevronDown,
+  LogoIcon,
+  SearchIcon,
+  HeartIcon,
+  ProfileIcon,
+  BagIcon,
+  FlagIcon,
+  MenuIcon,
+} from "./Icons";
+import { cn } from "../lib/utils";
+import { DropdownMenu } from "./dropdown-menu";
+import { SearchButton } from "./Buttons";
+
+interface HeaderMenuProps {
+  isDropdownOpen?: boolean;
+  selected: "SPORTS" | "LIFESTYLE" | "MEN" | "WOMEN" | "KIDS";
+}
+
+export default function Header({
+  isDropdownOpen = true,
+  selected,
+}: HeaderMenuProps) {
+  return (
+    <div className="flex flex-col items-center w-full">
+      <DropdownBar selected={selected} />
+      {isDropdownOpen && <DropdownMenu />}
+    </div>
+  );
+}
+
+function DropdownBar({
+  selected,
+}: {
+  selected: "SPORTS" | "LIFESTYLE" | "MEN" | "WOMEN" | "KIDS";
+}) {
+  const [SearchBarOpen, setSearchBarOpen] = useState(false);
+
+  return (
+    <nav
+      id="header_bar"
+      className="w-full flex flex-col gap-y-2.5 border-b border-mid-grey-2 px-[42px]  "
+    >
+      <div className="relative h-[61px] bg-black flex inset-0 items-center justify-between  py-2">
+        <HeaderItems>
+          <a href="#" className="header__logo_left">
+            <LogoIcon size={45} className="" />
+          </a>
+          <a href="#" className="header__menu">
+            <MenuIcon size={28} className=" mx-2" />
+          </a>
+          <a href="#" className="header__heart_left">
+            <HeartIcon size={36} className="" />
+          </a>
+        </HeaderItems>
+
+        <div className="header__nav justify-center sm:relative 2xl:absolute 2xl:left-1/2 2xl:translate-x-[-50%]">
+          <NavigationMenu selected={selected} />
+        </div>
+        <a
+          href="#"
+          className="header__profile_center    justify-center items-center"
+        >
+          <LogoIcon size={45} className="" />
+        </a>
+
+        <HeaderItems>
+          <SearchBar />
+          <button
+            onClick={() => setSearchBarOpen(!SearchBarOpen)}
+            className="header__searchbutton"
+          >
+            <SearchIcon size={26} className="mr-0 ml-3  " color="white" />
+          </button>
+          <a href="#" className="header__heart_right">
+            <HeartIcon size={36} className="size-9" />
+          </a>
+          <a href="#" className="header__profile_right">
+            <ProfileIcon size={36} className="size-9" />
+          </a>
+          <a href="#" className="header__bag_right">
+            <BagIcon size={36} className="size-9" />
+          </a>
+        </HeaderItems>
+      </div>
+      {SearchBarOpen && (
+        <div className="header__searchbar_bottom pb-4">
+          <SearchBar fullWidth />
+        </div>
+      )}
+    </nav>
+  );
+}
+function SearchBar({ fullWidth = false }: { fullWidth?: boolean }) {
+  return (
+    <div
+      className={cn(
+        " bg-white  border-white h-7 rounded relative  ",
+        fullWidth
+          ? "w-full header__searchbar_bottom"
+          : "header__searchbar_right w-[100px] xl:w-[191px]"
+      )}
+    >
+      <div className="absolute flex gap-2 items-center justify-center left-[29px] top-[calc(50%-0.5px)] translate-y-[-50%]">
+        <p className="font-normal no-select leading-normal text-xs text-text-hard">
+          Search
+        </p>
+      </div>
+      <div className="absolute left-1 size-5 top-1/2 translate-y-[-50%]">
+        <SearchIcon size={20} color="black" />
+      </div>
+    </div>
+  );
+}
+
+function HeaderItems({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="header-items flex gap-[17px] items-center justify-center">
+      {children}
+    </div>
+  );
+}
+
+function NavigationMenu({
+  selected,
+}: {
+  selected: "SPORTS" | "LIFESTYLE" | "MEN" | "WOMEN" | "KIDS";
+}) {
+  const navItems = ["SPORTS", "LIFESTYLE", "MEN", "WOMEN", "KIDS"];
+
+  return (
+    <div className="flex flex-col gap-1 items-center justify-center">
+      <div className="flex flex-col items-center">
+        <div className="flex gap-7 items-center">
+          {navItems.map((item, index) => (
+            <div key={item} className="flex items-center justify-center">
+              <div
+                className={cn(
+                  "flex flex-col font-inter justify-center leading-0 text-lg text-center tracking-[1.26px] whitespace-nowrap",
+                  selected === item
+                    ? "text-white font-bold "
+                    : "text-[#ebebeb] font-light"
+                )}
+              >
+                <p className="leading-normal">{item}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
