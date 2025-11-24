@@ -128,7 +128,7 @@ export function FlagIcon({ className, size = 20 }: IconProps) {
     <img
       alt=""
       className={className || "block max-w-none size-full"}
-      src={iconData.flag}
+      src="/assets/icons/icon/flag.svg"
       style={{ width: size, height: size }}
     />
   );
