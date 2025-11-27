@@ -204,6 +204,13 @@ export const footerData = [
   },
 ];
 
+export const carouselCategories = [
+  "New Arrivals",
+  "Street Masters",
+  "Platinum",
+] as const;
+export type CarouselCategory = (typeof carouselCategories)[number];
+
 export type Categories = (typeof menuData.categories)[number]["id"];
 
 // Helper function to get category by id

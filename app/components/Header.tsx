@@ -48,14 +48,20 @@ function DropdownBar({
       <div className="relative h-[70px] bg-black flex inset-0 items-center justify-between  py-2">
         <HeaderItems>
           <a href="#" className="header__logo_left">
-            <LogoIcon size={45} className="" />
+            <LogoIcon size={40} className="" />
           </a>
           <a href="#" className="header__menu">
-            <MenuIcon size={28} className=" mx-2" />
+            <MenuIcon size={24} className=" mx-2" />
           </a>
-          <a href="#" className="header__heart_left">
-            <HeartIcon size={36} className="" />
-          </a>
+          {/* <a href="#" className="header__heart_left">
+            <HeartIcon size={30} className="" />
+          </a> */}
+          <button
+            onClick={() => setSearchBarOpen(!SearchBarOpen)}
+            className="header__searchbutton"
+          >
+            <SearchIcon size={23} className="mr-0 ml-0  " color="white" />
+          </button>
         </HeaderItems>
 
         <div className="header__nav ">
@@ -63,27 +69,22 @@ function DropdownBar({
         </div>
         <a
           href="#"
-          className="header__profile_center justify-center items-center"
+          className="header__profile_center absolute left-1/2 -translate-x-1/2 "
         >
-          <LogoIcon size={45} className="" />
+          <LogoIcon size={40} className="" />
         </a>
 
         <HeaderItems>
           <SearchBar />
-          <button
-            onClick={() => setSearchBarOpen(!SearchBarOpen)}
-            className="header__searchbutton"
-          >
-            <SearchIcon size={26} className="mr-0 ml-3  " color="white" />
-          </button>
+
           <a href="#" className="header__heart_right">
-            <HeartIcon size={36} className="size-9" />
+            <HeartIcon size={30} className="size-8" />
           </a>
           <a href="#" className="header__profile_right">
-            <ProfileIcon size={36} className="size-9" />
+            <ProfileIcon size={32} className="size-9" />
           </a>
           <a href="#" className="header__bag_right">
-            <BagIcon size={36} className="size-9" />
+            <BagIcon size={32} className="size-9" />
           </a>
         </HeaderItems>
       </div>

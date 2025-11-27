@@ -1,5 +1,11 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { ChevronLeft, HeartIcon } from "./Icons";
+import { carouselCategories, CarouselCategory } from "../lib/data";
+import { cn } from "../lib/utils";
+import { useScreenSizeShared } from "../lib/useScreenSize";
+import "./styling/carousel.css";
+import { WidthCategory } from "../lib/types";
 
 interface ProductCardProps {
   name: string;
@@ -22,6 +28,13 @@ function ProductCard({
   favorite = false,
   imageUrl = "/api/placeholder/196/167",
 }: ProductCardProps) {
+  const dummy = true;
+  if (dummy) {
+    return (
+      <div className="flex flex-col gap-[142px] h-[247px] items-end w-[196px] bg-red-200" />
+    );
+  }
+
   return (
     <div className="flex flex-col gap-[142px] h-[247px] items-end w-[196px]">
       {/* Favorite button */}
@@ -86,10 +99,22 @@ function ProductCard({
 }
 
 interface CarouselProps {
+  sm_displayAmount?: number;
+  md_displayAmount?: number;
+  lg_displayAmount?: number;
+  xl_displayAmount?: number;
+  mobile_displayAmount?: number;
   products: ProductCardProps[];
 }
 
-export default function Carousel({ products }: CarouselProps) {
+export default function Carousel({
+  products,
+  sm_displayAmount = 2,
+  md_displayAmount = 4,
+  lg_displayAmount = 6,
+  xl_displayAmount = 8,
+  mobile_displayAmount = 8,
+}: CarouselProps) {
   const defaultProducts: ProductCardProps[] = [
     {
       name: "Nice Looking Shoe",
@@ -136,72 +161,237 @@ export default function Carousel({ products }: CarouselProps) {
       colors: ["#000000", "#ffffff"],
       favorite: false,
     },
+    {
+      name: "Nice Looking Shoe",
+      category: "Running",
+      price: 180,
+      discountPrice: 400,
+      tag: "New",
+      colors: ["#f59e0b", "#10b981", "#000000", "#ffffff"],
+      favorite: false,
+    },
+    {
+      name: "Nice Looking Shoe",
+      category: "Running",
+      price: 180,
+      discountPrice: 400,
+      tag: "New",
+      colors: ["#f59e0b", "#ef4444", "#000000", "#ffffff"],
+      favorite: true,
+    },
+    {
+      name: "Nice Looking Shoe",
+      category: "Running",
+      price: 180,
+      discountPrice: 400,
+      tag: "New",
+      colors: ["#10b981", "#ef4444", "#000000", "#ffffff"],
+      favorite: false,
+    },
+    {
+      name: "Nice Looking Shoe",
+      category: "Running",
+      price: 180,
+      discountPrice: 400,
+      tag: "New",
+      colors: ["#000000", "#ffffff"],
+      favorite: false,
+    },
+    {
+      name: "Nice Looking Shoe",
+      category: "Running",
+      price: 180,
+      discountPrice: 400,
+      tag: "New",
+      colors: ["#000000", "#ffffff"],
+      favorite: false,
+    },
   ];
+  const { isMobile, widthCategory: width } = useScreenSizeShared(
+    800,
+    1250,
+    1600
+  );
 
-  const carouselProducts = products.length > 0 ? products : defaultProducts;
+  // let displayAmount = lg_displayAmount;
+
+  // if (!isMobile) {
+  //   switch (width) {
+  //     case "small":
+  //       displayAmount = sm_displayAmount;
+  //       break;
+  //     case "medium":
+  //       displayAmount = md_displayAmount;
+  //       break;
+  //     case "large":
+  //       displayAmount = lg_displayAmount;
+  //       break;
+  //     case "extra-large":
+  //       displayAmount = xl_displayAmount;
+  //       break;
+  //     default:
+  //       displayAmount = lg_displayAmount;
+  //   }
+  // } else {
+  //   displayAmount = mobile_displayAmount;
+  // }
+
+  const displayAmountMap: Record<WidthCategory, number> = {
+    small: sm_displayAmount,
+    medium: md_displayAmount,
+    large: lg_displayAmount,
+    extralarge: xl_displayAmount,
+  } as const;
+
+  const displayAmount = isMobile
+    ? mobile_displayAmount
+    : displayAmountMap[width] ?? lg_displayAmount;
+
+  const carouselProducts =
+    products.length > 0
+      ? products.slice(0, displayAmount)
+      : defaultProducts.slice(0, displayAmount);
+
+  const maxWidth = displayAmount * (196 + 12) - 12;
+  const maxWidthMob = 196 * 2;
+  const maxPage = 3;
+  const [page, setPage] = useState(0);
+  const [carouselCategory, setCarouselCategory] =
+    useState<CarouselCategory>("New Arrivals");
+
+  const handleSetPage = (newpage: number) => {
+    if (newpage < 0 || newpage > maxPage) return;
+    setPage(newpage);
+  };
 
   return (
-    <div className="flex flex-col items-center w-full max-w-[1092px]">
-      {/* Header */}
-      <div className="box-border flex flex-col gap-2 items-start pb-2 pt-0 px-0 w-full">
-        <div className="flex items-start justify-between w-[1048px]">
-          {/* Navigation tabs */}
-          <div className="flex gap-[13px] items-center w-[385.5px]">
-            <div className="bg-text-hard border border-text-mid2 box-border flex gap-2 items-center justify-center px-4 py-1 rounded-lg">
-              <p className="font-inter text-xs text-on-black">New Arrivals</p>
-            </div>
-            <div className="bg-mid-grey-2 border border-text-mid2 box-border flex gap-2 items-center justify-center opacity-80 px-4 py-1 rounded-lg">
-              <p className="font-inter text-xs text-on-black">Street Masters</p>
-            </div>
-            <div className="bg-text-hard border border-text-mid2 box-border flex gap-2 items-center justify-center px-4 py-1 rounded-lg">
-              <p className="font-inter text-xs text-on-black">Platinum</p>
-            </div>
-          </div>
+    <div className="carousel__container h-full flex gap-3 overflow-hidden items-center justify-center ">
+      {!isMobile && (
+        <CarouselNav
+          direction="left"
+          page={page}
+          maxPage={maxPage}
+          handleSetPage={handleSetPage}
+        />
+      )}
+      <div className="carousel__container__inner">
+        <CarouselHeader
+          categories={[...carouselCategories]}
+          selectedCategory={carouselCategory}
+          setSelectedCategory={setCarouselCategory}
+        />
 
-          {/* Shop all link */}
-          <div className="flex flex-col gap-2 items-center justify-center w-[51px]">
-            <div className="flex gap-2 h-[17px] items-start justify-center w-full">
-              <div className="box-border flex gap-2 items-center justify-center pb-0.5 pt-0 px-0">
-                <p className="font-inter underline font-normal leading-normal text-xs text-on-black text-center">
-                  Shop All
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Carousel content */}
-      <div className="flex flex-wrap content-center gap-x-3 items-center w-full">
-        {/* Left arrow */}
-        <div className="bg-mid-grey-2 box-border flex gap-2 h-[122px] items-center justify-center p-0.5 rounded w-5">
-          <ChevronLeft size={20} />
-        </div>
-
-        {/* Product cards */}
-        <div className="flex gap-3 items-center">
+        {/* <div className="carousel__items ">
           {carouselProducts.map((product, index) => (
             <ProductCard key={index} {...product} />
           ))}
-        </div>
+        </div> */}
+        {/* <div className="w-100 h-100 bg-yellow-400" /> */}
 
-        {/* Right arrow */}
-        <div className="bg-mid-grey-2 box-border flex gap-2 h-[122px] items-center justify-center p-0.5 rounded w-5">
-          <div className="flex items-center justify-center">
-            <div className="flex-none rotate-180">
-              <ChevronLeft size={20} />
-            </div>
-          </div>
-        </div>
+        {!isMobile && <CarouselProgressBar page={page} maxPage={maxPage} />}
       </div>
-
-      {/* Navigation indicator */}
-      <div className="box-border flex flex-col gap-2 items-start px-0 py-4 w-[1048px]">
-        <div className="h-1 w-full relative">
-          <div className="absolute bg-white inset-0" />
-          <div className="absolute bg-red bottom-0 left-0 right-[72.38%] top-0" />
-        </div>
-      </div>
+      {!isMobile && (
+        <CarouselNav
+          direction="right"
+          page={page}
+          maxPage={maxPage}
+          handleSetPage={handleSetPage}
+        />
+      )}
     </div>
   );
 }
+
+const CarouselNav = ({
+  direction,
+  page,
+  maxPage,
+  handleSetPage,
+}: {
+  direction: "left" | "right";
+  page: number;
+  maxPage: number;
+  handleSetPage: (newpage: number) => void;
+}) => {
+  return (
+    <button
+      onClick={() => {
+        if (direction === "left") {
+          handleSetPage(page - 1);
+        } else {
+          handleSetPage(page + 1);
+        }
+      }}
+      className={cn(
+        "carousel__nav",
+        direction === "right" ? "rotate-180" : "",
+        direction === "right" && page >= maxPage
+          ? "opacity-50 no-select  cursor-default "
+          : "",
+        direction === "left" && page <= 0
+          ? "opacity-50 no-select  cursor-default "
+          : ""
+      )}
+    >
+      <ChevronLeft size={20} className="no-select" />
+    </button>
+  );
+};
+
+const CarouselProgressBar = ({
+  page,
+  maxPage,
+}: {
+  page: number;
+  maxPage: number;
+}) => {
+  const progressPercentage = (page / maxPage) * 100;
+  return (
+    <div className="box-border bg-white relative  h-1 flex flex-col gap-2 items-start px-0 my-4 w-full">
+      <div
+        className="absolute bg-red bottom-0 left-0 top-0 z-20"
+        style={{ width: `${progressPercentage}%` }}
+      />
+    </div>
+  );
+};
+
+const CarouselHeader = ({
+  categories,
+  selectedCategory,
+  setSelectedCategory,
+}: {
+  categories: CarouselCategory[];
+  selectedCategory: CarouselCategory;
+  setSelectedCategory: React.Dispatch<
+    React.SetStateAction<"New Arrivals" | "Street Masters" | "Platinum">
+  >;
+}) => {
+  return (
+    <nav className="carousel__header">
+      {categories.map((category, index) => {
+        const isActive = category === selectedCategory;
+        return (
+          <button
+            key={category}
+            onClick={() => {
+              if (!isActive) setSelectedCategory(category);
+            }}
+            className={cn(
+              " border-[0.1rem] no-select  border-text-mid2 box-border flex gap-2 items-center justify-center px-4 py-1 rounded-lg",
+              !isActive
+                ? "bg-text-hard cursor-pointer"
+                : "bg-mid-grey-2 opacity-80"
+            )}
+          >
+            <p>{category}</p>
+          </button>
+        );
+      })}
+
+      <a className="ml-auto ">
+        <p className="underline">Shop All</p>
+      </a>
+    </nav>
+  );
+};
