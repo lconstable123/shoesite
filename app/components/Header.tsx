@@ -14,6 +14,7 @@ import { cn } from "../lib/utils";
 import { DropdownMenu } from "./dropdown-menu";
 import { SearchButton } from "./Buttons";
 import { SearchBar } from "./search-bar";
+import "./styling/header.css";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -25,7 +26,7 @@ export default function Header({
   selected,
 }: HeaderMenuProps) {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex  flex-col items-start w-full">
       <DropdownBar selected={selected} />
       {isDropdownOpen && <DropdownMenu />}
     </div>
@@ -42,9 +43,9 @@ function DropdownBar({
   return (
     <nav
       id="header_bar"
-      className="w-full flex flex-col gap-y-2.5 border-b border-mid-grey-2 px-[42px]  "
+      className="w-full border  flex flex-col gap-y-2.5 border-b border-mid-grey-2 px-[42px]  "
     >
-      <div className="relative h-[61px] bg-black flex inset-0 items-center justify-between  py-2">
+      <div className="relative h-[70px] bg-black flex inset-0 items-center justify-between  py-2">
         <HeaderItems>
           <a href="#" className="header__logo_left">
             <LogoIcon size={45} className="" />
@@ -57,12 +58,12 @@ function DropdownBar({
           </a>
         </HeaderItems>
 
-        <div className="header__nav justify-center sm:relative 2xl:absolute 2xl:left-1/2 2xl:translate-x-[-50%]">
+        <div className="header__nav ">
           <NavigationMenu selected={selected} />
         </div>
         <a
           href="#"
-          className="header__profile_center    justify-center items-center"
+          className="header__profile_center justify-center items-center"
         >
           <LogoIcon size={45} className="" />
         </a>
@@ -124,7 +125,7 @@ function NavigationMenu({
                     : "text-[#ebebeb] font-light"
                 )}
               >
-                <p className="leading-normal">{item}</p>
+                <h3 className="leading-normal ">{item}</h3>
               </div>
             </div>
           ))}

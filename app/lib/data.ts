@@ -168,6 +168,42 @@ export const menuData: MenuData = {
   region: "Australia",
 } as const;
 
+export const footerData = [
+  {
+    title: "SPORTS",
+    items: ["Football", "Outdoors", "Basketball", "Fitness"],
+  },
+  {
+    title: "LIFESTYLE",
+    items: ["Casual", "Premium", "Skatewear", "Staples"],
+  },
+  {
+    title: "MEN",
+    items: ["Shoes", "Clothes", "Acessories"],
+  },
+  {
+    title: "WOMEN",
+    items: ["Shoes", "Clothes", "Acessories"],
+  },
+  {
+    title: "KIDS",
+    items: ["Shoes", "Clothes", "Acessories"],
+  },
+  {
+    title: "INFO",
+    items: ["About", "Careers", "Sustainability"],
+  },
+  {
+    title: "SUPPORT",
+    items: [
+      "Store Locator",
+      "Order Tracker",
+      "Customer Service",
+      "Returns & Refunds",
+    ],
+  },
+];
+
 export type Categories = (typeof menuData.categories)[number]["id"];
 
 // Helper function to get category by id

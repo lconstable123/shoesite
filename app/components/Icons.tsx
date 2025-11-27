@@ -28,8 +28,18 @@ export function ChevronLeft({ className, size = 20 }: IconProps) {
   return (
     <img
       alt=""
-      className={className || "block max-w-none size-full"}
-      src={iconData.chevronLeft}
+      className={className || "block max-w-none size-full "}
+      src="/assets/icons/icon/chevron-left.svg"
+      style={{ width: size, height: size }}
+    />
+  );
+}
+export function ChevronRight({ className, size = 20 }: IconProps) {
+  return (
+    <img
+      alt=""
+      className={className || "block max-w-none size-full rotate-180"}
+      src="/assets/icons/icon/chevron-left.svg"
       style={{ width: size, height: size }}
     />
   );

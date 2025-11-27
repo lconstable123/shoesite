@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased w-screen`}
       >
         <Pulldown />
         {children}
@@ -44,12 +44,12 @@ export default function RootLayout({
 
 function Pulldown() {
   return (
-    <div className="w-full h-8  justify-center bg-gray-darker flex items-center px-4">
+    <div className="w-full  h-8  justify-center bg-gray-darker flex items-center px-4">
       <div className="no-select flex gap-[18px] justify-center items-center">
         <ChevronDown />
-        <h3 className="text-white uppercase text-center text-sm ">
+        <span className="text-white font-medium uppercase text-center text-sm ">
           Shipping & Free Returns
-        </h3>
+        </span>
         <ChevronDown />
       </div>
     </div>
