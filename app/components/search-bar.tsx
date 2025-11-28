@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { SearchIcon } from "./Icons";
 
 export function SearchBar({ fullWidth = false }: { fullWidth?: boolean }) {

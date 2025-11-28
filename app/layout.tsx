@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ChevronDown } from "./components/Icons";
 import { Toaster } from "react-hot-toast";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +40,9 @@ export default function RootLayout({
       >
         <Toaster position="top-center" />
         <Pulldown />
+        <Header isDropdownOpen={true} selected="SPORTS" />
         {children}
+        <Footer />
       </body>
     </html>
   );

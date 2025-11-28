@@ -10,7 +10,7 @@ import {
   FlagIcon,
   MenuIcon,
 } from "./Icons";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { DropdownMenu } from "./dropdown-menu";
 import { SearchButton } from "./Buttons";
 import { SearchBar } from "./search-bar";
@@ -41,11 +41,11 @@ function DropdownBar({
   const [SearchBarOpen, setSearchBarOpen] = useState(false);
 
   return (
-    <nav
+    <header
       id="header_bar"
       className="w-full border  flex flex-col gap-y-2.5 border-b border-mid-grey-2 px-[42px]  "
     >
-      <div className="relative h-[70px] bg-black flex inset-0 items-center justify-between  py-2">
+      <nav className="relative h-[70px] bg-black flex inset-0 items-center justify-between  py-2">
         <HeaderItems>
           <a href="#" className="header__logo_left">
             <LogoIcon size={40} className="" />
@@ -87,13 +87,13 @@ function DropdownBar({
             <BagIcon size={32} className="size-9" />
           </a>
         </HeaderItems>
-      </div>
+      </nav>
       {SearchBarOpen && (
         <div className="header__searchbar_bottom pb-4">
           <SearchBar fullWidth />
         </div>
       )}
-    </nav>
+    </header>
   );
 }
 

@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, FlagIcon } from "./Icons";
-import { Categories, menuData } from "../lib/data";
+import { Categories, menuData } from "../../lib/data";
 
 export function DropdownMenu({
   category = "sports",

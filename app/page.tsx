@@ -2,16 +2,19 @@ import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import Carousel from "./components/Carousel";
 import Footer from "./components/Footer";
+import { Metadata } from "next";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "Home Page",
+    description: "Welcome to the home page of our shoe site.",
+  };
+}
 
 export default function Home() {
   return (
-    <div className="bg-black flex flex-col justify-start  w-100%">
-      <Header isDropdownOpen={true} selected="SPORTS" />
-      {/* Hero Section */}
+    <main className="bg-black flex flex-col justify-start  w-100%">
       <HeroSection />
-
-      {/* <div className="bg-black h-[446px] w-full" /> */}
-
       <div className="flex flex-col items-center justify-center py-10 w-full ">
         <Carousel
           sm_displayAmount={2}
@@ -22,8 +25,6 @@ export default function Home() {
           products={[]}
         />
       </div>
-
-      <Footer />
-    </div>
+    </main>
   );
 }

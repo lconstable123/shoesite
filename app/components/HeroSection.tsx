@@ -5,7 +5,7 @@ export default function HeroSection() {
   const heroImageUrl = "/api/placeholder/1438/728";
 
   return (
-    <div
+    <section
       className=" h-150 ml-0 mt-0 row-1 w-full bg-cover bg-center"
       style={{
         backgroundImage: `url(${"/assets/placeholders/shoebg.png"})`,

@@ -133,6 +133,17 @@ export function MenuIcon({ className, size = 45 }: IconProps) {
   );
 }
 
+export function BackIcon({ className, size = 45 }: IconProps) {
+  return (
+    <img
+      alt="back"
+      className={className || "block max-w-none size-full"}
+      src="/assets/icons/icon/back.svg"
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
 export function FlagIcon({ className, size = 20 }: IconProps) {
   return (
     <img

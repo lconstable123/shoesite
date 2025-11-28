@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { ChevronLeft, HeartIcon } from "./Icons";
-import { carouselCategories, CarouselCategory } from "../lib/data";
-import { cn } from "../lib/utils";
-import { useScreenSizeShared } from "../lib/useScreenSize";
+import { carouselCategories, CarouselCategory } from "../../lib/data";
+import { cn } from "../../lib/utils";
+import { useScreenSizeShared } from "../../lib/useScreenSize";
 import "./styling/carousel.css";
-import { WidthCategory } from "../lib/types";
+import { WidthCategory } from "../../lib/types";
 
 interface ProductCardProps {
   name: string;
@@ -103,6 +103,7 @@ interface CarouselProps {
   xl_displayAmount?: number;
   mobile_displayAmount?: number;
   products: ProductCardProps[];
+  textAbove?: string;
 }
 
 export default function Carousel({
@@ -112,6 +113,7 @@ export default function Carousel({
   lg_displayAmount = 6,
   xl_displayAmount = 8,
   mobile_displayAmount = 8,
+  textAbove,
 }: CarouselProps) {
   const defaultProducts: ProductCardProps[] = [
     {
@@ -240,7 +242,7 @@ export default function Carousel({
   };
 
   return (
-    <div className="carousel__container__outer  ">
+    <div className="carousel__container__outer ">
       {!isMobile && (
         <CarouselNav
           direction="left"
@@ -254,6 +256,7 @@ export default function Carousel({
           categories={[...carouselCategories]}
           selectedCategory={carouselCategory}
           setSelectedCategory={setCarouselCategory}
+          textAbove={textAbove}
         />
 
         <div className="carousel__items">
@@ -344,36 +347,41 @@ const CarouselHeader = ({
   categories,
   selectedCategory,
   setSelectedCategory,
+  textAbove,
 }: {
   categories: CarouselCategory[];
   selectedCategory: CarouselCategory;
   setSelectedCategory: React.Dispatch<
     React.SetStateAction<"New Arrivals" | "Street Masters" | "Platinum">
   >;
+  textAbove?: string;
 }) => {
   return (
-    <nav className="carousel__header">
-      {categories.map((category, index) => {
-        const isActive = category === selectedCategory;
-        return (
-          <button
-            key={category}
-            onClick={() => {
-              if (!isActive) setSelectedCategory(category);
-            }}
-            className={cn(
-              "button__state no-select",
-              !isActive ? "button__state__inactive" : "button__state__active"
-            )}
-          >
-            <p>{category}</p>
-          </button>
-        );
-      })}
+    <div className="carousel__header__container">
+      {textAbove && <h2 className=" ">{textAbove}</h2>}
+      <nav className="carousel__header__nav">
+        {categories.map((category, index) => {
+          const isActive = category === selectedCategory;
+          return (
+            <button
+              key={category}
+              onClick={() => {
+                if (!isActive) setSelectedCategory(category);
+              }}
+              className={cn(
+                "button__state no-select",
+                !isActive ? "button__state__inactive" : "button__state__active"
+              )}
+            >
+              <p>{category}</p>
+            </button>
+          );
+        })}
 
-      <a className="ml-auto ">
-        <p className="underline">Shop All</p>
-      </a>
-    </nav>
+        <a className="ml-auto ">
+          <p className="underline">Shop All</p>
+        </a>
+      </nav>
+    </div>
   );
 };

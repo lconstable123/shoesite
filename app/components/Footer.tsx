@@ -1,6 +1,6 @@
 import React from "react";
 import { FlagIcon } from "./Icons";
-import { footerData } from "../lib/data";
+import { footerData } from "../../lib/data";
 import "./styling/footer.css";
 
 interface FooterMenuListProps {
@@ -25,17 +25,17 @@ function FooterMenuList({ title, items }: FooterMenuListProps) {
 
 export default function Footer() {
   return (
-    <div className="footer__container">
-      <div className="footer__categories">
+    <footer className="footer__container">
+      <nav className="footer__categories">
         {footerData.map((menu, index) => (
           <FooterMenuList key={index} title={menu.title} items={menu.items} />
         ))}
-      </div>
+      </nav>
       <div className="footer__byline">
         <p className="opacity-80 leading-relaxed">
           Site designed by Luke Constable | VirtuallyAnything 2025
         </p>
       </div>
-    </div>
+    </footer>
   );
 }

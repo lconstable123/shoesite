@@ -74,6 +74,12 @@ h3 {
   white-space: nowrap;
 }
 
+h2 {
+  font-size: var(--text-2xl) /* 1.5rem = 24px */;
+  line-height: var(--text-2xl--line-height); /* calc(2 / 1.5) ≈ 1.333333 */
+  font-weight: var(--font-weight-bold) /* 700 */;
+}
+
 .font-inter {
   font-family: var(--font-inter), "Inter", sans-serif;
 }
