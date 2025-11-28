@@ -30,13 +30,11 @@ function ProductCard({
 }: ProductCardProps) {
   const dummy = true;
   if (dummy) {
-    return (
-      <div className="flex flex-col gap-[142px] h-[247px] items-end w-[196px] bg-red-200" />
-    );
+    return <div className="carousel__card bg-red-200" />;
   }
 
   return (
-    <div className="flex flex-col gap-[142px] h-[247px] items-end w-[196px]">
+    <div className="carousel__card flex flex-col gap-[142px] h-[247px] items-end w-[196px]">
       {/* Favorite button */}
       <div className="w-5 h-5 relative">
         <HeartIcon filled={favorite} size={20} />
@@ -213,29 +211,6 @@ export default function Carousel({
     1600
   );
 
-  // let displayAmount = lg_displayAmount;
-
-  // if (!isMobile) {
-  //   switch (width) {
-  //     case "small":
-  //       displayAmount = sm_displayAmount;
-  //       break;
-  //     case "medium":
-  //       displayAmount = md_displayAmount;
-  //       break;
-  //     case "large":
-  //       displayAmount = lg_displayAmount;
-  //       break;
-  //     case "extra-large":
-  //       displayAmount = xl_displayAmount;
-  //       break;
-  //     default:
-  //       displayAmount = lg_displayAmount;
-  //   }
-  // } else {
-  //   displayAmount = mobile_displayAmount;
-  // }
-
   const displayAmountMap: Record<WidthCategory, number> = {
     small: sm_displayAmount,
     medium: md_displayAmount,
@@ -265,7 +240,7 @@ export default function Carousel({
   };
 
   return (
-    <div className="carousel__container h-full flex gap-3 overflow-hidden items-center justify-center ">
+    <div className="carousel__container__outer  ">
       {!isMobile && (
         <CarouselNav
           direction="left"
@@ -274,20 +249,29 @@ export default function Carousel({
           handleSetPage={handleSetPage}
         />
       )}
-      <div className="carousel__container__inner">
+      <div className="carousel__container__inner ">
         <CarouselHeader
           categories={[...carouselCategories]}
           selectedCategory={carouselCategory}
           setSelectedCategory={setCarouselCategory}
         />
 
-        {/* <div className="carousel__items ">
+        <div className="carousel__items">
           {carouselProducts.map((product, index) => (
             <ProductCard key={index} {...product} />
           ))}
-        </div> */}
+        </div>
         {/* <div className="w-100 h-100 bg-yellow-400" /> */}
-
+        {isMobile && (
+          <a
+            onClick={() => {}}
+            className={cn(
+              "button__state w-full  no-select button__state__inactive"
+            )}
+          >
+            <p>Shop All</p>
+          </a>
+        )}
         {!isMobile && <CarouselProgressBar page={page} maxPage={maxPage} />}
       </div>
       {!isMobile && (
@@ -378,10 +362,8 @@ const CarouselHeader = ({
               if (!isActive) setSelectedCategory(category);
             }}
             className={cn(
-              " border-[0.1rem] no-select  border-text-mid2 box-border flex gap-2 items-center justify-center px-4 py-1 rounded-lg",
-              !isActive
-                ? "bg-text-hard cursor-pointer"
-                : "bg-mid-grey-2 opacity-80"
+              "button__state no-select",
+              !isActive ? "button__state__inactive" : "button__state__active"
             )}
           >
             <p>{category}</p>

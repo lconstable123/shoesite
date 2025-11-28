@@ -8,7 +8,7 @@ export default function Home() {
     <div className="bg-black flex flex-col justify-start  w-100%">
       <Header isDropdownOpen={true} selected="SPORTS" />
       {/* Hero Section */}
-      {/* <HeroSection /> */}
+      <HeroSection />
 
       {/* <div className="bg-black h-[446px] w-full" /> */}
 

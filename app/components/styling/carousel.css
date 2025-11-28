@@ -1,8 +1,9 @@
 .carousel__container__outer {
   display: flex;
-  width: 100%;
-  max-width: 100vw;
-  overflow: hidden;
+  width: auto;
+  height: 100%;
+  /* max-width: 100%; */
+  /* overflow: hidden; */
   gap: 0.75rem;
   align-items: center;
   justify-content: center;
@@ -57,14 +58,28 @@
   display: black;
 }
 
+.carousel__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 196px;
+  height: 247px;
+  gap: 142px;
+}
+
 @media (max-width: 650px) {
+  .carousel__container__outer {
+    width: 100%;
+  }
+
   .carousel__container__inner {
     width: 100%;
-    padding: 0px 20px;
+    padding: 0px 10px;
   }
 
   .carousel__items {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -78,6 +93,11 @@
 
     padding-left: 20px;
     padding-right: 20px;
-    @apply flex-wrap;
+    flex-wrap: wrap;
+  }
+  .carousel__card {
+    width: auto;
+
+    /* height: 247px; */
   }
 }

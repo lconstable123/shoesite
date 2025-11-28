@@ -90,8 +90,27 @@ h3 {
   -ms-user-select: none;
 }
 
-.text_white {
+.button__state {
+  border-width: 0.125rem;
+  letter-spacing: var(--tracking-widest);
+  border-color: var(--color-text-mid2);
+  gap: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  border-radius: var(--radius-lg);
+}
+
+.button__state__inactive {
+  background-color: var(--color-text-hard);
+  cursor: pointer;
+}
+
+.button__state__active {
   color: var(--onblack, #e8e8e8);
+  background-color: var(--color-mid-grey-2);
+  opaciti: 80%;
 }
 
 .text_black {
