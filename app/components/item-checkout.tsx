@@ -1,33 +1,21 @@
 "use client";
 import Image from "next/image";
-import { BackIcon } from "../../components/Icons";
+import { BackIcon } from "./Icons";
 import { tProduct } from "@/lib/types";
-import { QuantityPicker } from "../../components/ui/quantity-picker";
-import { ColorPicker } from "../../components/ui/color-picker";
-import { SizePicker } from "../../components/ui/size-picker";
-import { BagButton, HeartButton } from "../../components/ui/buttons";
+import { QuantityPicker } from "./ui/quantity-picker";
+import { ColorPicker } from "./ui/color-picker";
+import { SizePicker } from "./ui/size-picker";
+import { BagButton, HeartButton } from "./ui/buttons";
 import { useScreenSizeShared } from "@/lib/useScreenSize";
-import Carousel from "../../components/Carousel";
+import Carousel from "./Carousel";
 import { dummyProduct } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
-export default function ItemPage({ id }: { id: string }) {
-  const breakpoints = [950, 1400, 1600];
-  const { isMobile, widthCategory: width } = useScreenSizeShared(
-    breakpoints[0],
-    breakpoints[1],
-    breakpoints[2]
-  );
+export default function ItemCheckout({ id }: { id: string }) {
   return (
-    <main
-      className={cn(
-        "flex w-full h-full",
-        width == "small" ? "flex-col" : "flex-row"
-      )}
-    >
+    <>
       <ShoeCheckout product={dummyProduct} />
-      <ProductDetails id={id} isMobile={width == "small"} />
-    </main>
+      <ProductDetails id={id} />
+    </>
   );
 }
 
@@ -47,7 +35,7 @@ function ItemDisplay({ id }: { id: string }) {
       >
         <BackIcon className="cursor-pointer " size={30} />
       </a>
-      <figcaption className=" flex flex-col text-center gap-[19px] justify-center px-[135px] py-10 items-center w-full bg-white text-darker">
+      <figcaption className="h-[173px] flex flex-col text-center gap-[19px] justify-center px-[135px] items-center w-full bg-white text-darker">
         <h3 className="uppercase text-2xl font-bold">Product ID: {id}</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
@@ -62,7 +50,7 @@ function ItemDisplay({ id }: { id: string }) {
 
 function ShoeCheckout({ product }: { product: tProduct }) {
   return (
-    <section className=" w-full   border no-select ">
+    <section className=" max-w-[650px] border no-select ">
       <div className="flex flex-col gap-4 px-[25px] sm:px-[63px] py-[31px]">
         <h3 className="header-light">{product.category}</h3>
         <h2>{product.name}</h2>
@@ -90,9 +78,9 @@ function ShoeCheckout({ product }: { product: tProduct }) {
   );
 }
 
-function ProductDetails({ id, isMobile }: { id: string; isMobile: boolean }) {
+function ProductDetails({ id }: { id: string }) {
   const breakpoints = [1300, 1400, 1600];
-  const { widthCategory: width } = useScreenSizeShared(
+  const { isMobile, widthCategory: width } = useScreenSizeShared(
     breakpoints[0],
     breakpoints[1],
     breakpoints[2]

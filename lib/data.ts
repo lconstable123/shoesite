@@ -1,3 +1,5 @@
+import { tProduct } from "./types";
+
 export interface MenuCategory {
   id: string;
   name: string;
@@ -227,4 +229,20 @@ export const getAllCategoryNames = (): string[] => {
 export const getSubcategoriesByCategoryId = (categoryId: string) => {
   const category = getCategoryById(categoryId);
   return category?.subcategories || [];
+};
+
+export const dummyProduct: tProduct = {
+  id: "product-123",
+  category: "SPORTS",
+  purpose: "running",
+  name: "Peleton Runner X",
+  price: 120,
+  discountPrice: 100,
+  description:
+    "A high-quality running shoe for all terrains. Extended half-l bystand cushioning and support with multiplied z-framing. Ribbed vertex positioners for enhanced stability.",
+  imageUrl: "/assets/placeholders/img/blueshoe.png",
+  byline:
+    "Run faster, run farther. Go the distance with our latest running shoes. Really great shoes. You'll love them! I promise. More words here to make it look better.",
+  colors: ["blue", "black", "white", "green", "red", "pink"],
+  sizing: "shoe",
 };

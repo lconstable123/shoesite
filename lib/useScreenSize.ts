@@ -21,9 +21,12 @@ export function useScreenSizeShared(
   medium: number,
   large: number
 ): { isMobile: boolean; widthCategory: WidthCategory } {
+  const [hydrated, setHydrated] = useState(false);
   const [size, setSize] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : medium,
-    height: typeof window !== "undefined" ? window.innerHeight : medium,
+    width:
+      typeof window !== "undefined" && hydrated ? window.innerWidth : small,
+    height:
+      typeof window !== "undefined" && hydrated ? window.innerHeight : small,
   });
 
   useEffect(() => {
@@ -47,6 +50,19 @@ export function useScreenSizeShared(
   const calculateIsMobile = (width: number) => {
     return width < 650;
   };
+  useEffect(() => {
+    setHydrated(true);
+
+    const handleInitial = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    handleInitial();
+
+    return () => setHydrated(false);
+  }, []);
 
   return {
     isMobile: calculateIsMobile(size.width),

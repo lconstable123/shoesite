@@ -12,13 +12,14 @@ import {
 } from "./Icons";
 import { cn } from "../../lib/utils";
 import { DropdownMenu } from "./dropdown-menu";
-import { SearchButton } from "./Buttons";
-import { SearchBar } from "./search-bar";
+import { SearchButton } from "./ui/buttons";
+import { SearchBar } from "./ui/search-bar";
 import "./styling/header.css";
+import { tCategory } from "@/lib/types";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
-  selected: "SPORTS" | "LIFESTYLE" | "MEN" | "WOMEN" | "KIDS";
+  selected: tCategory;
 }
 
 export default function Header({
@@ -33,11 +34,7 @@ export default function Header({
   );
 }
 
-function DropdownBar({
-  selected,
-}: {
-  selected: "SPORTS" | "LIFESTYLE" | "MEN" | "WOMEN" | "KIDS";
-}) {
+function DropdownBar({ selected }: { selected: tCategory }) {
   const [SearchBarOpen, setSearchBarOpen] = useState(false);
 
   return (
@@ -47,7 +44,7 @@ function DropdownBar({
     >
       <nav className="relative h-[70px] bg-black flex inset-0 items-center justify-between  py-2">
         <HeaderItems>
-          <a href="#" className="header__logo_left">
+          <a href="/" className="header__logo_left">
             <LogoIcon size={40} className="" />
           </a>
           <a href="#" className="header__menu">
@@ -105,11 +102,8 @@ function HeaderItems({ children }: { children: React.ReactNode }) {
   );
 }
 
-function NavigationMenu({
-  selected,
-}: {
-  selected: "SPORTS" | "LIFESTYLE" | "MEN" | "WOMEN" | "KIDS";
-}) {
+function NavigationMenu({ selected }: { selected: tCategory }) {
+  const [selectedItem, setSelectedItem] = useState<tCategory | null>(selected);
   const navItems = ["SPORTS", "LIFESTYLE", "MEN", "WOMEN", "KIDS"];
 
   return (
@@ -118,16 +112,16 @@ function NavigationMenu({
         <div className="flex gap-7 items-center">
           {navItems.map((item, index) => (
             <div key={item} className="flex items-center justify-center">
-              <div
+              <a
+                // href="/product/1"
+                onClick={() => setSelectedItem(item as tCategory)}
                 className={cn(
-                  "flex flex-col font-inter justify-center leading-0 text-lg text-center tracking-[1.26px] whitespace-nowrap",
-                  selected === item
-                    ? "text-white font-bold "
-                    : "text-[#ebebeb] font-light"
+                  " cursor-pointer no-select flex flex-col  justify-center leading-0 text-center ",
+                  selectedItem === item ? "header-bold" : "header-light"
                 )}
               >
-                <h3 className="leading-normal ">{item}</h3>
-              </div>
+                <h3 className="">{item}</h3>
+              </a>
             </div>
           ))}
         </div>

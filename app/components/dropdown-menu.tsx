@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, FlagIcon } from "./Icons";
 import { Categories, menuData } from "../../lib/data";
+import Image from "next/image";
 
 export function DropdownMenu({
   category = "sports",
@@ -49,7 +50,11 @@ const DropdownColumn = ({
       <h3>{title}</h3>
       <div className="list__items__container">
         {items.map((item, index) => (
-          <a key={index} className="list__item">
+          <a
+            key={index}
+            className="list__item cursor-pointer"
+            href="/product/1"
+          >
             <p className="no-select text-black">{item}</p>
           </a>
         ))}
@@ -121,14 +126,16 @@ export { DropdownColumn2 };
 
 const DropdownImage = ({ category = "sports" }: { category: Categories }) => {
   return (
-    <div className="dropdown__image h-[200px] w-[300px] relative">
-      {/* <div
-            className="absolute bottom-[-34.4%] left-0 right-[-10.56%] top-[-54%] bg-cover bg-center"
-            style={{
-              backgroundImage: "url(/api/placeholder/300/250)",
-            }}
-          /> */}
-      <div className="w-full h-full bg-red" />
+    <div className="dropdown__image h-full w-[300px] relative">
+      <Image
+        src="/assets/placeholders/img/mid/sports.png"
+        width={300}
+        height={200}
+        alt="dropdown image"
+        className="object-cover h-full"
+      />
+
+      {/* <div className="w-full h-full bg-red" /> */}
     </div>
   );
 };
