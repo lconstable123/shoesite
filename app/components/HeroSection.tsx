@@ -6,7 +6,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className=" h-150 ml-0 mt-0 row-1 w-full bg-cover bg-center"
+      className=" h-120 ml-0 mt-0 row-1 w-full bg-cover bg-center"
       style={{
         backgroundImage: `url(${"/assets/placeholders/shoebg.png"})`,
       }}

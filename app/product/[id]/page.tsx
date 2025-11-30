@@ -10,37 +10,35 @@ import { useScreenSizeShared } from "@/lib/useScreenSize";
 import Carousel from "../../components/Carousel";
 import { dummyProduct } from "@/lib/data";
 import { cn } from "@/lib/utils";
-
+import "@/app/components/styling/checkout.css";
 export default function ItemPage({ id }: { id: string }) {
   const breakpoints = [950, 1400, 1600];
-  const { isMobile, widthCategory: width } = useScreenSizeShared(
-    breakpoints[0],
-    breakpoints[1],
-    breakpoints[2]
-  );
+
   return (
-    <main
-      className={cn(
-        "flex w-full h-full",
-        width == "small" ? "flex-col" : "flex-row"
-      )}
-    >
+    <main className="checkout__container">
       <ShoeCheckout product={dummyProduct} />
-      <ProductDetails id={id} isMobile={width == "small"} />
+      <ProductDetails id={id} />
     </main>
   );
 }
 
 function ItemDisplay({ id }: { id: string }) {
   return (
-    <figure className="relative flex flex-col items-center justify-center bg-amber-200">
-      {/* <Image
-        width={500}
-        height={500}
-        src="/assets/placeholders/img/blueshoe.png"
-        alt="item image"
-        className=" w-full h-[579px] object-cover"
-      /> */}
+    <figure className="relative flex flex-col items-center justify-center ">
+      <div className="relative h-[579px] w-full object-cover   bg-amber-200 overflow-hidden  ">
+        <Image
+          style={{ objectFit: "cover" }}
+          src="/assets/placeholders/img/blueshoe.png"
+          alt="item image"
+          fill
+          className="object-cover  "
+          priority
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAABk0lEQVR4nBXPzUuTcQDA8d8l2SlCEdkhL+XJg+ChCGaU6dww33MqOfPZ9qTTqTjm46ZzPcbefOYIcUP3Ym5EwjqMINIgo0AKVBC8hIeBKYR0yEP/wDf8/Acf8eHwhJ0z2Dv9x9H5Bd+OL5ntkZCsTvZLvzku/aL05y9iUdP4/POC5Os8G9lVPKEMhrom1HkfqXdbJPJZcjvbCEV9ye7XL0RiURwzIfSNPq7VjRHeKJAuFvDH40wHw4hPu9v8OPhOPpug2Wyl+s4wpod9eAIR0oU3aOtJXuUziGQqRSq3ydrqMjazkdr6DjymBnzPJRK5DLH1JPHNNGJyUWMiECGsRVHUKLqaXipqjGy9L/L2Y5HAsoZ/ZQWhhGKMewO43Apmywi6m41U1bYxJE/zVBpn0OHC6X9xlQnijyzhDQZp7R7gxnU95VW3uN/UzSOTBYtVxuFWEAMTs7jmVCYXVO4ajJTpKrmtr+ZJVx+d/XZae6x0PnMi5JExPIpCaM6Nt/0Bjw33GG02MNXWgt0uYxsaRrLJ/AdB9vCPU4NOZwAAAABJRU5ErkJggg=="
+        />
+      </div>
+      {/* <div className="w-full h-10 bg-red-200" /> */}
+
       <a
         href="/"
         className=" flex justify-center items-center absolute top-[14px] right-3 w-[46px] h-[40px] border-5 rounded-lg border-black "
@@ -62,7 +60,7 @@ function ItemDisplay({ id }: { id: string }) {
 
 function ShoeCheckout({ product }: { product: tProduct }) {
   return (
-    <section className=" w-full   border no-select ">
+    <section className=" w-full no-select ">
       <div className="flex flex-col gap-4 px-[25px] sm:px-[63px] py-[31px]">
         <h3 className="header-light">{product.category}</h3>
         <h2>{product.name}</h2>
@@ -90,40 +88,30 @@ function ShoeCheckout({ product }: { product: tProduct }) {
   );
 }
 
-function ProductDetails({ id, isMobile }: { id: string; isMobile: boolean }) {
+function ProductDetails({ id }: { id: string }) {
   const breakpoints = [1300, 1400, 1600];
-  const { widthCategory: width } = useScreenSizeShared(
-    breakpoints[0],
-    breakpoints[1],
-    breakpoints[2]
-  );
+  const breakpointDisplayAmounts = [2, 3, 3, 3];
+
   return (
-    <section className="flex-1 border-3 flex justify-start items-center flex-col ">
+    <section className="checkout__productDetails__container ">
       <ItemDisplay id={id} />
-      {/* <div className="flex-col items-center justify-center py-10 w-full "> */}
-      {!isMobile && (
-        <div className="px-10 w-full flex flex-col justify-center items-center">
-          <Carousel
-            isMobile={isMobile}
-            width={width}
-            textAbove="Shop Similar"
-            breakpoints={breakpoints}
-            breakpointDisplayAmounts={[2, 3, 3, 3]}
-            mobile_displayAmount={3}
-            products={[]}
-          />
-          <Carousel
-            isMobile={isMobile}
-            width={width}
-            breakpoints={breakpoints}
-            breakpointDisplayAmounts={[2, 3, 3, 3]}
-            textAbove="Complete the look"
-            mobile_displayAmount={3}
-            products={[]}
-          />
-        </div>
-      )}
-      {/* </div> */}
+
+      <div className="checkout__productDetails__promos ">
+        <Carousel
+          textAbove="Shop Similar"
+          breakpoints={breakpoints}
+          breakpointDisplayAmounts={breakpointDisplayAmounts}
+          mobile_displayAmount={3}
+          products={[]}
+        />
+        <Carousel
+          breakpoints={breakpoints}
+          breakpointDisplayAmounts={breakpointDisplayAmounts}
+          textAbove="Complete the look"
+          mobile_displayAmount={3}
+          products={[]}
+        />
+      </div>
     </section>
   );
 }

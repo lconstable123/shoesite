@@ -1,39 +1,46 @@
 import { ChevronLeft, ChevronRight, FlagIcon } from "./Icons";
-import { Categories, menuData } from "../../lib/data";
+import { menuData } from "../../lib/data";
 import Image from "next/image";
+import { tCategory } from "@/lib/types";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 export function DropdownMenu({
-  category = "sports",
+  selectedCategory,
+  isOpen = false,
 }: {
-  category?: Categories;
+  selectedCategory: tCategory;
+  isOpen?: boolean;
 }) {
+  const selectedCategoryData = menuData.categories.find(
+    (cat) => cat.id === selectedCategory
+  );
+
   return (
     <>
       <section className="dropdown__container">
-        <DropdownImage category={category} />
-        {/* Menu Categories */}
-        <nav className="dropdown__sections">
-          <DropdownColumn
-            title="Football"
-            items={["Ronaldo", "Pele-X", "Messi"]}
-          />
-          <DropdownColumn
-            title="Basketball"
-            items={["Jordan", "LeBron", "Kobe"]}
-          />
-          <DropdownColumn
-            title="Tennis"
-            items={["Federer", "Nadal", "Djokovic"]}
-          />
-          <DropdownColumn title="Golf" items={["Tiger", "Phil", "Arnold"]} />
+        <DropdownImage
+          image={selectedCategoryData?.img || ""}
+          thumb={selectedCategoryData?.thumb || ""}
+        />
+        <nav className="dropdown__sections ">
+          {selectedCategoryData?.subcategories.map((subcategory) => (
+            <DropdownColumn
+              key={subcategory.id}
+              title={subcategory.id}
+              items={subcategory.items}
+            />
+          ))}
         </nav>
         <DropdownSidemenu />
       </section>
-      <nav className="dropdown__mobile__container">
-        <DropdownRow title="Sports" />
-        <DropdownRow title="Lifestyle" />
-        <DropdownRow title="News" />
-      </nav>
+      {isOpen && (
+        <nav className="dropdown__mobile__container">
+          <DropdownRow title="Sports" />
+          <DropdownRow title="Lifestyle" />
+          <DropdownRow title="News" />
+        </nav>
+      )}
     </>
   );
 }
@@ -46,7 +53,7 @@ const DropdownColumn = ({
   items: string[];
 }) => {
   return (
-    <div className="list__container text-darker">
+    <div key={title} className="list__container  text-darker">
       <h3>{title}</h3>
       <div className="list__items__container">
         {items.map((item, index) => (
@@ -94,7 +101,7 @@ const DropdownSidemenu = () => {
   );
 };
 
-const DropdownColumn2 = ({
+export const DropdownColumn2 = ({
   title,
   items,
 }: {
@@ -122,17 +129,17 @@ const DropdownColumn2 = ({
   );
 };
 
-export { DropdownColumn2 };
-
-const DropdownImage = ({ category = "sports" }: { category: Categories }) => {
+const DropdownImage = ({ image, thumb }: { image: string; thumb: string }) => {
   return (
     <div className="dropdown__image h-full w-[300px] relative">
       <Image
-        src="/assets/placeholders/img/mid/sports.png"
-        width={300}
-        height={200}
+        src={image}
+        fill
         alt="dropdown image"
-        className="object-cover h-full"
+        className="object-cover "
+        priority
+        placeholder="blur"
+        blurDataURL={thumb}
       />
 
       {/* <div className="w-full h-full bg-red" /> */}

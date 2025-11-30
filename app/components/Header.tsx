@@ -15,7 +15,8 @@ import { DropdownMenu } from "./dropdown-menu";
 import { SearchButton } from "./ui/buttons";
 import { SearchBar } from "./ui/search-bar";
 import "./styling/header.css";
-import { tCategory } from "@/lib/types";
+import { Categories, tCategory } from "@/lib/types";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -26,15 +27,31 @@ export default function Header({
   isDropdownOpen = true,
   selected,
 }: HeaderMenuProps) {
+  const searchParams = useSearchParams();
+  const selectedCategory = searchParams.get("category") as tCategory;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
-    <div className="flex  flex-col items-start w-full">
-      <DropdownBar selected={selected} />
-      {isDropdownOpen && <DropdownMenu />}
+    <div className="flex flex-col items-start w-full">
+      <DropdownBar handleToggleDropdown={toggleDropdown} />
+      {selectedCategory && (
+        <DropdownMenu
+          selectedCategory={selectedCategory}
+          isOpen={dropdownOpen}
+        />
+      )}
     </div>
   );
 }
 
-function DropdownBar({ selected }: { selected: tCategory }) {
+function DropdownBar({
+  handleToggleDropdown,
+}: {
+  handleToggleDropdown: () => void;
+}) {
   const [SearchBarOpen, setSearchBarOpen] = useState(false);
 
   return (
@@ -47,22 +64,22 @@ function DropdownBar({ selected }: { selected: tCategory }) {
           <a href="/" className="header__logo_left">
             <LogoIcon size={40} className="" />
           </a>
-          <a href="#" className="header__menu">
+          <a href="#" onClick={handleToggleDropdown} className="header__menu">
             <MenuIcon size={24} className=" mx-2" />
           </a>
-          {/* <a href="#" className="header__heart_left">
-            <HeartIcon size={30} className="" />
-          </a> */}
           <button
             onClick={() => setSearchBarOpen(!SearchBarOpen)}
             className="header__searchbutton"
           >
             <SearchIcon size={23} className="mr-0 ml-0  " color="white" />
           </button>
+          <a href="#" className="header__heart_left">
+            <HeartIcon size={30} className="size-8" />
+          </a>
         </HeaderItems>
 
         <div className="header__nav ">
-          <NavigationMenu selected={selected} />
+          <NavigationMenu />
         </div>
         <a
           href="#"
@@ -90,6 +107,9 @@ function DropdownBar({ selected }: { selected: tCategory }) {
           <SearchBar fullWidth />
         </div>
       )}
+      <div className="header__nav_small  mb-5 ">
+        <NavigationMenu />
+      </div>
     </header>
   );
 }
@@ -102,29 +122,33 @@ function HeaderItems({ children }: { children: React.ReactNode }) {
   );
 }
 
-function NavigationMenu({ selected }: { selected: tCategory }) {
-  const [selectedItem, setSelectedItem] = useState<tCategory | null>(selected);
-  const navItems = ["SPORTS", "LIFESTYLE", "MEN", "WOMEN", "KIDS"];
+function NavigationMenu() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedCategory = searchParams.get("category") as tCategory;
+
+  const handleMenuClick = (item: tCategory) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("category", item);
+    router.push(`?${params.toString()}`);
+  };
 
   return (
     <div className="flex flex-col gap-1 items-center justify-center">
-      <div className="flex flex-col items-center">
-        <div className="flex gap-7 items-center">
-          {navItems.map((item, index) => (
-            <div key={item} className="flex items-center justify-center">
-              <a
-                // href="/product/1"
-                onClick={() => setSelectedItem(item as tCategory)}
-                className={cn(
-                  " cursor-pointer no-select flex flex-col  justify-center leading-0 text-center ",
-                  selectedItem === item ? "header-bold" : "header-light"
-                )}
-              >
-                <h3 className="">{item}</h3>
-              </a>
-            </div>
-          ))}
-        </div>
+      <div className="flex gap-7 items-center">
+        {Categories.map((item, index) => (
+          <div key={item} className="flex items-center justify-center">
+            <a
+              onClick={() => handleMenuClick(item as tCategory)}
+              className={cn(
+                "uppercase cursor-pointer no-select flex flex-col  justify-center leading-0  text-center ",
+                selectedCategory === item ? "header-bold" : "header-light"
+              )}
+            >
+              <h3 className="">{item}</h3>
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );

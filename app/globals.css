@@ -68,7 +68,7 @@ p {
 
 h3 {
   font-family: "Inter", san-serif;
-  letter-spacing: 1.26px;
+
   font-size: 1.125rem;
   white-space: nowrap;
   line-height: 1;
@@ -93,9 +93,11 @@ h4 {
 .header-bold {
   color: var(--color-white);
   @apply font-bold;
+  letter-spacing: 1.2px;
 }
 .header-light {
   color: var(--on-black);
+  letter-spacing: 1.7px;
   @apply font-light;
 }
 .text-discount {

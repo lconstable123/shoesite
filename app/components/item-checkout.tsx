@@ -22,13 +22,16 @@ export default function ItemCheckout({ id }: { id: string }) {
 function ItemDisplay({ id }: { id: string }) {
   return (
     <figure className="relative flex flex-col items-center justify-center bg-amber-200">
-      {/* <Image
-        width={500}
-        height={500}
+      <Image
         src="/assets/placeholders/img/blueshoe.png"
         alt="item image"
-        className=" w-full h-[579px] object-cover"
-      /> */}
+        fill
+        className="object-cover "
+        priority
+        placeholder="blur"
+        blurDataURL="tiny.png"
+      />
+
       <a
         href="/"
         className=" flex justify-center items-center absolute top-[14px] right-3 w-[46px] h-[40px] border-5 rounded-lg border-black "

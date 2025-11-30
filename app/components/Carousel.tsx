@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, HeartIcon } from "./Icons";
-import { carouselCategories, CarouselCategory } from "../../lib/data";
+import { carouselCategories } from "../../lib/data";
 import { cn } from "../../lib/utils";
 import { useScreenSizeShared } from "../../lib/useScreenSize";
 import "./styling/carousel.css";
-import { WidthCategory } from "../../lib/types";
+import { CarouselCategory, WidthCategory } from "../../lib/types";
 
 interface ProductCardProps {
   name: string;
@@ -34,9 +34,7 @@ interface CarouselProps {
 
 export default function Carousel({
   products,
-  // breakpoints = [800, 1250, 1600],
-  isMobile = false,
-  width = "large",
+  breakpoints = [950, 1400, 1600],
   breakpointDisplayAmounts = [2, 4, 6, 8, 10],
   mobile_displayAmount = 8,
   textAbove,
@@ -133,6 +131,12 @@ export default function Carousel({
       favorite: false,
     },
   ];
+
+  const { isMobile, widthCategory: width } = useScreenSizeShared(
+    breakpoints[0],
+    breakpoints[1],
+    breakpoints[2]
+  );
 
   const displayAmountMap: Record<WidthCategory, number> = {
     small: breakpointDisplayAmounts[0],
