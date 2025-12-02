@@ -2,32 +2,56 @@ const sharp = require("sharp");
 const path = require("path");
 const fs = require("fs");
 const readline = require("readline");
-const inputFile = path.join(
-  __dirname,
-  "public/assets/placeholders/img/mid/men.png"
-); // change to your image path
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-rl.question("Enter the input image path: ", (inputPath) => {
-  const inputFile = path.resolve(inputPath); // resolve to absolute path
-  const outputFile = path.join(
-    path.dirname(inputFile),
-    `${path.basename(inputFile).split(".")[0]}_tiny.png`
-  ); // optional 10x10 output file
-  console.log(`Processing image: ${inputFile}`);
+rl.question("Enter the directory containing images: ", (dirPath) => {
+  const folder = path.resolve(dirPath);
 
-  console.log(inputFile);
-  sharp(inputFile)
-    .resize(10, 10) // width 10px, height 10px
-    .toFile(outputFile)
-    .then(() => {
-      console.log("✅ Image resized to 10x10: tiny.png");
-    })
-    .catch((err) => {
-      console.error("❌ Error resizing image:", err);
-    });
+  if (!fs.existsSync(folder)) {
+    console.error("❌ Directory does not exist.");
+    rl.close();
+    return;
+  }
+
+  const files = fs.readdirSync(folder);
+
+  // Supported image extensions
+  const validExt = [".webp"];
+
+  const imageFiles = files.filter((file) =>
+    validExt.includes(path.extname(file).toLowerCase())
+  );
+
+  if (imageFiles.length === 0) {
+    console.log("No images found in that directory.");
+    rl.close();
+    return;
+  }
+
+  console.log(`Processing ${imageFiles.length} images...\n`);
+
+  imageFiles.forEach((file) => {
+    const inputFile = path.join(folder, file);
+
+    const outputFile = path.join(
+      folder,
+      `${path.basename(file, path.extname(file))}_tiny.png`
+    );
+
+    sharp(inputFile)
+      .resize(10, 10)
+      .toFile(outputFile)
+      .then(() => {
+        console.log(`✅ Resized: ${file} → ${path.basename(outputFile)}`);
+      })
+      .catch((err) => {
+        console.error(`❌ Error processing ${file}:`, err);
+      });
+  });
+
+  rl.close();
 });

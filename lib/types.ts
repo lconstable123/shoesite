@@ -96,7 +96,17 @@ export const colors = [
   "grey",
   "pink",
 ] as const;
+
+export const garmentTypes = [
+  "shirt",
+  "pants",
+  "jumper",
+  "jacket",
+  "accessory",
+  "shoe",
+] as const;
 export type tCategory = (typeof Categories)[number];
+export type tGarmentType = (typeof garmentTypes)[number];
 export type CarouselCategory = (typeof carouselCategories)[number];
 export type tSubcategory = (typeof sucategories)[number];
 export type tProductName = (typeof Products)[number];
@@ -114,19 +124,26 @@ export type tProductAvailability = {
 
 export type tProduct = {
   id: string;
-  category: tCategory;
+  garmentType: tGarmentType;
+  subcategory: tSubcategory;
   purpose?: string;
   range?: string;
-  name: string;
+  name: tProductName;
   discountPrice?: number;
   price: number;
   description?: string;
   byline?: string;
-  imageUrl?: string;
+  promoImageUrl: string;
+  primaryImageUrlColor: colors;
+  redImageUrl?: string;
+  blueImageUrl?: string;
+  greenImageUrl?: string;
+  blackImageUrl?: string;
+  whiteImageUrl?: string;
+  greyImageUrl?: string;
+  pinkImageUrl?: string;
+  yellowImageUrl?: string;
   colors: colors[];
-  new?: boolean;
-  sizing: tProductSizingType;
-  availability?: tProductAvailability;
 };
 
 export interface MenuCategory {

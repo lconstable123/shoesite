@@ -3,12 +3,20 @@ import { colors } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-export function ColorPicker({ colors }: { colors: colors[] }) {
+export function ColorPicker({
+  colors,
+  handleColorChange,
+}: {
+  colors: colors[];
+  handleColorChange?: (color: colors) => void;
+}) {
   const [selectedColor, setSelectedColor] = useState<colors | null>(null);
+
   const handleColorSelect = (color: colors) => {
     if (selectedColor === color) {
       return;
     }
+    handleColorChange && handleColorChange(color);
     setSelectedColor(color);
   };
   const colorMap: Record<colors, string> = {
@@ -24,11 +32,11 @@ export function ColorPicker({ colors }: { colors: colors[] }) {
 
   return (
     <div className="flex w-min gap-[8px] items-center ">
-      {colors.map((color) => {
+      {colors.map((color, index) => {
         const colorBg = colorMap[color] || "bg-gray-500";
         return (
           <button
-            key={color}
+            key={index + color}
             onClick={() => handleColorSelect(color)}
             className={cn(
               `${colorBg} w-[16px] h-[16px] hover:scale-110  rounded-full cursor-pointer`,
