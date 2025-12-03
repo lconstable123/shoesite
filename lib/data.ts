@@ -1,3 +1,4 @@
+import { productData } from "./product-data";
 import {
   Categories,
   colors,
@@ -262,7 +263,7 @@ export const getSubcategoriesByCategoryId = (categoryId: string) => {
   const category = getCategoryById(categoryId);
   return category?.subcategories || [];
 };
-
+export const dummyProduct: tProduct = productData[0];
 // export const dummyProduct: tProduct = {
 //   id: "product-123",
 //   garmentType: "shoe",

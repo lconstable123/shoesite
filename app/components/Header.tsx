@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ChevronDown,
   LogoIcon,
@@ -17,6 +17,7 @@ import { SearchBar } from "./ui/search-bar";
 import "./styling/header.css";
 import { Categories, tCategory } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -29,11 +30,14 @@ export default function Header({
 }: HeaderMenuProps) {
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") as tCategory;
+  // const selectedCategory = "lifestyle" as tCategory;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-
+  useEffect(() => {
+    toast.success("Header rendered");
+  }, []);
   return (
     <div className="flex flex-col items-start w-full">
       <DropdownBar handleToggleDropdown={toggleDropdown} />

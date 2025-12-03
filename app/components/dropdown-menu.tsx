@@ -1,34 +1,60 @@
 import { ChevronLeft, ChevronRight, FlagIcon } from "./Icons";
 import { menuData } from "../../lib/data";
 import Image from "next/image";
-import { tCategory } from "@/lib/types";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import {
+  productNamesFromId,
+  tCategory,
+  tProductId,
+  tSubcategory,
+} from "@/lib/types";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { MenuCollection } from "@/lib/curation-data";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { generateTinyUrl } from "@/lib/utils";
+import Link from "next/link";
 
 export function DropdownMenu({
   selectedCategory,
-  isOpen = false,
+  isOpen = true,
 }: {
   selectedCategory: tCategory;
   isOpen?: boolean;
 }) {
-  const selectedCategoryData = menuData.categories.find(
-    (cat) => cat.id === selectedCategory
+  const selectedCategoryData = MenuCollection[selectedCategory];
+
+  if (!selectedCategoryData.splashImage) {
+    toast.error("No splash image for category");
+  }
+  const [bannerImage, setBannerImage] = useState<string>(
+    selectedCategoryData.splashImage
   );
 
+  useEffect(() => {
+    const newImage = selectedCategoryData.splashImage || "";
+    if (newImage === bannerImage) return;
+    toast.success("Banner image updated");
+    setBannerImage(newImage);
+  }, [selectedCategoryData.splashImage, bannerImage]);
+
+  // useEffect(() => {
+  //   toast.success("rendered dropdown menu");
+  // }, []);
+  const selectedSubcategories = selectedCategoryData.menuItems;
   return (
     <>
       <section className="dropdown__container">
         <DropdownImage
-          image={selectedCategoryData?.img || ""}
-          thumb={selectedCategoryData?.thumb || ""}
+          image={bannerImage || ""}
+          thumb={generateTinyUrl(bannerImage) || ""}
         />
         <nav className="dropdown__sections ">
-          {selectedCategoryData?.subcategories.map((subcategory) => (
+          {Object.entries(selectedSubcategories).map((subcategory) => (
             <DropdownColumn
-              key={subcategory.id}
-              title={subcategory.id}
-              items={subcategory.items}
+              key={subcategory[0]}
+              title={subcategory[0] as tSubcategory}
+              items={subcategory[1]}
             />
           ))}
         </nav>
@@ -49,21 +75,28 @@ const DropdownColumn = ({
   title,
   items,
 }: {
-  title: string;
-  items: string[];
+  title: tSubcategory;
+  items: tProductId[];
 }) => {
+  const searchParams = useSearchParams();
+  const query = searchParams.toString(); // e.g. "foo=bar&page=2"
+  const category = searchParams.get("category");
+
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <div key={title} className="list__container  text-darker">
       <h3>{title}</h3>
       <div className="list__items__container">
         {items.map((item, index) => (
-          <a
+          <Link
             key={index}
             className="list__item cursor-pointer"
-            href="/product/1"
+            href={`/product/${item}${category ? `?category=${category}` : ""}`}
           >
-            <p className="no-select text-black">{item}</p>
-          </a>
+            <p className="no-select text-black">{productNamesFromId[item]}</p>
+          </Link>
         ))}
       </div>
     </div>

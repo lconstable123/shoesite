@@ -21,3 +21,9 @@ export const chooseProductColorImageUrl = (
 
   return url;
 };
+
+export const generateTinyUrl = (url: string): string => {
+  if (!url) return "";
+  const Imagetiny = url?.split(".")[0] + "_tiny.png" || "";
+  return Imagetiny;
+};

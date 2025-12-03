@@ -5,11 +5,18 @@ import {
   ShoeSizing,
   tShoeSizing,
   tGarmentSizing,
+  colors,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-export function SizePicker({ type }: { type: tProductSizingType }) {
+export function SizePicker({
+  type,
+}: // setColor,
+{
+  type: tProductSizingType;
+  // setColor: (color: colors) => void;
+}) {
   const [selectedSize, setSelectedSize] = useState<
     tGarmentSizing | tShoeSizing | null
   >(null);

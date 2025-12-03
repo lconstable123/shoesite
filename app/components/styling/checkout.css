@@ -3,17 +3,21 @@
   flex-direction: row;
   width: 100%;
   height: 100%;
-
-  .checkout__productDetails__container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    @apply: border-3;
-    justify-content: flex-start;
-    align-items: center;
-  }
 }
 
+.checkout__productDetails__container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* max-width: 1500px; */
+  /* margin: 0px 63px; */
+  /* mx-[25px] sm:mx-[63px] */
+  @apply: border-3;
+  @apply: border-color-red;
+  justify-content: flex-start;
+  align-items: center;
+  /* background-color: red; */
+}
 .checkout__productDetails__promos {
   display: flex;
   padding: 0px 10px;

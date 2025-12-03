@@ -19,6 +19,14 @@ export default function HeroSection() {
         const [pickedColor, setPickedColor] = useState<colors>(
           product.primaryImageUrlColor
         );
+
+        const checkoutImage: string =
+          chooseProductColorImageUrl(product, pickedColor) || "";
+        const checkoutImagetiny =
+          checkoutImage?.split(".")[0] + "_tiny.png" || "";
+        const promoImage = product.promoImageUrl || "";
+        const promoImagetiny =
+          product.promoImageUrl.split(".")[0] + "_tiny.png" || "";
         return (
           <div
             key={product.id}
@@ -43,30 +51,42 @@ export default function HeroSection() {
               {chooseProductColorImageUrl(product, pickedColor)}
             </p>
             <div className="flex gap-2">
-              <img
-                src={chooseProductColorImageUrl(product, pickedColor)}
-                alt={product.name}
-                className="object-cover w-70 h-70"
-              />
-              <img
-                src={
-                  chooseProductColorImageUrl(product, pickedColor).split(
-                    "."
-                  )[0] + "_tiny.png"
-                }
-                alt={product.name}
-                className="object-cover w-70 h-70"
-              />
-              <img
-                src={product.promoImageUrl}
-                alt={product.name}
-                className="object-cover w-70 h-70"
-              />
-              <img
-                src={product.promoImageUrl.split(".")[0] + "_tiny.png"}
-                alt={product.name}
-                className="object-cover w-70 h-70"
-              />
+              {checkoutImage ? (
+                <img
+                  src={checkoutImage}
+                  alt={product.name}
+                  className="object-cover w-70 h-70"
+                />
+              ) : (
+                <Placeholder />
+              )}
+              {checkoutImagetiny ? (
+                <img
+                  src={checkoutImagetiny}
+                  alt={product.name}
+                  className="object-cover w-70 h-70"
+                />
+              ) : (
+                <Placeholder />
+              )}
+              {promoImage ? (
+                <img
+                  src={promoImage}
+                  alt={product.name}
+                  className="object-cover w-70 h-70"
+                />
+              ) : (
+                <Placeholder />
+              )}
+              {promoImagetiny ? (
+                <img
+                  src={promoImagetiny}
+                  alt={product.name}
+                  className="object-cover w-70 h-70"
+                />
+              ) : (
+                <Placeholder />
+              )}
             </div>
             <p>{product.byline}</p>
             <p>{product.description}</p>
@@ -76,3 +96,11 @@ export default function HeroSection() {
     </section>
   );
 }
+
+const Placeholder = () => {
+  return (
+    <div className="w-70 h-70 bg-gray-800 flex items-center justify-center">
+      invalid image
+    </div>
+  );
+};

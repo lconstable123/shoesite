@@ -5,6 +5,7 @@ import { ChevronDown } from "./components/Icons";
 import { Toaster } from "react-hot-toast";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Pulldown } from "./components/Pulldown";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +41,7 @@ export default function RootLayout({
       >
         <Toaster position="top-center" />
         <Pulldown />
-        <Header isDropdownOpen={true} selected="SPORTS" />
+        <Header isDropdownOpen={true} selected="lifestyle" />
         {children}
         <Footer />
       </body>
@@ -48,16 +49,16 @@ export default function RootLayout({
   );
 }
 
-function Pulldown() {
-  return (
-    <div className="w-full  h-8  justify-center bg-gray-darker flex items-center px-4">
-      <div className="no-select flex gap-[18px] justify-center items-center">
-        <ChevronDown />
-        <span className="text-white font-medium uppercase text-center text-sm ">
-          Shipping & Free Returns
-        </span>
-        <ChevronDown />
-      </div>
-    </div>
-  );
-}
+// function Pulldown() {
+//   return (
+//     <div className="w-full  h-8  justify-center bg-gray-darker flex items-center px-4">
+//       <div className="no-select flex gap-[18px] justify-center items-center">
+//         <ChevronDown />
+//         <span className="text-white font-medium uppercase text-center text-sm ">
+//           Shipping & Free Returns
+//         </span>
+//         <ChevronDown />
+//       </div>
+//     </div>
+//   );
+// }

@@ -5,19 +5,22 @@ import { useState } from "react";
 
 export function ColorPicker({
   colors,
+  selectedColor = colors[0],
   handleColorChange,
 }: {
+  selectedColor?: colors;
   colors: colors[];
   handleColorChange?: (color: colors) => void;
 }) {
-  const [selectedColor, setSelectedColor] = useState<colors | null>(null);
+  // const [selectedColor, setSelectedColor] = useState<colors | null>(null);
 
   const handleColorSelect = (color: colors) => {
     if (selectedColor === color) {
       return;
     }
+
     handleColorChange && handleColorChange(color);
-    setSelectedColor(color);
+    // setSelectedColor(color);
   };
   const colorMap: Record<colors, string> = {
     red: "bg-[#B53333]",
