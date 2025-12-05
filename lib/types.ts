@@ -75,7 +75,7 @@ export const purposes = [
   "training",
   "lifestyle",
 ] as const;
-export const Sizing = ["S", "M", "L", "XL", "2XL"] as const;
+export const Sizing = ["XS", "S", "M", "L", "XL", "2XL"] as const;
 export const ShoeSizing = [
   "US 4",
   "U4.5",
@@ -159,7 +159,7 @@ export type tSubcategory = (typeof sucategories)[number];
 export type tProductName = (typeof Products)[number];
 export type WidthCategory = "small" | "medium" | "large" | "extralarge";
 export type tGarmentSizing = (typeof Sizing)[number];
-export type tProductSizingType = "shoe" | "garment";
+export type tProductSizingType = (typeof garmentTypes)[number];
 export type tShoeSizing = (typeof ShoeSizing)[number];
 export type colors = (typeof colors)[number];
 
@@ -223,7 +223,7 @@ export type tProduct = {
   subcategory: tSubcategory;
   purpose?: string;
   range?: string;
-  name: tProductName;
+  name: string;
   discountPrice?: number;
   price: number;
   description?: string;

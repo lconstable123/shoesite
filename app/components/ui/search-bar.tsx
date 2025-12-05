@@ -5,7 +5,7 @@ export function SearchBar({ fullWidth = false }: { fullWidth?: boolean }) {
   return (
     <div
       className={cn(
-        " bg-white  border-white h-7 rounded relative  ",
+        " bg-white transition-all duration-300  border-white h-7 rounded relative  ",
         fullWidth
           ? "w-full header__searchbar_bottom"
           : "header__searchbar_right w-[100px] xl:w-[191px]"

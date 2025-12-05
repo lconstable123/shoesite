@@ -1,18 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  ChevronDown,
   LogoIcon,
   SearchIcon,
   HeartIcon,
   ProfileIcon,
   BagIcon,
-  FlagIcon,
   MenuIcon,
 } from "./Icons";
-import { cn } from "../../lib/utils";
+import { cn, handleMenuClick } from "../../lib/utils";
 import { DropdownMenu } from "./dropdown-menu";
-import { SearchButton } from "./ui/buttons";
 import { SearchBar } from "./ui/search-bar";
 import "./styling/header.css";
 import { Categories, tCategory } from "@/lib/types";
@@ -21,33 +18,29 @@ import { toast } from "react-hot-toast";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
-  selected: tCategory;
+  selected?: tCategory;
 }
 
-export default function Header({
-  isDropdownOpen = true,
-  selected,
-}: HeaderMenuProps) {
+export default function Header({}: HeaderMenuProps) {
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") as tCategory;
   // const selectedCategory = "lifestyle" as tCategory;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
+    toast.success("Toggling dropdown");
     setDropdownOpen(!dropdownOpen);
   };
   useEffect(() => {
     toast.success("Header rendered");
   }, []);
+
   return (
-    <div className="flex flex-col items-start w-full">
-      <DropdownBar handleToggleDropdown={toggleDropdown} />
-      {selectedCategory && (
-        <DropdownMenu
-          selectedCategory={selectedCategory}
-          isOpen={dropdownOpen}
-        />
-      )}
-    </div>
+    <>
+      <div className="flex flex-col items-start w-full h-full relative z-10  ">
+        <DropdownBar handleToggleDropdown={toggleDropdown} />
+      </div>
+      <DropdownMenu selectedCategory={selectedCategory} isOpen={dropdownOpen} />
+    </>
   );
 }
 
@@ -61,9 +54,9 @@ function DropdownBar({
   return (
     <header
       id="header_bar"
-      className="w-full border  flex flex-col gap-y-2.5 border-b border-mid-grey-2 px-[42px]  "
+      className="w-full border   flex flex-col gap-y-2.5 border-b bg-black border-mid-grey-2 px-[42px]  "
     >
-      <nav className="relative h-[70px] bg-black flex inset-0 items-center justify-between  py-2">
+      <nav className="relative h-[70px]  flex inset-0 items-center justify-between  py-2 z-30">
         <HeaderItems>
           <a href="/" className="header__logo_left">
             <LogoIcon size={40} className="" />
@@ -131,11 +124,11 @@ function NavigationMenu() {
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") as tCategory;
 
-  const handleMenuClick = (item: tCategory) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("category", item);
-    router.push(`?${params.toString()}`);
-  };
+  // const handleMenuClick = (item: tCategory) => {
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   params.set("category", item);
+  //   router.push(`?${params.toString()}`);
+  // };
 
   return (
     <div className="flex flex-col gap-1 items-center justify-center">
@@ -143,7 +136,9 @@ function NavigationMenu() {
         {Categories.map((item, index) => (
           <div key={item} className="flex items-center justify-center">
             <a
-              onClick={() => handleMenuClick(item as tCategory)}
+              onClick={() =>
+                handleMenuClick(item as tCategory, searchParams, router)
+              }
               className={cn(
                 "uppercase cursor-pointer no-select flex flex-col  justify-center leading-0  text-center ",
                 selectedCategory === item ? "header-bold" : "header-light"

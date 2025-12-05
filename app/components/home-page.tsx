@@ -6,7 +6,7 @@ import HeroSection from "./HeroSection";
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+      {/* <HeroSection /> */}
       <div className="flex flex-col items-center justify-center py-10 w-full ">
         <Carousel
           breakpoints={[800, 1250, 1600]}

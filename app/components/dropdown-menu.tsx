@@ -2,18 +2,21 @@ import { ChevronLeft, ChevronRight, FlagIcon } from "./Icons";
 import { menuData } from "../../lib/data";
 import Image from "next/image";
 import {
+  Categories,
   productNamesFromId,
   tCategory,
+  tCollectionsId,
   tProductId,
   tSubcategory,
 } from "@/lib/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { MenuCollection } from "@/lib/curation-data";
+import { MenuCollection, tMenuCollection } from "@/lib/curation-data";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { generateTinyUrl } from "@/lib/utils";
+import { cn, generateTinyUrl, handleMenuClick } from "@/lib/utils";
 import Link from "next/link";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export function DropdownMenu({
   selectedCategory,
@@ -22,68 +25,142 @@ export function DropdownMenu({
   selectedCategory: tCategory;
   isOpen?: boolean;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
   const selectedCategoryData = MenuCollection[selectedCategory];
 
-  if (!selectedCategoryData.splashImage) {
-    toast.error("No splash image for category");
-  }
-  const [bannerImage, setBannerImage] = useState<string>(
-    selectedCategoryData.splashImage
-  );
-
-  useEffect(() => {
-    const newImage = selectedCategoryData.splashImage || "";
-    if (newImage === bannerImage) return;
-    // toast.success("Banner image updated");
-    setBannerImage(newImage);
-  }, [selectedCategoryData.splashImage, bannerImage]);
-
-  // useEffect(() => {
-  //   toast.success("rendered dropdown menu");
-  // }, []);
-  const selectedSubcategories = selectedCategoryData.menuItems;
   return (
     <>
-      <section className="dropdown__container">
-        <DropdownImage
-          image={bannerImage || ""}
-          thumb={generateTinyUrl(bannerImage) || ""}
-        />
-        <nav className="dropdown__sections ">
-          {Object.entries(selectedSubcategories).map((subcategory) => (
-            <DropdownColumn
-              key={subcategory[0]}
-              title={subcategory[0] as tSubcategory}
-              items={subcategory[1]}
-            />
-          ))}
-        </nav>
-        <DropdownSidemenu />
-      </section>
-      {isOpen && (
-        <nav className="dropdown__mobile__container">
-          <DropdownRow title="Sports" />
-          <DropdownRow title="Lifestyle" />
-          <DropdownRow title="News" />
-        </nav>
+      {category && (
+        <DropDownColumnContainer selectedCategory={selectedCategory} />
       )}
+      <DropDownRowContainer isOpen={isOpen} />
     </>
   );
 }
+
+const DropDownRowContainer = ({ isOpen }: { isOpen: boolean }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const [submenuOpen, setSubmenuOpen] = useState<boolean>(false);
+  const [selectedCategoryData, setSelectedCategoryData] = useState<
+    tMenuCollection[tCategory]
+  >(MenuCollection[category as tCategory]);
+  useEffect(() => {
+    if (!category) return;
+    setSubmenuOpen(true);
+    setSelectedCategoryData(MenuCollection[category as tCategory]);
+  }, [category]);
+
+  return (
+    // <div className=" inset-0 absolute z-700">
+    <nav className="dropdown__mobile__root absolute z-10  w-full h-screen overflow-hidden">
+      <div
+        className={cn(
+          "absolute transition-all duration-300 top-0 w-full h-full z-10",
+          isOpen && !submenuOpen ? "left-0" : "-left-full"
+        )}
+      >
+        <nav className="dropdown__mobile__container  cursor-pointer relative">
+          {Categories.map((menucategory) => (
+            <DropdownRow
+              key={menucategory}
+              title={menucategory}
+              searchParams={searchParams}
+              router={router}
+              isSelected={menucategory === category}
+            />
+          ))}
+        </nav>
+      </div>
+      <div
+        className={cn(
+          "absolute transition-all duration-300 top-0 w-full h-full z-10",
+          isOpen && submenuOpen ? "left-0" : "left-full"
+        )}
+      >
+        <nav className="dropdown__mobile__container cursor-pointer relative">
+          <DropdownRow
+            key={category}
+            title={category || ""}
+            searchParams={searchParams}
+            router={router}
+            returning
+            setOpen={setSubmenuOpen}
+          />
+          {selectedCategoryData &&
+            Object.entries(selectedCategoryData?.menuItems).map(
+              (menucategory) => (
+                <DropdownRow
+                  key={menucategory[0]}
+                  title={menucategory[0]}
+                  searchParams={searchParams}
+                  router={router}
+                  submenu
+                />
+              )
+            )}
+        </nav>
+      </div>
+    </nav>
+
+    // </div>
+  );
+};
+
+const DropDownColumnContainer = ({
+  selectedCategory,
+}: {
+  selectedCategory: tCategory;
+}) => {
+  const selectedCategoryData = MenuCollection[selectedCategory];
+  const selectedSubcategories = selectedCategoryData?.menuItems;
+
+  const [bannerImage, setBannerImage] = useState<string>(
+    selectedCategoryData?.splashImage || ""
+  );
+
+  if (!selectedCategoryData?.splashImage) {
+    toast.error("No splash image for category");
+  }
+
+  useEffect(() => {
+    const newImage = selectedCategoryData?.splashImage || "";
+    if (newImage === bannerImage || !selectedCategory) return;
+    setBannerImage(newImage);
+  }, [selectedCategoryData?.splashImage, bannerImage]);
+
+  return (
+    <section className="dropdown__container">
+      <DropdownImage
+        image={bannerImage || ""}
+        thumb={generateTinyUrl(bannerImage) || ""}
+      />
+      <nav className="dropdown__sections ">
+        {Object.entries(selectedSubcategories).map((subcategory) => (
+          <DropdownColumn
+            key={subcategory[0]}
+            title={subcategory[0] as tSubcategory}
+            items={subcategory[1]}
+          />
+        ))}
+      </nav>
+      <DropdownSidemenu />
+    </section>
+  );
+};
 
 const DropdownColumn = ({
   title,
   items,
 }: {
   title: tSubcategory;
-  items: tProductId[];
+  items: tProductId[] | tCollectionsId[];
 }) => {
   const searchParams = useSearchParams();
-  const query = searchParams.toString(); // e.g. "foo=bar&page=2"
   const category = searchParams.get("category");
-
-  const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <div key={title} className="list__container  text-darker">
@@ -103,13 +180,45 @@ const DropdownColumn = ({
   );
 };
 
-const DropdownRow = ({ title }: { title: string }) => {
+const DropdownRow = ({
+  title,
+  searchParams,
+  router,
+  returning = false,
+  setOpen,
+  submenu = false,
+  isSelected = false,
+}: {
+  title: string;
+  searchParams: URLSearchParams;
+  router: AppRouterInstance;
+  returning?: boolean;
+  submenu?: boolean;
+  isSelected?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
-    <div className="dropdown__mobile__row__container">
+    <div
+      onClick={() => {
+        returning
+          ? setOpen && setOpen(false)
+          : !submenu
+          ? handleMenuClick(title, searchParams, router)
+          : null;
+      }}
+      className={cn(
+        "dropdown__mobile__row__container duration-100 delay-100 transition-opacity ",
+        returning
+          ? "flex-row-reverse! justify-end gap-x-10  bg-neutral-400/20"
+          : "flex-row! justify-between",
+        isSelected ? "opacity-30 cursor-auto!" : "opacity-100"
+      )}
+    >
       <h3 className=" h-5 uppercase flex items-center no-select font-bold text-darker whitespace-nowrap ">
         {title}
       </h3>
-      <ChevronRight />
+
+      <ChevronRight className={`${returning ? "rotate-0" : "rotate-180"}`} />
     </div>
   );
 };
@@ -174,8 +283,6 @@ const DropdownImage = ({ image, thumb }: { image: string; thumb: string }) => {
         placeholder="blur"
         blurDataURL={thumb}
       />
-
-      {/* <div className="w-full h-full bg-red" /> */}
     </div>
   );
 };

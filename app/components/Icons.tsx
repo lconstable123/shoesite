@@ -143,6 +143,16 @@ export function BackIcon({ className, size = 45 }: IconProps) {
     />
   );
 }
+export function CancelIcon({ className, size = 45 }: IconProps) {
+  return (
+    <img
+      alt="back"
+      className={className || "block max-w-none size-full"}
+      src="/assets/icons/gridicons_cross.svg"
+      style={{ width: size, height: size }}
+    />
+  );
+}
 
 export function FlagIcon({ className, size = 20 }: IconProps) {
   return (

@@ -1,3 +1,4 @@
+"use client";
 import { useCheckout } from "@/lib/hooks/use-checkout";
 import { colors, tProduct, tProductId } from "@/lib/types";
 import Image from "next/image";
@@ -91,7 +92,9 @@ const ProductDetails = ({
       )}
 
       <p className="text-on-black">{product.description}</p>
-      <SizePicker type={"shoe"} />
+      {product.garmentType !== "accessory" && (
+        <SizePicker type={product.garmentType} />
+      )}
       <div className="flex gap-[22px]">
         <QuantityPicker
           quantity={quantity}

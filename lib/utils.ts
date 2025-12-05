@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { colors, tProduct } from "./types";
+import { colors, tCategory, tProduct } from "./types";
 
 export const cn = (...inputs: Parameters<typeof clsx>) => clsx(...inputs);
 
@@ -26,4 +26,14 @@ export const generateTinyUrl = (url: string): string => {
   if (!url) return "";
   const Imagetiny = url?.split(".")[0] + "_tiny.png" || "";
   return Imagetiny;
+};
+
+export const handleMenuClick = (
+  item: string,
+  searchParams: URLSearchParams,
+  router: any
+) => {
+  const params = new URLSearchParams(searchParams.toString());
+  params.set("category", item);
+  router.push(`?${params.toString()}`, { scroll: false });
 };
