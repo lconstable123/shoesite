@@ -1,8 +1,8 @@
 import { carouselCategories } from "./data";
 
 export const Categories = [
-  "sports",
   "lifestyle",
+  "sports",
   "men",
   "women",
   "kids",
@@ -120,6 +120,16 @@ export const Products = [
   "Smart Band",
   "Water Bottle",
 ] as const;
+
+export const Collections = [
+  "luxx",
+  "expresso",
+  "staples",
+  "playtime",
+  "streetmasters",
+  "lazysunday",
+] as const;
+
 export const colors = [
   "red",
   "blue",
@@ -142,6 +152,7 @@ export const garmentTypes = [
 ] as const;
 export type tCategory = (typeof Categories)[number];
 export type tProductId = (typeof productKeys)[number];
+export type tCollectionsId = (typeof Collections)[number];
 export type tGarmentType = (typeof garmentTypes)[number];
 export type CarouselCategory = (typeof carouselCategories)[number];
 export type tSubcategory = (typeof sucategories)[number];
@@ -152,7 +163,10 @@ export type tProductSizingType = "shoe" | "garment";
 export type tShoeSizing = (typeof ShoeSizing)[number];
 export type colors = (typeof colors)[number];
 
-export const productNamesFromId: Record<tProductId, tProductName> = {
+export const productNamesFromId: Record<
+  tProductId | tCollectionsId,
+  tProductName
+> = {
   "ronaldo-shoe": "Ronaldo",
   "pele-x-shoe": "Pele-X",
   "space-jammer-shoe": "Space Jammer",
@@ -189,6 +203,12 @@ export const productNamesFromId: Record<tProductId, tProductName> = {
   "acc-cap": "Cap",
   "acc-smart-band": "Smart Band",
   "acc-water-bottle": "Water Bottle",
+  luxx: "Luxx",
+  expresso: "Expresso",
+  staples: "Staples",
+  playtime: "Playtime",
+  streetmasters: "Street Masters",
+  lazysunday: "Lazy Sunday",
 };
 
 export type tProductAvailability = {
@@ -242,3 +262,8 @@ export interface MenuData {
   supportLinks: SupportLink[];
   region: string;
 }
+export type tPromoData = {
+  id: string;
+  promoUrl: string | null;
+  promoByline: string | null;
+};

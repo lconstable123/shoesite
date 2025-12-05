@@ -313,7 +313,7 @@ export const productData: tProduct[] = [
       "Available in Green, Black, White, Grey, and Red. Durable sole for urban exploration and everyday wear. Ergonomic fit for all-day comfort while navigating city streets. Breathable upper material to keep feet cool during long walks. Sleek design inspired by street culture and urban fashion. Featuring graffiti-resistant coating to maintain a fresh look. Embedded with mini air-cushions for added comfort on hard surfaces. ",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "red",
     promoImageUrl:
       "assets/gallery/street-masters/street-masters-shoe-promo.webp",
     whiteImageUrl:
@@ -338,7 +338,7 @@ export const productData: tProduct[] = [
       "Swaggy streetwear for everyday urban adventures. Made from breathable, lightweight fabric to keep you cool while navigating the city. Features a relaxed fit for all-day comfort and ease of movement. Durable construction to withstand the rigors of urban life. Stylish design inspired by street culture and urban fashion. Available in Green, Black, White, Grey, and Red. Graffiti-resistant coating to maintain a fresh look.",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "green",
     promoImageUrl:
       "assets/gallery/street-masters/street-masters-shirt-promo.webp",
     whiteImageUrl:
@@ -364,7 +364,7 @@ export const productData: tProduct[] = [
       "Swaggy streetwear for everyday urban adventures. Made from breathable, lightweight fabric to keep you cool while navigating the city. Features a relaxed fit for all-day comfort and ease of movement. Durable construction to withstand the rigors of urban life. Stylish design inspired by street culture and urban fashion. Available in Green, Black, White, Grey, and Red. Graffiti-resistant coating to maintain a fresh look.",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "grey",
     promoImageUrl:
       "assets/gallery/street-masters/street-masters-pants-promo.webp",
     whiteImageUrl:
@@ -411,7 +411,7 @@ export const productData: tProduct[] = [
       "Relaxed and comfortable shirt for laid-back days. Made from soft, breathable materials to keep you cozy. Comfortable design inspired by casual bed fashion. Available in Red, Blue, Green, Black, White, and Grey. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
     byline:
       "Comfort meets style for your laid-back days. No worries, lazy sunday takes care of it. Part of the Lazy Sunday collection.",
-    primaryImageUrlColor: "blue",
+    primaryImageUrlColor: "green",
     promoImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shirt-promo.webp",
     whiteImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shirt-white.webp",
     greenImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shirt-green.webp",
@@ -433,7 +433,7 @@ export const productData: tProduct[] = [
       "Relaxed and comfortable slacks for laid-back days. Made from soft, breathable materials to keep you cozy. Comfortable design inspired by casual bed fashion. Available in Red, Blue, Green, Black, White, and Grey. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
     byline:
       "Comfort meets style for your laid-back days. No worries, lazy sunday takes care of it. Part of the Lazy Sunday collection.",
-    primaryImageUrlColor: "blue",
+    primaryImageUrlColor: "red",
     promoImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-pants-promo.webp",
     whiteImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-pants-white.webp",
     greenImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-pants-green.webp",
@@ -590,7 +590,7 @@ export const productData: tProduct[] = [
       "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
     byline:
       "Fit In anywhere with Luxx premium pants. These baddies are the talk of the town. Part of the Luxx collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "grey",
     promoImageUrl: "assets/gallery/luxx/luxx-all-promo.webp",
     greyImageUrl: "assets/gallery/luxx/luxx-pants-f-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-pants-f-black.webp",
@@ -609,7 +609,7 @@ export const productData: tProduct[] = [
       "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
     byline:
       "Fit In anywhere with Luxx premium shirts. These baddies are the talk of the town. Part of the Luxx collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "white",
     promoImageUrl: "assets/gallery/luxx/luxx-shirt-promo.webp",
     greyImageUrl: "assets/gallery/luxx/luxx-shirt-f-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-shirt-f-black.webp",
@@ -628,7 +628,7 @@ export const productData: tProduct[] = [
       "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
     byline:
       "Fit In anywhere with Luxx premium shirts. These baddies are the talk of the town. Part of the Luxx collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "grey",
     promoImageUrl: "assets/gallery/luxx/luxx-shirt-promo.webp",
     greyImageUrl: "assets/gallery/luxx/luxx-shirt-m-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-shirt-m-black.webp",
@@ -664,7 +664,7 @@ export const productData: tProduct[] = [
       "Staples hoodie: your go-to for everyday comfort and style. Made from soft, durable fabric to keep you cozy all day long. Available in black, white, red, grey, and blue to suit any wardrobe.",
     byline:
       "The top of the drawer. Everyday essentials redefined. Part of the Staples collection.",
-    primaryImageUrlColor: "black",
+    primaryImageUrlColor: "blue",
     promoImageUrl: "assets/gallery/staples/staples-hoodie-promo.webp",
     blackImageUrl: "assets/gallery/staples/staples-hoodie-black.webp",
     whiteImageUrl: "assets/gallery/staples/staples-hoodie-white.webp",
@@ -704,8 +704,8 @@ export const productData: tProduct[] = [
     purpose: "playwear",
     description:
       "A tough tee for everyday fun. Made from durable materials to withstand all kinds of play. Features a comfortable fit for all-day wear. Available in blue, pink, red, and green to suit any playful wardrobe.",
-    byline: "Everyday fun for the family. Part of the Playtime collection.",
-    primaryImageUrlColor: "pink",
+
+    primaryImageUrlColor: "blue",
     promoImageUrl: "assets/gallery/playtime/playtime-all-promo.webp",
     pinkImageUrl: "assets/gallery/playtime/playtime-shirt-pink.webp",
     yellowImageUrl: "assets/gallery/playtime/playtime-shirt-yellow.webp",

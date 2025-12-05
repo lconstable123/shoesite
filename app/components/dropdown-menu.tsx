@@ -34,7 +34,7 @@ export function DropdownMenu({
   useEffect(() => {
     const newImage = selectedCategoryData.splashImage || "";
     if (newImage === bannerImage) return;
-    toast.success("Banner image updated");
+    // toast.success("Banner image updated");
     setBannerImage(newImage);
   }, [selectedCategoryData.splashImage, bannerImage]);
 

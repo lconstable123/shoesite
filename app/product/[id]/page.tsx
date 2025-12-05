@@ -2,123 +2,99 @@
 import Image from "next/image";
 import { BackIcon } from "../../components/Icons";
 import {
+  Collections,
   colors,
   tCategory,
+  tCollectionsId,
   tGarmentSizing,
   tProduct,
   tProductId,
+  tPromoData,
   tShoeSizing,
 } from "@/lib/types";
-import { QuantityPicker } from "../../components/ui/quantity-picker";
-import { ColorPicker } from "../../components/ui/color-picker";
-import { SizePicker } from "../../components/ui/size-picker";
-import { BagButton, HeartButton } from "../../components/ui/buttons";
-import { useScreenSizeShared } from "@/lib/useScreenSize";
+
 import Carousel from "../../components/Carousel";
 
-import { dummyProduct } from "@/lib/data";
 import { chooseProductColorImageUrl, cn, generateTinyUrl } from "@/lib/utils";
 import { useParams, useSearchParams } from "next/navigation";
 import "@/app/components/styling/checkout.css";
 import { productsById } from "@/lib/product-data";
-import { useRouter } from "next/navigation";
-import { useCheckout } from "@/lib/hooks/use-checkout";
+
+import { Checkout } from "@/app/components/Checkout";
+import { collectionById } from "@/lib/curation-data";
+import { toast } from "react-hot-toast";
+
 export default function ItemPage() {
   const breakpoints = [950, 1400, 1600];
   const params = useParams<{ id: string }>();
   const { id } = params;
-  const product = productsById[id as tProductId];
-  if (!product) {
+
+  function getProductData(id: string): tProduct | tProduct[] | null {
+    const collection = collectionById[id as tCollectionsId];
+    let Ids: tProductId[] | tCollectionsId[] = [];
+    if (collection) {
+      // toast.success("found a collection");
+      Ids = collection.items;
+      if (!Ids) return null;
+      const products = Ids.map((prodId) => productsById[prodId]).filter(
+        (prod) => prod !== undefined
+      );
+      return products.length ? products : null;
+    }
+
+    const product = productsById[id as tProductId];
+    // toast.success("found a product");
+    return product || null;
+  }
+
+  function getPromoData(id: string): tPromoData | null {
+    const collection = collectionById[id as tCollectionsId];
+    if (collection) {
+      return {
+        id: id,
+        promoUrl: collection.splashImage || "",
+        promoByline: collection.byline || null,
+      };
+    }
+    // toast.success(collection.byline || "no byline found");
+
+    const product = productsById[id as tProductId];
+    if (!product) return null;
+    return {
+      id: id,
+      promoUrl: product.promoImageUrl || null,
+      promoByline: product.byline || null,
+    };
+  }
+
+  const products = getProductData(id);
+  const promoData = getPromoData(id);
+
+  if (!products) {
     return <div>Product not found</div>;
   }
   return (
-    <main className="checkout__container mt-10">
+    <main className="checkout__container ">
       {/* <p>{product.byline}</p> */}
-      <Checkout product={product} />
+      <Checkout product={products} />
       {/* <Checkout product={product} rangeId={1} /> */}
-      <ProductDetails product={product} />
+      <PointOfSale promoData={promoData} />
     </main>
   );
 }
 
-function Checkout({
-  product,
-  rangeId = 0,
-}: {
-  product: tProduct;
-  rangeId?: number;
-}) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const {
-    checkoutImage,
-    checkoutImagetiny,
-    color,
-    quantity,
-    handleColourClick,
-    handleQuantityChange,
-  } = useCheckout(product, rangeId, router, searchParams);
-
-  return (
-    <section className=" flex flex-col w-full px-0 lg:px-0  no-select  bg-neutral-900/20 ">
-      <div className="flex flex-col lg:flex-row     w-full  ">
-        <div className="relative   min-w-[500px] h-[500px] w-full lg:w-[500px]  flex flex-col  ">
-          <Image
-            src={checkoutImage}
-            alt={product.name}
-            fill
-            className="object-cover"
-            placeholder="blur"
-            blurDataURL={checkoutImagetiny}
-          />
-        </div>
-        {/* <p className="header-light">{product.subcategory}</p> */}
-        <div className="flex flex-col  gap-4 py-10  w-auto px-10 ">
-          <h2 className=" border-b border-white">{product.name}</h2>
-          {product.discountPrice ? (
-            <div className="flex gap-[11px]">
-              <h4 className="">${product.discountPrice}</h4>
-              <h4 className="text-discount">${product.price}</h4>
-            </div>
-          ) : (
-            <h4 className="">${product.price}</h4>
-          )}
-
-          <p className="text-on-black">{product.description}</p>
-          <SizePicker type={"shoe"} />
-          <div className="flex gap-[22px]">
-            <QuantityPicker
-              quantity={quantity}
-              setQuantity={handleQuantityChange}
-            />
-            <ColorPicker
-              colors={product.colors}
-              selectedColor={color}
-              handleColorChange={handleColourClick}
-            />
-          </div>
-          <div className="flex gap-2   ">
-            <BagButton size="lg" text="Add To Bag" />
-            <HeartButton liked={false} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-//-------------------------
-
-function ProductDetails({ product }: { product: tProduct }) {
-  const breakpoints = [1300, 1400, 1600];
+function PointOfSale({ promoData }: { promoData: tPromoData | null }) {
+  const breakpoints = [1200, 1400, 1600];
   const breakpointDisplayAmounts = [2, 3, 3, 3];
 
   return (
-    <section className="checkout__productDetails__container ">
+    <section className="checkout__pos__container ">
       {/* <p>{product.byline}</p> */}
-      <ItemDisplay product={product} />
+      {/* <p>{promoData?.promoByline || "no data"}</p> */}
+      {/* <p>{promoData?.promoUrl || "no data"}</p> */}
+      <ItemDisplay promoData={promoData} />
 
-      <div className="checkout__productDetails__promos mt-5  ">
+      <div className="checkout__pos__promos mt-5  ">
         <Carousel
           textAbove="Shop Similar"
           breakpoints={breakpoints}
@@ -138,37 +114,24 @@ function ProductDetails({ product }: { product: tProduct }) {
   );
 }
 
-function ItemDisplay({ product }: { product: tProduct }) {
-  const imageUrl: string = "/" + product.promoImageUrl;
+function ItemDisplay({ promoData }: { promoData: tPromoData | null }) {
+  const imageUrl: string = "/" + (promoData?.promoUrl || "");
   const imageUrltiny = generateTinyUrl(imageUrl) || "";
   return (
     <figure className="w-full relative flex flex-col items-center justify-center ">
-      <div className="flex flex-row w-full h-[380px]">
-        <div className="relative object-cover flex-1   bg-amber-200 overflow-hidden  ">
-          <Image
-            style={{ objectFit: "cover" }}
-            src={imageUrl}
-            alt={product.name}
-            fill
-            className="object-cover  "
-            priority
-            placeholder="blur"
-            blurDataURL={imageUrltiny}
-          />
-        </div>
-        {/* <div className="relative object-cover flex-1  bg-amber-200 overflow-hidden  ">
-          <Image
-            style={{ objectFit: "cover" }}
-            src={imageUrl}
-            alt={product.name}
-            fill
-            className="object-cover  "
-            priority
-            placeholder="blur"
-            blurDataURL={imageUrltiny}
-          />
-        </div> */}
+      <div className="checkout__pos__image  ">
+        <Image
+          style={{ objectFit: "cover" }}
+          src={imageUrl}
+          alt={promoData?.id || "Product Image"}
+          fill
+          className="object-cover  "
+          priority
+          placeholder="blur"
+          blurDataURL={imageUrltiny}
+        />
       </div>
+
       {/* <div className="w-full h-10 bg-red-200" /> */}
 
       <a
