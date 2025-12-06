@@ -15,6 +15,7 @@ import "./styling/header.css";
 import { Categories, tCategory } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
+import useBodyScrollLock from "@/lib/hooks/useBodyScrollLock";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -22,24 +23,30 @@ interface HeaderMenuProps {
 }
 
 export default function Header({}: HeaderMenuProps) {
+  useBodyScrollLock();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") as tCategory;
-  // const selectedCategory = "lifestyle" as tCategory;
+  const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const toggleDropdown = () => {
     toast.success("Toggling dropdown");
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("dropdown", !dropdownOpen ? "open" : "closed");
+    router.push(`?${params.toString()}`, { scroll: false });
     setDropdownOpen(!dropdownOpen);
   };
-  useEffect(() => {
-    toast.success("Header rendered");
-  }, []);
 
   return (
     <>
       <div className="flex flex-col items-start w-full h-full relative z-10  ">
         <DropdownBar handleToggleDropdown={toggleDropdown} />
       </div>
-      <DropdownMenu selectedCategory={selectedCategory} isOpen={dropdownOpen} />
+      <DropdownMenu
+        selectedCategory={selectedCategory}
+        isOpen={dropdownOpen}
+        setIsOpen={setDropdownOpen}
+      />
     </>
   );
 }

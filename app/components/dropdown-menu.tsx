@@ -21,9 +21,11 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 export function DropdownMenu({
   selectedCategory,
   isOpen = true,
+  setIsOpen,
 }: {
   selectedCategory: tCategory;
   isOpen?: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -35,32 +37,68 @@ export function DropdownMenu({
       {category && (
         <DropDownColumnContainer selectedCategory={selectedCategory} />
       )}
-      <DropDownRowContainer isOpen={isOpen} />
+      <DropDownRowContainer isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }
 
-const DropDownRowContainer = ({ isOpen }: { isOpen: boolean }) => {
+const DropDownRowContainer = ({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
-  const [submenuOpen, setSubmenuOpen] = useState<boolean>(false);
+  // const [submenuOpen, setSubmenuOpen] = useState<boolean>(false);
+  const [menuDepth, setMenuDepth] = useState<"main" | "submenu" | "range">(
+    "main"
+  );
+  const [subCategory, setSubCategory] = useState<string | null>(null);
+
   const [selectedCategoryData, setSelectedCategoryData] = useState<
     tMenuCollection[tCategory]
   >(MenuCollection[category as tCategory]);
+
+  const handleSetMenuDepth = (
+    depth?: "main" | "submenu" | "range",
+    category?: string
+  ) => {
+    if (!depth) {
+      setMenuDepth((prev) => {
+        if (prev === "range") return "submenu";
+        if (prev === "submenu") return "main";
+        return "main";
+      });
+    } else {
+      if (category) {
+        setSubCategory(category);
+      }
+      setMenuDepth(depth);
+    }
+  };
+
   useEffect(() => {
     if (!category) return;
-    setSubmenuOpen(true);
+    toast.success(`Dropdown menu category changed to ${category}`);
+    // setSubmenuOpen(true);
+    // setMenuDepth("submenu");
     setSelectedCategoryData(MenuCollection[category as tCategory]);
   }, [category]);
 
   return (
     // <div className=" inset-0 absolute z-700">
     <nav className="dropdown__mobile__root absolute z-10  w-full h-screen overflow-hidden">
+      {/* Main Menu */}
+      {/* <h3 className=" text-black! absolute top-10 left-1/2 z-100">
+        {subCategory}
+      </h3> */}
       <div
         className={cn(
           "absolute transition-all duration-300 top-0 w-full h-full z-10",
-          isOpen && !submenuOpen ? "left-0" : "-left-full"
+          isOpen && menuDepth === "main" ? "left-0" : "-left-full"
         )}
       >
         <nav className="dropdown__mobile__container  cursor-pointer relative">
@@ -71,14 +109,21 @@ const DropDownRowContainer = ({ isOpen }: { isOpen: boolean }) => {
               searchParams={searchParams}
               router={router}
               isSelected={menucategory === category}
+              menuDepth={menuDepth}
+              setMenuDepth={handleSetMenuDepth}
             />
           ))}
         </nav>
       </div>
+      {/* Submenu */}
       <div
         className={cn(
           "absolute transition-all duration-300 top-0 w-full h-full z-10",
-          isOpen && submenuOpen ? "left-0" : "left-full"
+          isOpen && menuDepth === "submenu"
+            ? "left-0"
+            : menuDepth === "range"
+            ? "-left-full"
+            : "left-full"
         )}
       >
         <nav className="dropdown__mobile__container cursor-pointer relative">
@@ -88,7 +133,7 @@ const DropDownRowContainer = ({ isOpen }: { isOpen: boolean }) => {
             searchParams={searchParams}
             router={router}
             returning
-            setOpen={setSubmenuOpen}
+            setMenuDepth={handleSetMenuDepth}
           />
           {selectedCategoryData &&
             Object.entries(selectedCategoryData?.menuItems).map(
@@ -98,11 +143,64 @@ const DropDownRowContainer = ({ isOpen }: { isOpen: boolean }) => {
                   title={menucategory[0]}
                   searchParams={searchParams}
                   router={router}
+                  menuDepth={menuDepth}
+                  setMenuDepth={handleSetMenuDepth}
                   submenu
                 />
               )
             )}
         </nav>
+      </div>
+      {/* items-menu */}
+      <div
+        className={cn(
+          "absolute transition-all duration-300 top-0 w-full h-full z-10",
+          isOpen && menuDepth === "range" ? "left-0" : "left-full"
+        )}
+      >
+        <nav className="dropdown__mobile__container cursor-pointer relative">
+          <DropdownRow
+            key={category}
+            title={subCategory || ""}
+            searchParams={searchParams}
+            router={router}
+            returning
+            setMenuDepth={handleSetMenuDepth}
+          />
+          {selectedCategoryData &&
+            subCategory &&
+            selectedCategoryData?.menuItems[subCategory as tSubcategory]?.map(
+              (menucategory) => (
+                <DropdownRow
+                  key={menucategory}
+                  title={menucategory}
+                  searchParams={searchParams}
+                  router={router}
+                  setMenuDepth={handleSetMenuDepth}
+                  menuDepth={menuDepth}
+                  parentCategory={subCategory || ""}
+                  submenu
+                  setIsOpen={setIsOpen}
+                />
+              )
+            )}
+        </nav>
+      </div>
+      <div
+        className={cn(
+          "transition-all duration-300 fixed bottom-0  w-full  h-auto z-1000  ",
+          isOpen
+            ? "left-0"
+            : menuDepth === "main"
+            ? "-left-full"
+            : menuDepth === "submenu"
+            ? "left-full"
+            : menuDepth === "range"
+            ? "left-full"
+            : ""
+        )}
+      >
+        <DropdownSidemenu />
       </div>
     </nav>
 
@@ -143,7 +241,7 @@ const DropDownColumnContainer = ({
           <DropdownColumn
             key={subcategory[0]}
             title={subcategory[0] as tSubcategory}
-            items={subcategory[1]}
+            items={subcategory[1] as tProductId[] | tCollectionsId[]}
           />
         ))}
       </nav>
@@ -185,9 +283,12 @@ const DropdownRow = ({
   searchParams,
   router,
   returning = false,
-  setOpen,
+  setMenuDepth,
+  menuDepth,
   submenu = false,
   isSelected = false,
+  parentCategory,
+  setIsOpen,
 }: {
   title: string;
   searchParams: URLSearchParams;
@@ -195,30 +296,77 @@ const DropdownRow = ({
   returning?: boolean;
   submenu?: boolean;
   isSelected?: boolean;
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setMenuDepth?: (
+    depth?: "main" | "submenu" | "range",
+    category?: string
+  ) => void;
+  menuDepth?: "main" | "submenu" | "range";
+  parentCategory?: string;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const category = searchParams.get("category");
+
+  const MenuClick = () => {
+    if (returning) {
+      //if return button, go back one menu
+      // toast.success(`Returning to previous menu`);
+      setMenuDepth && setMenuDepth();
+    } else {
+      // toast.success(
+      //   `Clicked on menu item: ${title} with menuDepth: ${menuDepth}`
+      // );
+      // if regular button, go to next menu
+      if (menuDepth === "main") {
+        // toast.success(`Navigating to submenu: ${title}`);
+        setMenuDepth && setMenuDepth("submenu", title);
+        handleMenuClick(title, searchParams, router);
+      }
+      if (menuDepth === "submenu") {
+        // toast.success(`Navigating to range: ${title}`);
+        setMenuDepth && setMenuDepth("range", title);
+        // handleMenuClick(title, searchParams, router);
+      }
+      if (menuDepth === "range") {
+        toast.success(`Navigating to products: ${title}`);
+        // handleMenuClick(title, searchParams, router);
+        setIsOpen && setIsOpen(false);
+      }
+    }
+  };
+
   return (
     <div
-      onClick={() => {
-        returning
-          ? setOpen && setOpen(false)
-          : !submenu
-          ? handleMenuClick(title, searchParams, router)
-          : null;
-      }}
+      key={title}
+      onClick={() => MenuClick()}
       className={cn(
         "dropdown__mobile__row__container duration-100 delay-100 transition-opacity ",
         returning
           ? "flex-row-reverse! justify-end gap-x-10  bg-neutral-400/20"
-          : "flex-row! justify-between",
-        isSelected ? "opacity-30 cursor-auto!" : "opacity-100"
+          : "flex-row! justify-between"
+        // isSelected ? "opacity-30 cursor-auto!" : "opacity-100"
       )}
     >
-      <h3 className=" h-5 uppercase flex items-center no-select font-bold text-darker whitespace-nowrap ">
-        {title}
-      </h3>
+      {menuDepth && menuDepth === "range" ? (
+        <Link
+          // key={index}
+          className="list__item cursor-pointer"
+          href={`/product/${title}${category ? `?category=${category}` : ""}`}
+        >
+          <h3 className=" h-5 uppercase flex items-center no-select font-bold text-darker whitespace-nowrap ">
+            {productNamesFromId[title as tProductId | tCollectionsId]}
+          </h3>
+        </Link>
+      ) : (
+        <h3 className=" h-5  uppercase flex items-center no-select font-bold text-darker whitespace-nowrap ">
+          {title}
+        </h3>
+      )}
 
-      <ChevronRight className={`${returning ? "rotate-0" : "rotate-180"}`} />
+      <ChevronRight
+        className={`transition-all duration-200 delay-100 ${
+          returning ? "rotate-0" : "rotate-180"
+        } ${menuDepth && menuDepth === "range" ? "opacity-0" : "opacity-100"}`}
+      />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Pulldown } from "./components/Pulldown";
+import { tCategory } from "@/lib/types";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,7 @@ export default function RootLayout({
       >
         <Toaster position="top-center" />
         <Pulldown />
-        <Header isDropdownOpen={true} selected="" />
+        <Header isDropdownOpen={true} />
         {children}
         <Footer />
       </body>
