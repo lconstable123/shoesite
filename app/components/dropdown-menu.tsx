@@ -1,3 +1,4 @@
+"use client";
 import { ChevronLeft, ChevronRight, FlagIcon } from "./Icons";
 import { menuData } from "../../lib/data";
 import Image from "next/image";
@@ -82,9 +83,7 @@ const DropDownRowContainer = ({
 
   useEffect(() => {
     if (!category) return;
-    // toast.success(`Dropdown menu category changed to ${category}`);
-    // setSubmenuOpen(true);
-    // setMenuDepth("submenu");
+
     setSelectedCategoryData(MenuCollection[category as tCategory]);
   }, [category]);
 

@@ -7,11 +7,10 @@ import { collectionById } from "@/lib/curation-data";
 import { PointOfSale } from "@/app/components/point-of-sale";
 import { BackIcon } from "@/app/components/Icons";
 import BrowserBackButton from "@/app/components/BrowserBackButton";
+import { Suspense } from "react";
 
 export default async function ItemPage({ params }: { params: { id: string } }) {
-  const breakpoints = [950, 1400, 1600];
   const { id } = await params;
-
   function getProductData(id: string): tProduct | tProduct[] | null {
     const collection = collectionById[id as tCollectionsId];
     let Ids: tProductId[] | tCollectionsId[] = [];
@@ -54,16 +53,18 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
     return <div>Product not found</div>;
   }
   return (
-    <main className="checkout__container relative z-300 ">
-      {/* <a
+    <Suspense fallback={<div>Loading product data…</div>}>
+      <main className="checkout__container relative z-300 ">
+        {/* <a
         href="/"
         className=" flex justify-center items-center absolute top-[14px] right-3 w-[46px] h-[40px] border-5 rounded-lg border-black z-300 "
       >
         <BackIcon className="cursor-pointer " size={30} />
       </a> */}
-      <BrowserBackButton />
-      <Checkout product={products} />
-      <PointOfSale promoData={promoData} />
-    </main>
+        <BrowserBackButton />
+        <Checkout product={products} />
+        <PointOfSale promoData={promoData} />
+      </main>
+    </Suspense>
   );
 }

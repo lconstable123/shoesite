@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import { ChevronDown } from "./components/Icons";
+
 import { Toaster } from "react-hot-toast";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Pulldown } from "./components/Pulldown";
-import { tCategory } from "@/lib/types";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,16 +37,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased relative `}
-      >
-        <Toaster position="top-center" />
-        <Pulldown />
-        <Header isDropdownOpen={true} />
+      <Suspense fallback={<div>Loading search params…</div>}>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased relative `}
+        >
+          <Toaster position="top-center" />
+          <Pulldown />
+          <Header isDropdownOpen={true} />
 
-        {children}
-        <Footer />
-      </body>
+          {children}
+          <Footer />
+        </body>
+      </Suspense>
     </html>
   );
 }
