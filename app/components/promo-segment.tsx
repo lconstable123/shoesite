@@ -1,17 +1,21 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import { promoSegments, tPromoSegment } from "../../lib/curation-data";
 import { productsById } from "../../lib/product-data";
 import { tProduct, tProductId } from "../../lib/types";
+import placeholders from "@/public/assets/gallery/placeholders.json";
 import {
   chooseProductColorImageUrl,
   cn,
   generateTinyUrl,
+  urlToBase64,
 } from "../../lib/utils";
 import "./styling/promo.css";
-import { useState } from "react";
+// import { useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { LinkButton } from "./Link-Button";
+// import { useSearchParams } from "next/navigation";
+
 export const PromoSegment = () => {
   return (
     <section className="w-full h-full  flex flex-col gap-4   ">
@@ -19,7 +23,22 @@ export const PromoSegment = () => {
         {promoSegments.map((segment) => {
           const product = productsById[segment.id as tProductId];
           if (!product) return null;
-          return <Promo key={segment.id} product={product} segment={segment} />;
+          const productImageUrl: string =
+            "/" +
+            (chooseProductColorImageUrl(
+              product,
+              product?.primaryImageUrlColor
+            ) || "");
+
+          return (
+            <Promo key={segment.id} product={product} segment={segment}>
+              <SegmentContent
+                productImageUrl={productImageUrl}
+                product={product}
+                segment={segment}
+              />
+            </Promo>
+          );
         })}
       </div>
     </section>
@@ -29,25 +48,42 @@ export const PromoSegment = () => {
 function Promo({
   product,
   segment,
+  children,
 }: {
   product: tProduct;
   segment: tPromoSegment;
+  children: React.ReactNode;
 }) {
-  const productImageUrl: string =
-    "/" +
-    (chooseProductColorImageUrl(product, product?.primaryImageUrlColor) || "");
+  // const segmentImageTiny = urlToBase64(
+  //   generateTinyUrl("/" + segment.promoImageUrl2) || ""
+  // );
 
-  const segmentImageTiny = generateTinyUrl("/" + segment.promoImageUrl2) || "";
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      onClick={() => setIsOpen(!isOpen)}
+      // onClick={() => setIsOpen(!isOpen)}
       key={product.id}
       className={cn(
         "group transition-all duration-300 border no-select border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
-        isOpen ? "promo__container__open" : "promo__container__closed "
+        "promo__container__closed "
       )}
     >
+      {children}
+    </div>
+  );
+}
+
+function SegmentContent({
+  productImageUrl,
+  product,
+  segment,
+}: {
+  productImageUrl: string;
+  product: tProduct;
+  segment: tPromoSegment;
+}) {
+  return (
+    <>
       {/* <div
         className={cn(
           "transition-all no-select  absolute inset-0 bg-black   z-400",
@@ -62,7 +98,7 @@ function Promo({
         />
         <SegmentImage
           productImageUrl={"/" + segment.promoImageUrl}
-          id={segment.title}
+          id={segment.id}
           isPrimary={false}
         />
       </div>
@@ -72,7 +108,7 @@ function Promo({
         <div
           className={cn(
             "transition-all  absolute inset-0 bg-black   z-400",
-            "opacity-70"
+            "opacity-30"
           )}
         />
 
@@ -81,11 +117,11 @@ function Promo({
           alt={product.id}
           fill
           className="object-cover"
-          placeholder="blur"
-          blurDataURL={segmentImageTiny}
+          // placeholder="blur"
+          // blurDataURL={segmentImageTiny}
         />
       </div> */}
-    </div>
+    </>
   );
 }
 
@@ -98,14 +134,17 @@ function SegmentImage({
   id: string;
   isPrimary: boolean;
 }) {
-  const Tiny = generateTinyUrl(productImageUrl) || "";
+  const Tinykey = productImageUrl.split("/").pop()?.split(".")[0] || "";
+  const Tiny = placeholders[Tinykey as keyof typeof placeholders] || "";
   return (
     <div
       className={`promo__image  ${
         isPrimary ? "promo__image__primary" : "promo__image__secondary"
-      } relative flex w-130 h-full `}
+      } relative flex w-130 h-full  aspectRatio: '1 / 1' `}
     >
       <Image
+        priority
+        loading="eager"
         src={productImageUrl}
         alt={id}
         fill
@@ -113,6 +152,9 @@ function SegmentImage({
         placeholder="blur"
         blurDataURL={Tiny}
       />
+      {/* <p>{id}</p> */}
+      {/* <p>{productImageUrl}</p> */}
+      {/* <p>{Tiny}</p> */}
     </div>
   );
 }
@@ -124,33 +166,17 @@ function SegmentText({
   segment: tPromoSegment;
   product: tProduct;
 }) {
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  // const searchParams = useSearchParams();
+  // const category = searchParams.get("category");
   return (
     <div className="relative h-full w-full min-w-90  flex flex-col items-start  justify-center gap-2 px-12 py-5  bg-black bg-fiber z-200   ">
       <h2 className="uppercase text-5xl! font-bold  ">{segment.title}</h2>
       <p className=" text-[8pt]! uppercase tracking-[3px]! opacity-95 ">
         {product.byline}
       </p>
-      <button
-        // key={category}
-        onClick={() => {}}
-        className={cn(
-          "button__state no-select cursor-pointer mt-3"
-          // !isActive ? "button__state__inactive" : "button__state__active"
-        )}
-      >
-        <Link
-          // key={index}
-          className="list__item cursor-pointer"
-          href={`/product/${product.id}${
-            category ? `?category=${category}` : ""
-          }`}
-        >
-          {/* <p className="no-select text-black">{productNamesFromId[item]}</p> */}
-          <p>Visit</p>
-        </Link>
-      </button>
+
+      <LinkButton text="Shop Now" id={product.id} />
+
       {/* <div
         className={cn(
           "transition-all  absolute inset-0 bg-black   -z-1",

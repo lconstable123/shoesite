@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import HomePage from "./components/home-page";
+import { Suspense } from "react";
 
 export function generateMetadata(): Metadata {
   return {
@@ -11,7 +12,9 @@ export function generateMetadata(): Metadata {
 export default function Home() {
   return (
     <main className="bg-black flex flex-col justify-start   w-100%">
-      <HomePage />
+      <Suspense fallback={<div>Loading search params…</div>}>
+        <HomePage />
+      </Suspense>
     </main>
   );
 }

@@ -27,6 +27,29 @@ export const generateTinyUrl = (url: string): string => {
   return Imagetiny;
 };
 
+export async function urlToBase64(url: string): Promise<string | null> {
+  try {
+    const response = await fetch(url, { mode: "cors" });
+    // const blob = await response.blob();
+    const blob = await response.blob();
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          resolve(reader.result);
+        } else {
+          reject(new Error("Failed to convert blob to base64"));
+        }
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (err) {
+    console.error("Could not convert image to base64:", err);
+    return null;
+  }
+}
+
 export const handleMenuClick = (
   item: string,
   searchParams: URLSearchParams,

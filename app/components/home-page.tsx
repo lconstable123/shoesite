@@ -1,4 +1,3 @@
-"use client";
 import { useScreenSizeShared } from "@/lib/useScreenSize";
 import Carousel from "./Carousel";
 import HeroSection from "./HeroSection";
@@ -22,6 +21,7 @@ export default function HomePage() {
       /> */}
       <div className="flex flex-col items-center justify-center w-full  ">
         <PromoSegment />
+
         <div className="w-full  flex justify-center h-auto my-10 ">
           <Carousel
             breakpoints={[800, 1250, 1600]}
