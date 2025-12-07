@@ -9,6 +9,7 @@ import { QuantityPicker } from "./ui/quantity-picker";
 import { SizePicker } from "./ui/size-picker";
 import { BagButton, HeartButton } from "./ui/buttons";
 import "@/app/components/styling/checkout.css";
+
 export function Checkout({ product }: { product: tProduct | tProduct[] }) {
   return (
     <section className="w-full h-full flex flex-col   ">

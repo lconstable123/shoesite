@@ -745,7 +745,7 @@ export const productData: tProduct[] = [
     byline:
       "Track your fitness in style and be home for your protein rich dinner with this Smart Watch with Smart Band technology.",
     primaryImageUrlColor: "black",
-    promoImageUrl: "assets/gallery/accessories/acc-watch-black.webp",
+    promoImageUrl: "assets/gallery/accessories/acc_watch_promo.webp",
     blackImageUrl: "assets/gallery/accessories/acc-watch-black.webp",
     blueImageUrl: "assets/gallery/accessories/acc-watch-blue.webp",
     greenImageUrl: "assets/gallery/accessories/acc-watch-green.webp",
@@ -763,7 +763,7 @@ export const productData: tProduct[] = [
       "Made from sustainable materials. Adjustable strap for a comfortable fit. Breathable fabric to keep you cool during workouts. Stylish design that complements any athletic outfit. Perfect for outdoor activities and casual wear.",
     byline: "Keep your head covered in style.",
     primaryImageUrlColor: "black",
-    promoImageUrl: "assets/gallery/accessories/acc-cap-black.webp",
+    promoImageUrl: "assets/gallery/accessories/acc_cap_promo.webp",
     blackImageUrl: "assets/gallery/accessories/acc-cap-black.webp",
     greenImageUrl: "assets/gallery/accessories/acc-cap-green.webp",
   },
@@ -780,7 +780,7 @@ export const productData: tProduct[] = [
       "Made from sustainable materials. Adjustable strap for a comfortable fit. Breathable fabric to keep you cool during workouts. Stylish design that complements any athletic outfit. Perfect for outdoor activities and casual wear.",
     byline: "Track your fitness in style with Smart Band technology.",
     primaryImageUrlColor: "green",
-    promoImageUrl: "assets/gallery/accessories/acc-wristband.webp",
+    promoImageUrl: "assets/gallery/accessories/acc_smart-band_promo.webp",
     greenImageUrl: "assets/gallery/accessories/acc-wristband.webp",
   },
   {
@@ -795,7 +795,7 @@ export const productData: tProduct[] = [
       "A versatile water bottle designed for fitness enthusiasts. Made from eco-friendly materials to reduce environmental impact. Features a leak-proof design for easy transport. Insulated to keep beverages cold for hours. Ergonomic shape for a comfortable grip during workouts. Stylish design that complements any athletic gear.",
     byline: "Stay hydrated in style with this eco-friendly Water Bottle.",
     primaryImageUrlColor: "black",
-    promoImageUrl: "assets/gallery/accessories/acc-water-bottle.webp",
+    promoImageUrl: "assets/gallery/accessories/acc_water_bottle_promo.webp",
     blackImageUrl: "assets/gallery/accessories/acc-water-bottle.webp",
   },
 ] as const;

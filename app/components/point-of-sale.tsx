@@ -49,12 +49,6 @@ function ItemDisplay({ promoData }: { promoData: tPromoData | null }) {
         />
       </div>
 
-      <a
-        href="/"
-        className=" flex justify-center items-center absolute top-[14px] right-3 w-[46px] h-[40px] border-5 rounded-lg border-black "
-      >
-        <BackIcon className="cursor-pointer " size={30} />
-      </a>
       <figcaption className=" flex flex-col text-center gap-[19px] justify-center py-4 items-center w-full ">
         <p>{promoData?.promoByline}</p>
       </figcaption>

@@ -328,7 +328,7 @@ function ProductCard({
 }: ProductCardProps) {
   const dummy = true;
   if (dummy) {
-    return <div className="carousel__card bg-red-200" />;
+    return <div className="carousel__card border border-gray-300/20" />;
   }
 
   return (

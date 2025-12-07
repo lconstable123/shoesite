@@ -112,6 +112,16 @@ h4 {
 .font-kantumruy {
   font-family: "Kantumruy", var(--font-inter), "Inter", sans-serif;
 }
+.bg-fiber {
+  background-image: url("/assets/gallery/bg/fibre_tex_titled_2.webp");
+  background-size: 100px;
+  background-repeat: repeat;
+}
+.bg-shoe-close {
+  background-image: url("/assets/gallery/promo/shoebanner.webp");
+  /* background-size: 100px; */
+  background-size: cover;
+}
 
 .no-select {
   user-select: none;
@@ -119,6 +129,12 @@ h4 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .flex-center {
   display: flex;

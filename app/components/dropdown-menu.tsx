@@ -82,7 +82,7 @@ const DropDownRowContainer = ({
 
   useEffect(() => {
     if (!category) return;
-    toast.success(`Dropdown menu category changed to ${category}`);
+    // toast.success(`Dropdown menu category changed to ${category}`);
     // setSubmenuOpen(true);
     // setMenuDepth("submenu");
     setSelectedCategoryData(MenuCollection[category as tCategory]);
@@ -90,18 +90,16 @@ const DropDownRowContainer = ({
 
   return (
     // <div className=" inset-0 absolute z-700">
-    <nav className="dropdown__mobile__root absolute z-10  w-full h-screen overflow-hidden">
+    <nav className="dropdown__mobile__root absolute z-900   w-full h-screen overflow-hidden">
       {/* Main Menu */}
-      {/* <h3 className=" text-black! absolute top-10 left-1/2 z-100">
-        {subCategory}
-      </h3> */}
+
       <div
         className={cn(
-          "absolute transition-all duration-300 top-0 w-full h-full z-10",
+          "absolute transition-all duration-300 top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "main" ? "left-0" : "-left-full"
         )}
       >
-        <nav className="dropdown__mobile__container  cursor-pointer relative">
+        <nav className="dropdown__mobile__container  cursor-pointer relative z-900 ">
           {Categories.map((menucategory) => (
             <DropdownRow
               key={menucategory}
@@ -118,7 +116,7 @@ const DropDownRowContainer = ({
       {/* Submenu */}
       <div
         className={cn(
-          "absolute transition-all duration-300 top-0 w-full h-full z-10",
+          "absolute transition-all duration-300 top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "submenu"
             ? "left-0"
             : menuDepth === "range"
@@ -126,7 +124,7 @@ const DropDownRowContainer = ({
             : "left-full"
         )}
       >
-        <nav className="dropdown__mobile__container cursor-pointer relative">
+        <nav className="dropdown__mobile__container cursor-pointer relative z-900 ">
           <DropdownRow
             key={category}
             title={category || ""}
@@ -154,11 +152,11 @@ const DropDownRowContainer = ({
       {/* items-menu */}
       <div
         className={cn(
-          "absolute transition-all duration-300 top-0 w-full h-full z-10",
+          "absolute transition-all duration-300 top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "range" ? "left-0" : "left-full"
         )}
       >
-        <nav className="dropdown__mobile__container cursor-pointer relative">
+        <nav className="dropdown__mobile__container cursor-pointer relative z-900 ">
           <DropdownRow
             key={category}
             title={subCategory || ""}
@@ -327,7 +325,7 @@ const DropdownRow = ({
         // handleMenuClick(title, searchParams, router);
       }
       if (menuDepth === "range") {
-        toast.success(`Navigating to products: ${title}`);
+        // toast.success(`Navigating to products: ${title}`);
         // handleMenuClick(title, searchParams, router);
         setIsOpen && setIsOpen(false);
       }

@@ -43,6 +43,7 @@ export default function RootLayout({
         <Toaster position="top-center" />
         <Pulldown />
         <Header isDropdownOpen={true} />
+
         {children}
         <Footer />
       </body>

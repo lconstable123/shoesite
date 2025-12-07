@@ -14,7 +14,7 @@ export function generateMetadata(): Metadata {
 
 export default function Home() {
   return (
-    <main className="bg-black flex flex-col justify-start  w-100%">
+    <main className="bg-black flex flex-col justify-start   w-100%">
       <HomePage />
     </main>
   );

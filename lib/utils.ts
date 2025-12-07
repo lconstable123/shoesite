@@ -18,7 +18,6 @@ export const chooseProductColorImageUrl = (
     yellow: product.yellowImageUrl,
   };
   const url = colorMapper[color] || product.promoImageUrl || "";
-
   return url;
 };
 

@@ -25,6 +25,16 @@ export type tCollection = Record<
   }
 >;
 
+export type tPromoSegment = {
+  id: tCollectionsId | tProductId;
+  title: string;
+  promoImageUrl: string;
+  promoImageUrl2: string;
+  productImageUrl?: string;
+
+  description: string;
+};
+
 export const MenuCollection: tMenuCollection = {
   lifestyle: {
     menuItems: {
@@ -136,3 +146,75 @@ export const collectionById: tCollection = {
     splashImage: "assets/gallery/lazy-sunday/lazy-sunday-shoe-promo.webp",
   },
 };
+
+export const promoSegments: tPromoSegment[] = [
+  {
+    id: "street-masters-shoe",
+    title: "Street Masters",
+    promoImageUrl:
+      "assets/gallery/street-masters/street-masters-all-promo.webp",
+    description:
+      "Navigate the concrete jungle with style and ease. The Street Masters collection.",
+    promoImageUrl2: "/assets/gallery/promo/promo_returns2.webp",
+  },
+  // {
+  //   id: "cardiac-shoe",
+  //   title: "Cardiac",
+  //   promoImageUrl: "assets/gallery/cardiac/cardiac-promo-2.webp",
+  //   promoImageUrl2: "/assets/gallery/promo/office_promo.webp",
+  //   description:
+  //     "High-performance running shoes designed for maximum comfort and support during intense workouts. Featuring breathable mesh uppers, responsive cushioning, and durable outsoles for superior traction.",
+  // },
+  {
+    id: "luxx-shoe",
+    title: "Luxx",
+    promoImageUrl: "assets/gallery/luxx/luxx-shoes-promo.webp",
+    promoImageUrl2: "/assets/gallery/promo/shipping_promo.webp",
+    description:
+      "Experience luxury in every step. The Luxx collection combines premium materials with cutting-edge design for the ultimate in comfort and style.",
+  },
+  // {
+  //   id: "expresso-shoe",
+  //   title: "Expresso",
+  //   promoImageUrl: "assets/gallery/expresso/expresso-all-promo.webp",
+  //   promoImageUrl2: "/assets/gallery/expresso/expresso-shoe-promo.webp",
+  //   description:
+  //     "Speed and Style. Fit in anywhere by fitting into the classic Expresso shoe, part of the Expresso collection.",
+  // },
+  {
+    id: "rodney-mullet-shoe",
+    title: "Rodney Mullet",
+    promoImageUrl: "assets/gallery/rodney-mullet/rodney-mullet-promo.webp",
+    promoImageUrl2: "/assets/gallery/promo/office_promo.webp",
+    description:
+      "The Rodney Mullet skate shoe. Durable construction with reinforced stitching. Padded collar and tongue for extra comfort. Grippy rubber outsole for superior board control. Classic design that never goes out of style.",
+  },
+  // {
+  //   id: "playtime-shoe",
+  //   title: "Playtime",
+  //   promoImageUrl: "assets/gallery/playtime/playtime-shoe-promo.webp",
+  //   promoImageUrl2: "/assets/gallery/playtime/playtime-shirt-promo.webp",
+  //   description: " The Playtime collection. Everyday fun for the family.",
+  // },
+  // {
+  //   id: "bigshot-shoe",
+  //   title: "Bigshot",
+  //   promoImageUrl: "assets/gallery/bigshot/bigshot-promo.webp",
+  //   description:
+  //     "Elevate your game with the Bigshot basketball shoes, engineered for explosive performance on the court. With advanced ankle support, responsive cushioning, and a sleek design, these shoes help you dominate every play.",
+  // },
+  // {
+  //   id: "sweatlodge-shoe",
+  //   title: "Sweatlodge",
+  //   promoImageUrl: "assets/gallery/sweatlodge/sweatlodge-promo.webp",
+  //   description:
+  //     "All-weather training shoes built to withstand the toughest conditions. The Sweatlodge shoes feature water-resistant uppers, rugged outsoles, and enhanced durability to keep you going no matter the weather.",
+  // },
+  // {
+  //   id: "slipstream-shoe",
+  //   title: "Slipstream",
+  //   promoImageUrl: "assets/gallery/slipstream/slipstream-promo.webp",
+  //   description:
+  //     "Lightweight and flexible training shoes perfect for a variety of workouts. The Slipstream shoes feature breathable uppers, cushioned midsoles, and durable outsoles to keep you comfortable and agile during your fitness routine.",
+  // },
+];

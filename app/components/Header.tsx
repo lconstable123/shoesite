@@ -30,7 +30,7 @@ export default function Header({}: HeaderMenuProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
-    toast.success("Toggling dropdown");
+    // toast.success("Toggling dropdown");
     const params = new URLSearchParams(searchParams.toString());
     params.set("dropdown", !dropdownOpen ? "open" : "closed");
     router.push(`?${params.toString()}`, { scroll: false });
@@ -61,7 +61,7 @@ function DropdownBar({
   return (
     <header
       id="header_bar"
-      className="w-full border   flex flex-col gap-y-2.5 border-b bg-black border-mid-grey-2 px-[42px]  "
+      className="w-full border   flex flex-col gap-y-2.5 border-b bg-fiber bg-black border-mid-grey-2 px-[42px]  "
     >
       <nav className="relative h-[70px]  flex inset-0 items-center justify-between  py-2 z-30">
         <HeaderItems>
@@ -86,7 +86,7 @@ function DropdownBar({
           <NavigationMenu />
         </div>
         <a
-          href="#"
+          href="/"
           className="header__profile_center absolute left-1/2 -translate-x-1/2 "
         >
           <LogoIcon size={40} className="" />

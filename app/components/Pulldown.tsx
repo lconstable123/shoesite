@@ -1,56 +1,83 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CancelIcon, ChevronDown } from "./Icons";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
-
+import "./styling/pulldown.css";
+import Image from "next/image";
+import { useClickOutside } from "@/lib/hooks/use-click-outside";
+import { useScrollListener } from "@/lib/hooks/use-scroll-listener";
 export function Pulldown() {
   const [pulldownOpen, setPulldownOpen] = useState(false);
-  // useEffect(() => {
-  //   toast.success("Pulldown rendered");
-  // }, []);
+  const elmRef = useRef<HTMLDivElement>(null);
+  const [canPulldownOpen, setCanPulldownOpen] = useState(true);
+
+  function handleScroll() {
+    if (pulldownOpen) setPulldownOpen(false);
+  }
+
+  useClickOutside(elmRef, () => {
+    if (canPulldownOpen) {
+      setCanPulldownOpen(false);
+      setPulldownOpen(false);
+    }
+  });
+
+  useScrollListener({ handler: handleScroll });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanPulldownOpen(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [pulldownOpen]);
 
   return (
-    <>
+    <div ref={elmRef} className="w-full h-auto  ">
       <div
-        onClick={() => setPulldownOpen(!pulldownOpen)}
-        className="relative w-full h-8 justify-center bg-gray-darker flex items-center px-4 z-900 "
+        onClick={() => {
+          // if (!pulldownOpen) {
+          setPulldownOpen(!pulldownOpen);
+          // }
+        }}
+        className="relative w-full h-8 justify-center bg-gray-darker flex items-center  px-4 z-1000 "
       >
-        <div className="w-full no-select flex gap-[18px] justify-center items-center z-900">
+        <div className="w-full no-select flex gap-[18px] justify-center items-center z-1000">
           <ChevronDown />
-          <span className="text-white font-medium uppercase text-center text-sm ">
+          <span className=" font-medium uppercase text-center text-sm ">
             Shipping & Free Returns
           </span>
           <ChevronDown />
         </div>
       </div>
       <div
+        ref={elmRef}
         onClick={() => setPulldownOpen(!pulldownOpen)}
         className={cn(
-          "transition-all  px-20 pt-15 pb-5  duration-500 absolute z-10 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto bg-neutral-50 border",
+          "transition-all pulldown__container   duration-500 absolute z-300 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-white ",
           !pulldownOpen ? "-top-100" : "top-0"
         )}
       >
         <PullDownItem
           title="Expedited Shipping"
           blurb="We have options to get your gear to you, when and where you need it."
-          url="#"
+          url="/assets/gallery/promo/shipping_promo.webp"
         />
         <PullDownItem
           title="Returns & Exchanges"
           blurb="If you're not totally happy with your purchase, you can ship it back at no extra cost and we will offer a full refund."
-          url="#"
+          url="/assets/gallery/promo/promo_returns.webp"
         />
         <PullDownItem
           title="Lifetime Warranty"
           blurb="All our products come with a lifetime warranty.  If you find a defect we will replace it free of charge."
-          url="#"
+          url="/assets/gallery/promo/office_promo.webp"
         />
-        <div className="absolute  right-2 top-10 ">
+        {/* <div className="absolute  right-2 top-10 ">
           <CancelIcon />
-        </div>
+        </div> */}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -65,7 +92,9 @@ const PullDownItem = ({
 }) => {
   return (
     <div className="w-full flex flex-col items-center gap-2   text-center text-black font-bold">
-      <div className="w-30 h-30 border "></div>
+      <div className="w-30 h-30 relative rounded-lg overflow-hidden ">
+        <Image src={url} alt={title} fill className="object-cover no-select" />
+      </div>
       <h3 className="flex-wrap! text-wrap! ">{title}</h3>
       <p> {blurb}</p>
     </div>
