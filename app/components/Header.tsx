@@ -14,8 +14,8 @@ import { SearchBar } from "./ui/search-bar";
 import "./styling/header.css";
 import { Categories, tCategory } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "react-hot-toast";
 import useBodyScrollLock from "@/lib/hooks/useBodyScrollLock";
+import toast from "react-hot-toast";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -24,14 +24,15 @@ interface HeaderMenuProps {
 
 export default function Header({}: HeaderMenuProps) {
   useBodyScrollLock();
-  // const searchParams = useSearchParams();
-  // const selectedCategory = searchParams.get("category") as tCategory;
-  // const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedQueryCategory = searchParams.get("category") as tCategory;
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] =
-    useState<tCategory>("lifestyle");
+  const [selectedCategory, setSelectedCategory] = useState<tCategory>(
+    selectedQueryCategory || "lifestyle"
+  );
 
   const toggleDropdown = () => {
+    toast.success("dropdown");
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -41,6 +42,7 @@ export default function Header({}: HeaderMenuProps) {
         <DropdownBar
           handleToggleDropdown={toggleDropdown}
           setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
         />
       </div>
       <DropdownMenu
@@ -55,9 +57,11 @@ export default function Header({}: HeaderMenuProps) {
 function DropdownBar({
   handleToggleDropdown,
   setSelectedCategory,
+  selectedCategory,
 }: {
   handleToggleDropdown: () => void;
   setSelectedCategory: React.Dispatch<React.SetStateAction<tCategory>>;
+  selectedCategory?: tCategory;
 }) {
   const [SearchBarOpen, setSearchBarOpen] = useState(false);
 
@@ -86,7 +90,10 @@ function DropdownBar({
         </HeaderItems>
 
         <div className="header__nav ">
-          <NavigationMenu setSelectedCategory={setSelectedCategory} />
+          <NavigationMenu
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
         </div>
         <a
           href="/"
@@ -114,7 +121,10 @@ function DropdownBar({
         </div>
       )}
       <div className="header__nav_small  mb-5 ">
-        <NavigationMenu setSelectedCategory={setSelectedCategory} />
+        <NavigationMenu
+          setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
+        />
       </div>
     </header>
   );
@@ -130,12 +140,13 @@ function HeaderItems({ children }: { children: React.ReactNode }) {
 
 function NavigationMenu({
   setSelectedCategory,
+  selectedCategory,
 }: {
   setSelectedCategory: React.Dispatch<React.SetStateAction<tCategory>>;
+  selectedCategory?: tCategory;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category") as tCategory;
 
   return (
     <div className="flex flex-col gap-1 items-center justify-center">

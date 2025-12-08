@@ -41,7 +41,7 @@ export function DropdownMenu({
       {category && (
         <DropDownDesktopContainer selectedCategory={selectedCategory} />
       )}
-      {/* <DropDownMobileContainer isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      <DropDownMobileContainer isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }
@@ -282,6 +282,8 @@ const DropdownRow = ({
   isSelected = false,
   parentCategory,
   setIsOpen,
+  category,
+  setSelectedCategory,
 }: {
   title: string;
   searchParams: URLSearchParams;
@@ -296,8 +298,10 @@ const DropdownRow = ({
   menuDepth?: "main" | "submenu" | "range";
   parentCategory?: string;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  category?: tCategory;
+  setSelectedCategory?: React.Dispatch<React.SetStateAction<tCategory>>;
 }) => {
-  const category = searchParams.get("category");
+  // const category = searchParams.get("category");
 
   const MenuClick = () => {
     if (returning) {
@@ -305,6 +309,7 @@ const DropdownRow = ({
     } else {
       if (menuDepth === "main") {
         setMenuDepth && setMenuDepth("submenu", title);
+        setSelectedCategory && setSelectedCategory(title as tCategory);
         handleMenuClick(title, searchParams, router);
       }
       if (menuDepth === "submenu") {
@@ -321,16 +326,14 @@ const DropdownRow = ({
       key={title}
       onClick={() => MenuClick()}
       className={cn(
-        "dropdown__mobile__row__container duration-100 delay-100 transition-opacity ",
+        "dropdown__mobile__row__container duration-100 delay-100 transition-opacity no-select ",
         returning
           ? "flex-row-reverse! justify-end gap-x-5  bg-neutral-400/20"
           : "flex-row! justify-between"
-        // isSelected ? "opacity-30 cursor-auto!" : "opacity-100"
       )}
     >
       {menuDepth && menuDepth === "range" ? (
         <Link
-          // key={index}
           className="list__item cursor-pointer"
           href={`/product/${title}${category ? `?category=${category}` : ""}`}
         >
@@ -343,12 +346,7 @@ const DropdownRow = ({
           {title}
         </h3>
       )}
-
-      <ChevronRight
-        className={`transition-all duration-200 delay-100 ${
-          returning ? "rotate-0" : "rotate-180"
-        } ${menuDepth && menuDepth === "range" ? "opacity-0" : "opacity-100"}`}
-      />
+      <DynamicChevron returning={returning} menuDepth={menuDepth} />
     </div>
   );
 };
@@ -415,5 +413,21 @@ const DropdownImage = ({ image, thumb }: { image: string; thumb: string }) => {
         blurDataURL={thumb}
       />
     </div>
+  );
+};
+
+const DynamicChevron = ({
+  menuDepth,
+  returning,
+}: {
+  menuDepth?: string;
+  returning?: boolean;
+}) => {
+  return (
+    <ChevronRight
+      className={`transition-all duration-200 delay-100 ${
+        returning ? "rotate-0" : "rotate-180"
+      } ${menuDepth && menuDepth === "range" ? "opacity-0" : "opacity-100"}`}
+    />
   );
 };
