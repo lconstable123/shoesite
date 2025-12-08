@@ -15,7 +15,12 @@ import { useRouter } from "next/navigation";
 import { MenuCollection, tMenuCollection } from "@/lib/curation-data";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { cn, generateTinyUrl, handleMenuClick } from "@/lib/utils";
+import {
+  cn,
+  generateTinyUrl,
+  generateTinyUrl2,
+  handleMenuClick,
+} from "@/lib/utils";
 import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
@@ -220,7 +225,7 @@ const DropDownColumnContainer = ({
   if (!selectedCategoryData?.splashImage) {
     toast.error("No splash image for category");
   }
-
+  const Tiny = generateTinyUrl2(bannerImage);
   useEffect(() => {
     const newImage = selectedCategoryData?.splashImage || "";
     if (newImage === bannerImage || !selectedCategory) return;
@@ -229,10 +234,7 @@ const DropDownColumnContainer = ({
 
   return (
     <section className="dropdown__container">
-      <DropdownImage
-        image={bannerImage || ""}
-        thumb={generateTinyUrl(bannerImage) || ""}
-      />
+      <DropdownImage image={bannerImage || ""} thumb={Tiny || ""} />
       <nav className="dropdown__sections ">
         {Object.entries(selectedSubcategories).map((subcategory) => (
           <DropdownColumn

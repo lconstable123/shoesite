@@ -3,11 +3,12 @@ import Image from "next/image";
 import { promoSegments, tPromoSegment } from "../../lib/curation-data";
 import { productsById } from "../../lib/product-data";
 import { tProduct, tProductId } from "../../lib/types";
-import placeholders from "@/public/assets/gallery/placeholders.json";
+
 import {
   chooseProductColorImageUrl,
   cn,
   generateTinyUrl,
+  generateTinyUrl2,
   urlToBase64,
 } from "../../lib/utils";
 import "./styling/promo.css";
@@ -143,8 +144,8 @@ function SegmentImage({
   isPrimary: boolean;
   product: tProduct;
 }) {
-  const Tinykey = productImageUrl.split("/").pop()?.split(".")[0] || "";
-  const Tiny = placeholders[Tinykey as keyof typeof placeholders] || "";
+  const Tiny = generateTinyUrl2(productImageUrl);
+
   return (
     <div
       className={`promo__image  ${

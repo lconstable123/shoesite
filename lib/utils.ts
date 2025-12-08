@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { colors, tCategory, tProduct } from "./types";
-
+import placeholders from "@/public/assets/gallery/placeholders.json";
 export const cn = (...inputs: Parameters<typeof clsx>) => clsx(...inputs);
 
 export const chooseProductColorImageUrl = (
@@ -25,6 +25,13 @@ export const generateTinyUrl = (url: string): string => {
   if (!url) return "";
   const Imagetiny = url?.split(".")[0] + "_tiny.png" || "";
   return Imagetiny;
+};
+
+export const generateTinyUrl2 = (url: string): string => {
+  if (!url) return "";
+  const Tinykey = url.split("/").pop()?.split(".")[0] || "";
+  const Tiny = placeholders[Tinykey as keyof typeof placeholders] || "";
+  return Tiny;
 };
 
 export async function urlToBase64(url: string): Promise<string | null> {
