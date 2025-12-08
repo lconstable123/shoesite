@@ -33,22 +33,20 @@ export function DropdownMenu({
   isOpen?: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
-  const selectedCategoryData = MenuCollection[selectedCategory];
 
   return (
     <>
       {category && (
-        <DropDownColumnContainer selectedCategory={selectedCategory} />
+        <DropDownDesktopContainer selectedCategory={selectedCategory} />
       )}
-      {/* <DropDownRowContainer isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      {/* <DropDownMobileContainer isOpen={isOpen} setIsOpen={setIsOpen} /> */}
     </>
   );
 }
 
-const DropDownRowContainer = ({
+const DropDownMobileContainer = ({
   isOpen,
   setIsOpen,
 }: {
@@ -210,7 +208,7 @@ const DropDownRowContainer = ({
   );
 };
 
-const DropDownColumnContainer = ({
+const DropDownDesktopContainer = ({
   selectedCategory,
 }: {
   selectedCategory: tCategory;
@@ -218,19 +216,10 @@ const DropDownColumnContainer = ({
   const selectedCategoryData = MenuCollection[selectedCategory];
   const selectedSubcategories = selectedCategoryData?.menuItems;
 
-  // const [bannerImage, setBannerImage] = useState<string>(
-  //   selectedCategoryData?.splashImage || ""
-  // );
-
   if (!selectedCategoryData?.splashImage) {
     toast.error("No splash image for category");
   }
   const Tiny = generateTinyUrl2(selectedCategoryData?.splashImage || "");
-  // useEffect(() => {
-  //   const newImage = selectedCategoryData?.splashImage || "";
-  //   if (newImage === bannerImage || !selectedCategory) return;
-  //   setBannerImage(newImage);
-  // }, [selectedCategoryData?.splashImage, bannerImage]);
 
   return (
     <section className="dropdown__container">

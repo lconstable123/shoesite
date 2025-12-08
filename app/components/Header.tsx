@@ -24,23 +24,24 @@ interface HeaderMenuProps {
 
 export default function Header({}: HeaderMenuProps) {
   useBodyScrollLock();
-  const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category") as tCategory;
-  const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const selectedCategory = searchParams.get("category") as tCategory;
+  // const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] =
+    useState<tCategory>("lifestyle");
 
   const toggleDropdown = () => {
-    // toast.success("Toggling dropdown");
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("dropdown", !dropdownOpen ? "open" : "closed");
-    router.push(`?${params.toString()}`, { scroll: false });
     setDropdownOpen(!dropdownOpen);
   };
 
   return (
     <>
       <div className="flex flex-col items-start w-full h-full relative z-10  ">
-        <DropdownBar handleToggleDropdown={toggleDropdown} />
+        <DropdownBar
+          handleToggleDropdown={toggleDropdown}
+          setSelectedCategory={setSelectedCategory}
+        />
       </div>
       <DropdownMenu
         selectedCategory={selectedCategory}
@@ -53,15 +54,17 @@ export default function Header({}: HeaderMenuProps) {
 
 function DropdownBar({
   handleToggleDropdown,
+  setSelectedCategory,
 }: {
   handleToggleDropdown: () => void;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<tCategory>>;
 }) {
   const [SearchBarOpen, setSearchBarOpen] = useState(false);
 
   return (
     <header
       id="header_bar"
-      className="w-full border   flex flex-col gap-y-2.5 border-b bg-fiber bg-black border-mid-grey-2 px-[42px]  "
+      className="w-full border  flex flex-col gap-y-2.5 border-b bg-fiber bg-black border-mid-grey-2 px-[42px]  "
     >
       <nav className="relative h-[70px]  flex inset-0 items-center justify-between  py-2 z-30">
         <HeaderItems>
@@ -83,7 +86,7 @@ function DropdownBar({
         </HeaderItems>
 
         <div className="header__nav ">
-          <NavigationMenu />
+          <NavigationMenu setSelectedCategory={setSelectedCategory} />
         </div>
         <a
           href="/"
@@ -94,7 +97,6 @@ function DropdownBar({
 
         <HeaderItems>
           <SearchBar />
-
           <a href="#" className="header__heart_right">
             <HeartIcon size={30} className="size-8" />
           </a>
@@ -112,7 +114,7 @@ function DropdownBar({
         </div>
       )}
       <div className="header__nav_small  mb-5 ">
-        <NavigationMenu />
+        <NavigationMenu setSelectedCategory={setSelectedCategory} />
       </div>
     </header>
   );
@@ -126,7 +128,11 @@ function HeaderItems({ children }: { children: React.ReactNode }) {
   );
 }
 
-function NavigationMenu() {
+function NavigationMenu({
+  setSelectedCategory,
+}: {
+  setSelectedCategory: React.Dispatch<React.SetStateAction<tCategory>>;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") as tCategory;
@@ -137,9 +143,10 @@ function NavigationMenu() {
         {Categories.map((item, index) => (
           <div key={item} className="flex items-center justify-center">
             <a
-              onClick={() =>
-                handleMenuClick(item as tCategory, searchParams, router)
-              }
+              onClick={() => {
+                handleMenuClick(item as tCategory, searchParams, router);
+                setSelectedCategory(item as tCategory);
+              }}
               className={cn(
                 "uppercase cursor-pointer no-select flex flex-col  justify-center leading-0  text-center ",
                 selectedCategory === item ? "header-bold" : "header-light"
