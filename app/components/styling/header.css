@@ -32,7 +32,7 @@
 }
 
 .dropdown__mobile__container > :first-child {
-  padding: 40px 10px 20px 10px;
+  /* padding: 40px 10px 20px 10px; */
 }
 
 @media (max-width: 900px) {
@@ -79,11 +79,12 @@
 }
 
 .dropdown__sections {
-  display: flex;
+  @apply border-3;
+  width: full;
   padding-bottom: 32px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 65px;
+  align-items: flex-between;
+  justify-content: space-around;
+  /* gap: 85px; */
   flex: 1 0 0;
   align-self: stretch;
   display: flex;
@@ -157,13 +158,18 @@
 
 @media (max-width: 1150px) {
   .dropdown__image {
-    display: none;
+    display: block;
+    height: 200px;
   }
   .dropdown__container {
     flex-direction: column;
     height: 100%;
   }
   .dropdown__sections {
+    width: full;
+    height: full;
+    display: flex;
+    flex-direction: row;
     align-items: space-between;
     justify-content: space-between;
     padding: 27px 75px 30px 75px;

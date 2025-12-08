@@ -234,16 +234,18 @@ const DropDownColumnContainer = ({
 
   return (
     <section className="dropdown__container">
-      <DropdownImage image={bannerImage || ""} thumb={Tiny || ""} />
-      <nav className="dropdown__sections ">
-        {Object.entries(selectedSubcategories).map((subcategory) => (
-          <DropdownColumn
-            key={subcategory[0]}
-            title={subcategory[0] as tSubcategory}
-            items={subcategory[1] as tProductId[] | tCollectionsId[]}
-          />
-        ))}
-      </nav>
+      <div className="w-full h-full  flex flex-row">
+        <DropdownImage image={bannerImage || ""} thumb={Tiny || ""} />
+        <nav className="dropdown__sections  ">
+          {Object.entries(selectedSubcategories).map((subcategory) => (
+            <DropdownColumn
+              key={subcategory[0]}
+              title={subcategory[0] as tSubcategory}
+              items={subcategory[1] as tProductId[] | tCollectionsId[]}
+            />
+          ))}
+        </nav>
+      </div>
       <DropdownSidemenu />
     </section>
   );
@@ -307,27 +309,16 @@ const DropdownRow = ({
 
   const MenuClick = () => {
     if (returning) {
-      //if return button, go back one menu
-      // toast.success(`Returning to previous menu`);
       setMenuDepth && setMenuDepth();
     } else {
-      // toast.success(
-      //   `Clicked on menu item: ${title} with menuDepth: ${menuDepth}`
-      // );
-      // if regular button, go to next menu
       if (menuDepth === "main") {
-        // toast.success(`Navigating to submenu: ${title}`);
         setMenuDepth && setMenuDepth("submenu", title);
         handleMenuClick(title, searchParams, router);
       }
       if (menuDepth === "submenu") {
-        // toast.success(`Navigating to range: ${title}`);
         setMenuDepth && setMenuDepth("range", title);
-        // handleMenuClick(title, searchParams, router);
       }
       if (menuDepth === "range") {
-        // toast.success(`Navigating to products: ${title}`);
-        // handleMenuClick(title, searchParams, router);
         setIsOpen && setIsOpen(false);
       }
     }
@@ -340,7 +331,7 @@ const DropdownRow = ({
       className={cn(
         "dropdown__mobile__row__container duration-100 delay-100 transition-opacity ",
         returning
-          ? "flex-row-reverse! justify-end gap-x-10  bg-neutral-400/20"
+          ? "flex-row-reverse! justify-end gap-x-5  bg-neutral-400/20"
           : "flex-row! justify-between"
         // isSelected ? "opacity-30 cursor-auto!" : "opacity-100"
       )}
@@ -420,8 +411,9 @@ export const DropdownColumn2 = ({
 
 const DropdownImage = ({ image, thumb }: { image: string; thumb: string }) => {
   return (
-    <div className="dropdown__image h-full w-[300px] relative">
+    <div className="dropdown__image w-[300px]  relative bg-red-200">
       <Image
+        loading="eager"
         src={image}
         fill
         alt="dropdown image"

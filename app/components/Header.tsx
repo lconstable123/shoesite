@@ -131,12 +131,6 @@ function NavigationMenu() {
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") as tCategory;
 
-  // const handleMenuClick = (item: tCategory) => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set("category", item);
-  //   router.push(`?${params.toString()}`);
-  // };
-
   return (
     <div className="flex flex-col gap-1 items-center justify-center">
       <div className="flex gap-7 items-center">

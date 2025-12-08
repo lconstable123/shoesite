@@ -29,7 +29,7 @@ export const useCheckout = (
   const checkoutImage: string =
     "/" + (chooseProductColorImageUrl(product, color) || "");
 
-  const checkoutImagetiny = generateTinyUrl(checkoutImage) || "";
+  // const checkoutImagetiny = generateTinyUrl(checkoutImage) || "";
   const handleColourClick = (item: colors) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(colorParam, item);
@@ -42,7 +42,7 @@ export const useCheckout = (
   };
   return {
     checkoutImage,
-    checkoutImagetiny,
+    // checkoutImagetiny,
     color,
     quantity,
     handleColourClick,

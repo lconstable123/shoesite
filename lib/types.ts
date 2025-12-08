@@ -13,6 +13,7 @@ const sucategories = [
   "outdoors",
   "basketball",
   "fitness",
+  "competition",
   "casual",
   "premium",
   "skatewear",

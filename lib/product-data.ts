@@ -313,7 +313,7 @@ export const productData: tProduct[] = [
       "Available in Green, Black, White, Grey, and Red. Durable sole for urban exploration and everyday wear. Ergonomic fit for all-day comfort while navigating city streets. Breathable upper material to keep feet cool during long walks. Sleek design inspired by street culture and urban fashion. Featuring graffiti-resistant coating to maintain a fresh look. Embedded with mini air-cushions for added comfort on hard surfaces. ",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
-    primaryImageUrlColor: "red",
+    primaryImageUrlColor: "green",
     promoImageUrl:
       "assets/gallery/street-masters/street-masters-shoe-promo.webp",
     whiteImageUrl:

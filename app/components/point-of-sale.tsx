@@ -1,6 +1,6 @@
 import { tPromoData } from "@/lib/types";
 import Carousel from "./Carousel";
-import { generateTinyUrl } from "@/lib/utils";
+import { generateTinyUrl, generateTinyUrl2 } from "@/lib/utils";
 import Image from "next/image";
 import { BackIcon } from "./Icons";
 
@@ -33,19 +33,21 @@ export function PointOfSale({ promoData }: { promoData: tPromoData | null }) {
 
 function ItemDisplay({ promoData }: { promoData: tPromoData | null }) {
   const imageUrl: string = "/" + (promoData?.promoUrl || "");
-  const imageUrltiny = generateTinyUrl(imageUrl) || "";
+  // const imageUrltiny = generateTinyUrl(imageUrl) || "";
+  const Tiny = generateTinyUrl2(imageUrl);
   return (
     <figure className="w-full relative flex flex-col items-center justify-center ">
       <div className="checkout__pos__image  ">
         <Image
           style={{ objectFit: "cover" }}
+          loading="eager"
           src={imageUrl}
           alt={promoData?.id || "Product Image"}
           fill
           className="object-cover  "
           priority
           placeholder="blur"
-          blurDataURL={imageUrltiny}
+          blurDataURL={Tiny}
         />
       </div>
 

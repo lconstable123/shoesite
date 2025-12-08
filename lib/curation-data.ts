@@ -46,8 +46,13 @@ export const MenuCollection: tMenuCollection = {
   },
   sports: {
     menuItems: {
-      football: ["ronaldo-shoe", "pele-x-shoe"],
-      basketball: ["space-jammer-shoe", "bigshot-shoe"],
+      competition: [
+        "space-jammer-shoe",
+        "bigshot-shoe",
+        "ronaldo-shoe",
+        "pele-x-shoe",
+      ],
+      // basketball: [],
       outdoors: ["rock-solid-shoe", "vertigo-shoe", "neo-sherpa-shoe"],
       fitness: ["cardiac-shoe", "slipstream-shoe", "sweatlodge-shoe"],
     },
