@@ -47,6 +47,7 @@ const ProductContainer = ({
   const Tiny = generateTinyUrl2(checkoutImage);
   return (
     <div className="checkout__product__container__layout no-select relative  ">
+      <p className="absolute z-20">{checkoutImage}</p>
       <div className="checkout__product__image     ">
         <Image
           src={checkoutImage}

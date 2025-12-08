@@ -43,7 +43,7 @@ export function DropdownMenu({
       {category && (
         <DropDownColumnContainer selectedCategory={selectedCategory} />
       )}
-      <DropDownRowContainer isOpen={isOpen} setIsOpen={setIsOpen} />
+      {/* <DropDownRowContainer isOpen={isOpen} setIsOpen={setIsOpen} /> */}
     </>
   );
 }
@@ -218,24 +218,27 @@ const DropDownColumnContainer = ({
   const selectedCategoryData = MenuCollection[selectedCategory];
   const selectedSubcategories = selectedCategoryData?.menuItems;
 
-  const [bannerImage, setBannerImage] = useState<string>(
-    selectedCategoryData?.splashImage || ""
-  );
+  // const [bannerImage, setBannerImage] = useState<string>(
+  //   selectedCategoryData?.splashImage || ""
+  // );
 
   if (!selectedCategoryData?.splashImage) {
     toast.error("No splash image for category");
   }
-  const Tiny = generateTinyUrl2(bannerImage);
-  useEffect(() => {
-    const newImage = selectedCategoryData?.splashImage || "";
-    if (newImage === bannerImage || !selectedCategory) return;
-    setBannerImage(newImage);
-  }, [selectedCategoryData?.splashImage, bannerImage]);
+  const Tiny = generateTinyUrl2(selectedCategoryData?.splashImage || "");
+  // useEffect(() => {
+  //   const newImage = selectedCategoryData?.splashImage || "";
+  //   if (newImage === bannerImage || !selectedCategory) return;
+  //   setBannerImage(newImage);
+  // }, [selectedCategoryData?.splashImage, bannerImage]);
 
   return (
     <section className="dropdown__container">
       <div className="w-full h-full  flex flex-row">
-        <DropdownImage image={bannerImage || ""} thumb={Tiny || ""} />
+        <DropdownImage
+          image={selectedCategoryData?.splashImage || ""}
+          thumb={Tiny || ""}
+        />
         <nav className="dropdown__sections  ">
           {Object.entries(selectedSubcategories).map((subcategory) => (
             <DropdownColumn
