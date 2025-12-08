@@ -1,9 +1,9 @@
-// "use client";
+"use client";
 import Image from "next/image";
 import { promoSegments, tPromoSegment } from "../../lib/curation-data";
 import { productsById } from "../../lib/product-data";
 import { tProduct, tProductId } from "../../lib/types";
-
+import { motion } from "framer-motion";
 import {
   chooseProductColorImageUrl,
   cn,
@@ -21,7 +21,7 @@ export const PromoSegment = () => {
   return (
     <section className="w-full h-full  flex flex-col gap-4   ">
       <div>
-        {promoSegments.map((segment) => {
+        {promoSegments.map((segment, index) => {
           const product = productsById[segment.id as tProductId];
           if (!product) return null;
 
@@ -37,11 +37,13 @@ export const PromoSegment = () => {
               key={segment.id}
               product={product}
               segment={segment}
+              index={index}
             >
               <SegmentContent
                 productImageUrl={productImageUrl}
                 product={product}
                 segment={segment}
+                index={index}
               />
             </PromoContainer>
           );
@@ -55,22 +57,18 @@ function PromoContainer({
   product,
   segment,
   children,
+  index,
 }: {
   product: tProduct;
   segment: tPromoSegment;
   children: React.ReactNode;
+  index?: number;
 }) {
-  // const segmentImageTiny = urlToBase64(
-  //   generateTinyUrl("/" + segment.promoImageUrl2) || ""
-  // );
-
-  // const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      // onClick={() => setIsOpen(!isOpen)}
       key={product.id}
       className={cn(
-        "group transition-all duration-300 border no-select border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
+        "border group transition-all duration-300 no-select border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
         "promo__container__closed "
       )}
     >
@@ -83,31 +81,29 @@ function SegmentContent({
   productImageUrl,
   product,
   segment,
+  index,
 }: {
   productImageUrl: string;
   product: tProduct;
   segment: tPromoSegment;
+  index?: number;
 }) {
   return (
     <>
-      {/* <div
-        className={cn(
-          "transition-all no-select  absolute inset-0 bg-black   z-400",
-          isOpen ? "opacity-0" : "opacity-20 hover:opacity-0 "
-        )}
-      /> */}
       <div className="promo__primaryImages flex flex-row h-full w-auto">
         <SegmentImage
           productImageUrl={productImageUrl}
           id={product.id}
           isPrimary={true}
           product={product}
+          index={index}
         />
         <SegmentImage
           productImageUrl={"/" + segment.promoImageUrl}
           id={segment.id}
           isPrimary={false}
           product={product}
+          index={index}
         />
       </div>
       <SegmentText segment={segment} product={product} />
@@ -138,19 +134,37 @@ function SegmentImage({
   id,
   isPrimary,
   product,
+  index,
 }: {
   productImageUrl: string;
   id: string;
   isPrimary: boolean;
   product: tProduct;
+  index?: number;
 }) {
   const Tiny = generateTinyUrl2(productImageUrl);
 
+  const animVariants = {
+    hidden: (i: number) => ({ opacity: 0, x: i % 2 !== 0 ? -40 : 40 }),
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+      },
+    }),
+  };
+
   return (
-    <div
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      custom={index}
+      variants={animVariants}
       className={`promo__image  ${
         isPrimary ? "promo__image__primary" : "promo__image__secondary"
-      } relative flex w-130 border-1 border-neutral-700 h-full  aspectRatio: '1 / 1' `}
+      } relative flex w-130 border-l border-r border-gray-light h-full  aspectRatio: '1 / 1' `}
     >
       {/* public\assets\gallery\street-masters\street-masters-shoe-red.webp */}
       <Image
@@ -166,7 +180,7 @@ function SegmentImage({
       <p>{productImageUrl}</p>
       {/* <p>{productImageUrl}</p> */}
       {/* <p>{Tiny}</p> */}
-    </div>
+    </motion.div>
   );
 }
 
@@ -179,22 +193,34 @@ function SegmentText({
 }) {
   // const searchParams = useSearchParams();
   // const category = searchParams.get("category");
+  const animVariants = {
+    hidden: (i: number) => ({ opacity: 0, x: i % 2 === 0 ? -40 : 40 }),
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+      },
+    }),
+  };
+
   return (
-    <div className="relative border-3 border-neutral-700 h-full w-full min-w-90  flex flex-col items-start  justify-center gap-2 px-12 py-5  bg-black bg-fiber z-200   ">
-      <h2 className="uppercase text-5xl! font-bold  ">{segment.title}</h2>
-      <p className=" text-[8pt]! uppercase tracking-[3px]! opacity-95 ">
-        {product.byline}
-      </p>
+    <div className="relative  border-neutral-700 h-full w-full min-w-90  flex flex-col items-start  justify-center gap-2 px-12 py-5  bg-black bg-fiber z-200   ">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={animVariants}
+        custom={0}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="uppercase text-5xl! font-bold  ">{segment.title}</h2>
+        <p className=" text-[8pt]! uppercase tracking-[3px]! opacity-95 ">
+          {product.byline}
+        </p>
 
-      <LinkButton text="Shop Now" id={product.id} />
-
-      {/* <div
-        className={cn(
-          "transition-all  absolute inset-0 bg-black   -z-1",
-          "opacity-10"
-        )}
-      /> */}
-      {/* <p>{product.description}</p> */}
+        <LinkButton text="Shop Now" id={product.id} />
+      </motion.div>
     </div>
   );
 }

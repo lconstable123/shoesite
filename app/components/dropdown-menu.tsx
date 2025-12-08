@@ -23,14 +23,15 @@ import {
 } from "@/lib/utils";
 import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+type tMenuDepth = "main" | "submenu" | "range";
 
 export function DropdownMenu({
   selectedCategory,
-  isOpen = true,
+  isOpen,
   setIsOpen,
 }: {
   selectedCategory: tCategory;
-  isOpen?: boolean;
+  isOpen: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const searchParams = useSearchParams();
@@ -38,9 +39,22 @@ export function DropdownMenu({
 
   return (
     <>
-      {category && (
-        <DropDownDesktopContainer selectedCategory={selectedCategory} />
-      )}
+      {/* {category && ( */}
+      <div
+        className={`transition-all duration-500 relative w-full z-2 ${
+          isOpen ? "dropdown__animated__container " : "h-0"
+        }  `}
+      >
+        <div
+          className={cn(
+            "transition-all duration-500 w-full  absolute z-0",
+            isOpen ? "translate-y-0" : "-translate-y-full"
+          )}
+        >
+          <DropDownDesktopContainer selectedCategory={selectedCategory} />
+        </div>
+      </div>
+      {/* )} */}
       <DropDownMobileContainer isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
@@ -57,19 +71,14 @@ const DropDownMobileContainer = ({
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   // const [submenuOpen, setSubmenuOpen] = useState<boolean>(false);
-  const [menuDepth, setMenuDepth] = useState<"main" | "submenu" | "range">(
-    "main"
-  );
+  const [menuDepth, setMenuDepth] = useState<tMenuDepth>("main");
   const [subCategory, setSubCategory] = useState<string | null>(null);
 
   const [selectedCategoryData, setSelectedCategoryData] = useState<
     tMenuCollection[tCategory]
   >(MenuCollection[category as tCategory]);
 
-  const handleSetMenuDepth = (
-    depth?: "main" | "submenu" | "range",
-    category?: string
-  ) => {
+  const handleSetMenuDepth = (depth?: tMenuDepth, category?: string) => {
     if (!depth) {
       setMenuDepth((prev) => {
         if (prev === "range") return "submenu";
@@ -203,8 +212,6 @@ const DropDownMobileContainer = ({
         <DropdownSidemenu />
       </div>
     </nav>
-
-    // </div>
   );
 };
 
@@ -222,8 +229,8 @@ const DropDownDesktopContainer = ({
   const Tiny = generateTinyUrl2(selectedCategoryData?.splashImage || "");
 
   return (
-    <section className="dropdown__container">
-      <div className="w-full h-full  flex flex-row">
+    <section className="dropdown__container    ">
+      <div className="w-full h-full flex flex-row">
         <DropdownImage
           image={selectedCategoryData?.splashImage || ""}
           thumb={Tiny || ""}
@@ -291,18 +298,13 @@ const DropdownRow = ({
   returning?: boolean;
   submenu?: boolean;
   isSelected?: boolean;
-  setMenuDepth?: (
-    depth?: "main" | "submenu" | "range",
-    category?: string
-  ) => void;
-  menuDepth?: "main" | "submenu" | "range";
+  setMenuDepth?: (depth?: tMenuDepth, category?: string) => void;
+  menuDepth?: tMenuDepth;
   parentCategory?: string;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   category?: tCategory;
   setSelectedCategory?: React.Dispatch<React.SetStateAction<tCategory>>;
 }) => {
-  // const category = searchParams.get("category");
-
   const MenuClick = () => {
     if (returning) {
       setMenuDepth && setMenuDepth();
@@ -420,7 +422,7 @@ const DynamicChevron = ({
   menuDepth,
   returning,
 }: {
-  menuDepth?: string;
+  menuDepth?: tMenuDepth;
   returning?: boolean;
 }) => {
   return (

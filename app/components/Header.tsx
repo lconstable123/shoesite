@@ -35,16 +35,28 @@ export default function Header({}: HeaderMenuProps) {
     toast.success("dropdown");
     setDropdownOpen(!dropdownOpen);
   };
+  const handleOpenDropdown = () => {
+    if (dropdownOpen === false) setDropdownOpen(true);
+  };
+
+  useEffect(() => {
+    if (dropdownOpen === false) {
+      // setDropdownOpen(true);
+    }
+    toast.success(`dropdown: ${dropdownOpen}`);
+  }, [selectedCategory]);
 
   return (
     <>
       <div className="flex flex-col items-start w-full h-full relative z-10  ">
         <DropdownBar
           handleToggleDropdown={toggleDropdown}
+          handleOpenDropdown={handleOpenDropdown}
           setSelectedCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
         />
       </div>
+
       <DropdownMenu
         selectedCategory={selectedCategory}
         isOpen={dropdownOpen}
@@ -58,10 +70,12 @@ function DropdownBar({
   handleToggleDropdown,
   setSelectedCategory,
   selectedCategory,
+  handleOpenDropdown,
 }: {
   handleToggleDropdown: () => void;
   setSelectedCategory: React.Dispatch<React.SetStateAction<tCategory>>;
   selectedCategory?: tCategory;
+  handleOpenDropdown?: () => void;
 }) {
   const [SearchBarOpen, setSearchBarOpen] = useState(false);
 
@@ -93,6 +107,7 @@ function DropdownBar({
           <NavigationMenu
             setSelectedCategory={setSelectedCategory}
             selectedCategory={selectedCategory}
+            handleOpenDropdown={handleOpenDropdown}
           />
         </div>
         <a
@@ -124,6 +139,7 @@ function DropdownBar({
         <NavigationMenu
           setSelectedCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
+          handleOpenDropdown={handleOpenDropdown}
         />
       </div>
     </header>
@@ -141,9 +157,11 @@ function HeaderItems({ children }: { children: React.ReactNode }) {
 function NavigationMenu({
   setSelectedCategory,
   selectedCategory,
+  handleOpenDropdown,
 }: {
   setSelectedCategory: React.Dispatch<React.SetStateAction<tCategory>>;
   selectedCategory?: tCategory;
+  handleOpenDropdown?: () => void;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -157,6 +175,9 @@ function NavigationMenu({
               onClick={() => {
                 handleMenuClick(item as tCategory, searchParams, router);
                 setSelectedCategory(item as tCategory);
+                if (handleOpenDropdown) {
+                  handleOpenDropdown();
+                }
               }}
               className={cn(
                 "uppercase cursor-pointer no-select flex flex-col  justify-center leading-0  text-center ",

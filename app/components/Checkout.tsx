@@ -1,6 +1,12 @@
 "use client";
 import { useCheckout } from "@/lib/hooks/use-checkout";
-import { colors, tProduct, tProductId } from "@/lib/types";
+import {
+  colors,
+  tGarmentSizing,
+  tProduct,
+  tProductId,
+  tShoeSizing,
+} from "@/lib/types";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -10,7 +16,8 @@ import { SizePicker } from "./ui/size-picker";
 import { BagButton, HeartButton } from "./ui/buttons";
 import "@/app/components/styling/checkout.css";
 import placeholders from "@/public/assets/gallery/placeholders.json";
-import { generateTinyUrl2 } from "@/lib/utils";
+import { chooseProductColorImageUrl, generateTinyUrl2 } from "@/lib/utils";
+import { useState } from "react";
 export function Checkout({ product }: { product: tProduct | tProduct[] }) {
   return (
     <section className="w-full h-full flex flex-col   ">
@@ -36,13 +43,21 @@ const ProductContainer = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const {
-    checkoutImage,
-    color,
-    quantity,
-    handleColourClick,
-    handleQuantityChange,
-  } = useCheckout(product, rangeId, router, searchParams);
+  const [colour, setColour] = useState<colors>(product.primaryImageUrlColor);
+  const [qty, setQty] = useState<number>(1);
+  const [selectedSize, setSelectedSize] = useState<
+    tGarmentSizing | tShoeSizing | null
+  >(null);
+
+  // const {
+  //   checkoutImage,
+  //   // color,
+  //   // quantity,
+  //   handleColourClick,
+  //   handleQuantityChange,
+  // } = useCheckout(product, rangeId, router, searchParams);
+  const checkoutImage: string =
+    "/" + (chooseProductColorImageUrl(product, colour) || "");
 
   const Tiny = generateTinyUrl2(checkoutImage);
   return (
@@ -60,10 +75,12 @@ const ProductContainer = ({
       </div>
       <ProductDetails
         product={product}
-        quantity={quantity}
-        color={color}
-        handleQuantityChange={handleQuantityChange}
-        handleColourClick={handleColourClick}
+        quantity={qty}
+        color={colour}
+        handleQuantityChange={setQty}
+        handleColourClick={setColour}
+        selectedSize={selectedSize}
+        setSelectedSize={setSelectedSize}
       />
     </div>
   );
@@ -75,12 +92,16 @@ const ProductDetails = ({
   color,
   handleQuantityChange,
   handleColourClick,
+  selectedSize,
+  setSelectedSize,
 }: {
   product: tProduct;
   quantity: number;
   color: colors;
   handleQuantityChange: (quantity: number) => void;
   handleColourClick: (color: colors) => void;
+  selectedSize: tGarmentSizing | tShoeSizing | null;
+  setSelectedSize: (size: tGarmentSizing | tShoeSizing | null) => void;
 }) => {
   return (
     <div className="flex flex-col  gap-4 py-10  w-auto px-10  ">
@@ -96,7 +117,11 @@ const ProductDetails = ({
 
       <p className="text-on-black">{product.description}</p>
       {product.garmentType !== "accessory" && (
-        <SizePicker type={product.garmentType} />
+        <SizePicker
+          type={product.garmentType}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+        />
       )}
       <div className="flex gap-[22px]">
         <QuantityPicker

@@ -11,11 +11,15 @@ import {
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-export function SizePicker({ type }: { type: tProductSizingType }) {
-  const [selectedSize, setSelectedSize] = useState<
-    tGarmentSizing | tShoeSizing | null
-  >(null);
-
+export function SizePicker({
+  type,
+  selectedSize,
+  setSelectedSize,
+}: {
+  type: tProductSizingType;
+  selectedSize: tGarmentSizing | tShoeSizing | null;
+  setSelectedSize: (size: tGarmentSizing | tShoeSizing | null) => void;
+}) {
   const handleSizeClick = (size: tGarmentSizing | tShoeSizing) => {
     if (selectedSize === size) {
       return;

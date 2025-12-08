@@ -1,18 +1,18 @@
+"use client";
 import { useScreenSizeShared } from "@/lib/useScreenSize";
 import Carousel from "./Carousel";
 import HeroSection from "./HeroSection";
 import { PromoSegment } from "@/app/components/promo-segment";
+import Image from "next/image";
+import { generateTinyUrl2 } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   return (
     <>
       {/* <HeroSection /> */}
-      <section
-        className=" h-50 ml-0 mt-0    row-1 w-full bg-cover bg-center flex gap-10 flex-wrap flex-row "
-        style={{
-          backgroundImage: `url(${"/assets/gallery/bg2/shoebanner_wide.png"})`,
-        }}
-      />
+
+      <BannerImage />
       {/* <section
         className=" h-20 ml-0 mt-0 row-1 w-full bg-cover bg-center flex gap-10 flex-wrap flex-row "
         style={{
@@ -33,5 +33,30 @@ export default function HomePage() {
         </div>
       </div>
     </>
+  );
+}
+
+function BannerImage() {
+  const image = "/assets/gallery/bg2/shoebanner_wide.webp";
+  const Tiny = generateTinyUrl2(image);
+  return (
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className=" h-50  relative   w-full no-select  "
+    >
+      <Image
+        src={image}
+        priority
+        loading="eager"
+        alt="Banner"
+        fill
+        className="object-cover  no-select"
+        placeholder="blur"
+        blurDataURL={Tiny}
+      />
+    </motion.section>
   );
 }

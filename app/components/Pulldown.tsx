@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CancelIcon, ChevronDown } from "./Icons";
 import toast from "react-hot-toast";
-import { cn } from "@/lib/utils";
+import { cn, generateTinyUrl2 } from "@/lib/utils";
 import "./styling/pulldown.css";
 import Image from "next/image";
 import { useClickOutside } from "@/lib/hooks/use-click-outside";
@@ -13,7 +13,10 @@ export function Pulldown() {
   const [canPulldownOpen, setCanPulldownOpen] = useState(true);
 
   function handleScroll() {
-    if (pulldownOpen) setPulldownOpen(false);
+    // if (pulldownOpen === true) {
+    //   toast.success("scroll detected");
+    setPulldownOpen(false);
+    // }
   }
 
   useClickOutside(elmRef, () => {
@@ -34,30 +37,16 @@ export function Pulldown() {
 
   return (
     <div ref={elmRef} className="w-full h-auto  ">
-      <div
-        onClick={() => {
-          // if (!pulldownOpen) {
-          setPulldownOpen(!pulldownOpen);
-          // }
-        }}
-        className="relative w-full h-8 justify-center bg-gray-darker flex items-center  px-4 z-1000 "
-      >
-        <div className="w-full no-select flex gap-[18px] justify-center items-center z-1000">
-          <ChevronDown />
-          <span className=" font-medium uppercase text-center text-sm ">
-            Shipping & Free Returns
-          </span>
-          <ChevronDown />
-        </div>
-      </div>
+      <PullDownBar setPulldownOpen={setPulldownOpen} />
       <div
         ref={elmRef}
         onClick={() => setPulldownOpen(!pulldownOpen)}
         className={cn(
-          "transition-all pulldown__container   duration-500 absolute z-300 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-white ",
+          "bg-gradient-to-b from-gray-300 to-gray-500 transition-top pulldown__container   duration-600 absolute z-300 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-fiber-w ",
           !pulldownOpen ? "-top-100" : "top-0"
         )}
       >
+        <div className="absolute top-0 w-full h-full  bg-gradient-to-t from-gray-300/0 via-gray-500/0 to-gray-900 opacity-20 " />
         <PullDownItem
           title="Expedited Shipping"
           blurb="We have options to get your gear to you, when and where you need it."
@@ -73,13 +62,36 @@ export function Pulldown() {
           blurb="All our products come with a lifetime warranty.  If you find a defect we will replace it free of charge."
           url="/assets/gallery/promo/office_promo.webp"
         />
-        {/* <div className="absolute  right-2 top-10 ">
+        {/* <div className="absolute  right-2 top-10 "
           <CancelIcon />
         </div> */}
       </div>
     </div>
   );
 }
+
+const PullDownBar = ({
+  setPulldownOpen,
+}: {
+  setPulldownOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <div
+      onClick={() => {
+        setPulldownOpen((prev) => !prev);
+      }}
+      className="relative w-full h-8 justify-center bg-gray-darker flex items-center  px-4 z-1000 "
+    >
+      <div className="w-full no-select flex gap-[18px] justify-center items-center z-1000">
+        <ChevronDown />
+        <span className=" font-medium uppercase text-center text-sm ">
+          Shipping & Free Returns
+        </span>
+        <ChevronDown />
+      </div>
+    </div>
+  );
+};
 
 const PullDownItem = ({
   title,
@@ -90,10 +102,18 @@ const PullDownItem = ({
   blurb: string;
   url: string;
 }) => {
+  const Tiny = generateTinyUrl2(url);
   return (
     <div className="w-full flex flex-col items-center gap-2   text-center text-black font-bold">
-      <div className="w-30 h-30 relative rounded-lg overflow-hidden ">
-        <Image src={url} alt={title} fill className="object-cover no-select" />
+      <div className="border border-gray-light/50 w-30 h-30 relative rounded-full overflow-hidden  ">
+        <Image
+          src={url}
+          alt={title}
+          fill
+          className="object-cover no-select"
+          placeholder="blur"
+          blurDataURL={Tiny}
+        />
       </div>
       <h3 className="flex-wrap! text-wrap! ">{title}</h3>
       <p> {blurb}</p>

@@ -30,7 +30,10 @@
 .dropdown__image {
   display: block;
 }
-
+.dropdown__animated__container {
+  height: 200px;
+  @apply transition-all;
+}
 .dropdown__mobile__container > :first-child {
   /* padding: 40px 10px 20px 10px; */
 }
@@ -165,6 +168,9 @@
     flex-direction: column;
     height: 100%;
   }
+  .dropdown__animated__container {
+    height: 250px;
+  }
   .dropdown__sections {
     width: full;
     height: full;
@@ -210,7 +216,10 @@
   .dropdown__mobile__root {
     display: block;
   }
-
+  .dropdown__animated__container {
+    height: 0px;
+    @apply transition-none;
+  }
   .dropdown__container {
     display: none;
   }

@@ -117,6 +117,11 @@ h4 {
   background-size: 100px;
   background-repeat: repeat;
 }
+.bg-fiber-w {
+  background-image: url("/assets/gallery/bg/fibre_tex_titled_white.webp");
+  background-size: 100px;
+  background-repeat: repeat;
+}
 .bg-shoe-close {
   background-image: url("/assets/gallery/promo/shoebanner.webp");
   /* background-size: 100px; */
