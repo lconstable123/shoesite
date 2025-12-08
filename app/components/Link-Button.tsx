@@ -9,7 +9,7 @@ export const LinkButton = ({ text, id }: { text: string; id: string }) => {
   return (
     <Link
       // key={index}
-      className="list__item cursor-pointer button__state no-select mt-3 w-20"
+      className="list__item cursor-pointer button__state no-select mt-3 w-20 max-w-30 h-5! flex justify-center!"
       href={`/product/${id}${category ? `?category=${category}` : ""}`}
     >
       {/* <p className="no-select text-black">{productNamesFromId[item]}</p> */}

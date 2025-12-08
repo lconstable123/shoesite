@@ -23,6 +23,7 @@ export const PromoSegment = () => {
         {promoSegments.map((segment) => {
           const product = productsById[segment.id as tProductId];
           if (!product) return null;
+
           const productImageUrl: string =
             "/" +
             (chooseProductColorImageUrl(
@@ -31,13 +32,17 @@ export const PromoSegment = () => {
             ) || "");
 
           return (
-            <Promo key={segment.id} product={product} segment={segment}>
+            <PromoContainer
+              key={segment.id}
+              product={product}
+              segment={segment}
+            >
               <SegmentContent
                 productImageUrl={productImageUrl}
                 product={product}
                 segment={segment}
               />
-            </Promo>
+            </PromoContainer>
           );
         })}
       </div>
@@ -45,7 +50,7 @@ export const PromoSegment = () => {
   );
 };
 
-function Promo({
+function PromoContainer({
   product,
   segment,
   children,
@@ -95,11 +100,13 @@ function SegmentContent({
           productImageUrl={productImageUrl}
           id={product.id}
           isPrimary={true}
+          product={product}
         />
         <SegmentImage
           productImageUrl={"/" + segment.promoImageUrl}
           id={segment.id}
           isPrimary={false}
+          product={product}
         />
       </div>
       <SegmentText segment={segment} product={product} />
@@ -129,10 +136,12 @@ function SegmentImage({
   productImageUrl,
   id,
   isPrimary,
+  product,
 }: {
   productImageUrl: string;
   id: string;
   isPrimary: boolean;
+  product: tProduct;
 }) {
   const Tinykey = productImageUrl.split("/").pop()?.split(".")[0] || "";
   const Tiny = placeholders[Tinykey as keyof typeof placeholders] || "";
@@ -140,8 +149,9 @@ function SegmentImage({
     <div
       className={`promo__image  ${
         isPrimary ? "promo__image__primary" : "promo__image__secondary"
-      } relative flex w-130 h-full  aspectRatio: '1 / 1' `}
+      } relative flex w-130 border-1 border-neutral-700 h-full  aspectRatio: '1 / 1' `}
     >
+      {/* public\assets\gallery\street-masters\street-masters-shoe-red.webp */}
       <Image
         priority
         loading="eager"
@@ -152,7 +162,7 @@ function SegmentImage({
         placeholder="blur"
         blurDataURL={Tiny}
       />
-      {/* <p>{id}</p> */}
+      <p>{productImageUrl}</p>
       {/* <p>{productImageUrl}</p> */}
       {/* <p>{Tiny}</p> */}
     </div>
@@ -169,7 +179,7 @@ function SegmentText({
   // const searchParams = useSearchParams();
   // const category = searchParams.get("category");
   return (
-    <div className="relative h-full w-full min-w-90  flex flex-col items-start  justify-center gap-2 px-12 py-5  bg-black bg-fiber z-200   ">
+    <div className="relative border-3 border-neutral-700 h-full w-full min-w-90  flex flex-col items-start  justify-center gap-2 px-12 py-5  bg-black bg-fiber z-200   ">
       <h2 className="uppercase text-5xl! font-bold  ">{segment.title}</h2>
       <p className=" text-[8pt]! uppercase tracking-[3px]! opacity-95 ">
         {product.byline}
