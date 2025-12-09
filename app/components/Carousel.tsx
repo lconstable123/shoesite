@@ -21,6 +21,8 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
+import { HeartButton, SmallHeartButton } from "./ui/buttons";
 
 interface ProductCardProps {
   product: tProduct;
@@ -104,7 +106,7 @@ export default function Carousel({
   };
 
   return (
-    <div className="carousel__container__outer ">
+    <div className="carousel__container__outer  ">
       {!isMobile && (
         <CarouselNav
           direction="left"
@@ -113,7 +115,7 @@ export default function Carousel({
           handleSetPage={handleSetPage}
         />
       )}
-      <div className="carousel__container__inner  ">
+      <div className="carousel__container__inner   ">
         <CarouselHeader
           categories={carousels}
           selectedCategory={carouselCategory}
@@ -122,7 +124,7 @@ export default function Carousel({
           isSmall={width === "small"}
         />
 
-        <div className="carousel__items">
+        <div className="carousel__items ">
           {carouselFilled.map((product, index) =>
             product?.name ? (
               <ProductCard
@@ -250,7 +252,7 @@ const CarouselHeader = ({
 }) => {
   return (
     <div className="carousel__header__container ">
-      {textAbove && <h2 className=" ">{textAbove}</h2>}
+      {textAbove && <h2 className="carousel__header__title">{textAbove}</h2>}
       <nav className="carousel__header__nav">
         {categories.map((category, index) => {
           const isActive = category === selectedCategory;
@@ -291,19 +293,27 @@ function ProductCard({ product, index }: ProductCardProps) {
   const searchParams = useSearchParams();
   const id = product.id;
   const category = searchParams.get("category");
-
+  const { toggleLikeItem, likedItems } = useCheckoutContext();
+  const isLiked = likedItems.includes(product.id);
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0 }}
       transition={{ delay: index ? index * 0.05 : 0, duration: 0.2 }}
-      className=" relative flex flex-col  h-[247px] justify-start items-end w-[196px] "
+      className="group relative flex flex-col  h-[247px] justify-start items-end w-[196px] "
     >
       {/* Favorite button */}
-      {/* <div className="w-5 h-5 absolute top-2 right-2 z-20 ">
-        <HeartIcon filled={true} size={20} />
-      </div> */}
+      <div className="w-5 h-5 absolute top-2 right-2 z-20 ">
+        {/* <HeartIcon filled={true} size={20} /> */}
+        <SmallHeartButton
+          liked={isLiked}
+          toggle={() => {
+            // toast.success(product.id);
+            toggleLikeItem(product.id);
+          }}
+        />
+      </div>
 
       <Link
         href={`/product/${id}${category ? `?category=${category}` : ""}`}
@@ -313,7 +323,7 @@ function ProductCard({ product, index }: ProductCardProps) {
           src={url}
           alt={product.name}
           fill
-          className="transition-transform object-cover no-select hover:scale-105 "
+          className=" object-cover no-select hover:scale-105 "
           placeholder="blur"
           blurDataURL={Tiny}
         />
@@ -328,7 +338,7 @@ function ProductCard({ product, index }: ProductCardProps) {
 
 const ProductTextDetails = ({ product }: { product: tProduct }) => {
   return (
-    <div className="bg-white border h-full flex-1 min-h-px min-w-px w-full relative">
+    <div className="bg-white group-hover:bg-neutral-200 border h-full flex-1 min-h-px min-w-px w-full relative">
       {/* Product text */}
       <div className="absolute box-border flex flex-col font-inter font-normal items-start justify-center leading-normal left-1/2 max-h-[65.24px] max-w-[201px] px-2 py-0 text-xs top-[calc(50%+2.5px)] translate-x-[-50%] translate-y-[-50%] w-[200px]">
         <p className="font-inter text-text-hard">{product.name}</p>

@@ -65,7 +65,11 @@ export function HeartIcon({
     <img
       alt=""
       className={className || "block max-w-none size-full"}
-      src="/assets/icons/icon/heart-full.svg"
+      src={
+        filled
+          ? "/assets/icons/icon/heart-full-red.svg"
+          : "/assets/icons/icon/heart-full.svg"
+      }
       style={{ width: size, height: size }}
     />
   );
@@ -133,22 +137,53 @@ export function MenuIcon({ className, size = 45 }: IconProps) {
   );
 }
 
-export function BackIcon({ className, size = 45 }: IconProps) {
+export function BackIcon({
+  className,
+  size = 45,
+  white = false,
+}: IconProps & { white?: boolean }) {
   return (
     <img
       alt="back"
       className={className || "block max-w-none size-full"}
-      src="/assets/icons/icon/back.svg"
+      src={
+        white
+          ? "/assets/icons/icon/back-white.svg"
+          : "/assets/icons/icon/back.svg"
+      }
       style={{ width: size, height: size }}
     />
   );
 }
-export function CancelIcon({ className, size = 45 }: IconProps) {
+export function CancelIcon({
+  className,
+  size = 45,
+  white = false,
+  handle,
+}: IconProps & { white?: boolean; handle?: () => void }) {
   return (
     <img
+      onClick={handle}
       alt="back"
+      className={
+        className || "block max-w-none size-full cursor-pointer no-select"
+      }
+      src={
+        white
+          ? "/assets/icons/icon/cross-white.svg"
+          : "/assets/icons/icon/cross-black.svg"
+      }
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+export function LoadingIcon({ className, size = 45 }: IconProps) {
+  return (
+    <img
+      alt="loading"
       className={className || "block max-w-none size-full"}
-      src="/assets/icons/gridicons_cross.svg"
+      src="/assets/icons/icon/loading-ring.svg"
       style={{ width: size, height: size }}
     />
   );

@@ -188,7 +188,12 @@ export type tGarmentSizing = (typeof Sizing)[number];
 export type tProductSizingType = (typeof garmentTypes)[number];
 export type tShoeSizing = (typeof ShoeSizing)[number];
 export type colors = (typeof colors)[number];
-
+export type tCartItem = {
+  id: tProductId;
+  quantity: number;
+  color: colors;
+  size: tGarmentSizing | tShoeSizing;
+};
 export const productNamesFromId: Record<
   tProductId | tCollectionsId,
   tProductName

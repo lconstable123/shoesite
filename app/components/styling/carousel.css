@@ -54,6 +54,7 @@
 .carousel__header__container h2 {
   text-transform: uppercase;
   height: 40px;
+  text-align: left;
 }
 
 .carousel__header__nav {
@@ -90,7 +91,7 @@
 
   .carousel__items {
     display: grid;
-    width: 100%;
+    /* width: 100%; */
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -108,7 +109,9 @@
   }
   .carousel__card {
     width: auto;
-
-    /* height: 247px; */
   }
+  .carousel__header__container h2 {
+    text-align: center;
+  }
+  /* height: 247px; */
 }

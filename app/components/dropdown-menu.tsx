@@ -331,7 +331,7 @@ const DropdownRow = ({
       key={title}
       onClick={() => MenuClick()}
       className={cn(
-        "dropdown__mobile__row__container z-2 duration-100 delay-100 transition-opacity no-select ",
+        "dropdown__mobile__row__container duration-100 delay-100 transition-opacity no-select ",
         returning
           ? "flex-row-reverse! justify-end gap-x-5  bg-neutral-400/20"
           : "flex-row! justify-between"

@@ -12,24 +12,24 @@ export default function BodyScrollLock(
   // const dropdownOpen = params.get("dropdown");
 
   useEffect(() => {
-    if (dropdownOpen) {
+    if (dropdownOpen && isVisible) {
       // toast.success("lock");
       document.body.style.overflowY = "hidden";
     } else {
       // toast.success("unlock");
       document.body.style.overflowY = "";
     }
-  }, [dropdownOpen]);
+  }, [dropdownOpen, isVisible]);
 
-  useEffect(() => {
-    if (!isVisible) {
-      document.body.style.overflowY = "";
-    } else {
-      if (dropdownOpen) {
-        document.body.style.overflowY = "hidden";
-      }
-    }
-  }, [isVisible]);
+  // useEffect(() => {
+  //   if (!isVisible) {
+  //     document.body.style.overflowY = "";
+  //   } else {
+  //     if (dropdownOpen) {
+  //       document.body.style.overflowY = "hidden";
+  //     }
+  //   }
+  // }, [isVisible]);
 
   return null;
 }

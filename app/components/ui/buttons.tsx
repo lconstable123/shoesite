@@ -14,14 +14,21 @@ export const SearchButton = () => {
 export const BagButton = ({
   size,
   text,
+  handle,
 }: {
   size: "sm" | "lg";
   text?: string;
+  handle?: () => void;
 }) => {
   if (size === "lg") {
     return (
-      <button className="button__border button__bg__black cursor-pointer  flex-center gap-2   h-[35px] px-5  ">
-        <h3>{text || "Add To Bag"}</h3>
+      <button
+        onClick={handle}
+        className="button__border button__bg__black cursor-pointer  flex-center gap-2   h-[32px] px-4  "
+      >
+        <h3 className="font-bold uppercase tracking-widest">
+          {text || "Add To Bag"}
+        </h3>
         <BagIcon size={22} className="" />
       </button>
     );
@@ -35,17 +42,39 @@ export const BagButton = ({
   }
 };
 
-export const HeartButton = ({ liked }: { liked?: boolean }) => {
-  const [likedState, setLikedState] = useState(liked ?? false);
+export const HeartButton = ({
+  liked,
+  toggle,
+}: {
+  liked?: boolean;
+  toggle?: () => void;
+}) => {
+  // const [likedState, setLikedState] = useState(liked ?? false);
   return (
     <button
-      onClick={() => setLikedState(!likedState)}
+      onClick={toggle}
       className={cn(
-        "button__border flex-center h-[35px] px-5",
-        likedState ? "button__bg_red" : "button__bg__black"
+        "button__border flex-center h-[32px] px-4",
+        liked ? "button__bg_red" : "button__bg__black"
       )}
     >
       <HeartIcon size={22} />
+    </button>
+  );
+};
+export const SmallHeartButton = ({
+  liked,
+  toggle,
+  white = false,
+}: {
+  liked?: boolean;
+  toggle?: () => void;
+  white?: boolean;
+}) => {
+  // const [likedState, setLikedState] = useState(liked ?? false);
+  return (
+    <button onClick={toggle} className={cn("")}>
+      <HeartIcon size={20} filled={liked} />
     </button>
   );
 };

@@ -132,7 +132,7 @@ function DropdownBar({
           <a href="#" className="header__profile_right">
             <ProfileIcon size={32} className="size-9" />
           </a>
-          <a href="#" className="header__bag_right">
+          <a href="/checkout" className="header__bag_right">
             <BagIcon size={32} className="size-9" />
           </a>
         </HeaderItems>

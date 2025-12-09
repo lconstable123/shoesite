@@ -11,10 +11,8 @@ export function generateMetadata(): Metadata {
 
 export default function Home() {
   return (
-    <main className="bg-black flex flex-col justify-start   w-100%">
-      <Suspense fallback={<div>Loading search params…</div>}>
-        <HomePage />
-      </Suspense>
+    <main className="bg-black flex flex-col justify-start w-100%">
+      <HomePage />
     </main>
   );
 }

@@ -7,6 +7,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Pulldown } from "./components/Pulldown";
 import { Suspense } from "react";
+import { LoadingIcon } from "./components/Icons";
+import { CheckoutProvider } from "@/lib/contexts/use-checkout-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,20 +39,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Suspense fallback={<div>Loading search params…</div>}>
+      <Suspense fallback={<Loadingpage />}>
         <body
           // style={{ overflowY: "auto" }}
           className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased relative `}
         >
           <Toaster position="top-center" />
-          <Pulldown />
-          <Header isDropdownOpen={true} />
-
-          {children}
-          <Footer />
+          <CheckoutProvider>
+            <Pulldown />
+            <Header isDropdownOpen={true} />
+            {/* <Loadingpage /> */}
+            <div id="modal-root" />
+            {children}
+            <Footer />
+          </CheckoutProvider>
         </body>
       </Suspense>
     </html>
+  );
+}
+
+function Loadingpage() {
+  return (
+    <div className="w-full  h-150 flex items-center justify-center">
+      {/* Loading search params… */}
+      <div className="w-20 h-20  animate-spin flex justify-center items-center">
+        <LoadingIcon size={120} />
+      </div>
+    </div>
   );
 }
 

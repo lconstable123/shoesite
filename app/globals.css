@@ -172,7 +172,7 @@ h4 {
 
 .button__border {
   border-color: var(--color-neutral-500);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   border-style: var(--tw-border-style);
   border-width: 1px;
   color: var(--color-white);
@@ -238,4 +238,19 @@ h4 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+.my-select {
+  appearance: none;
+  -webkit-appearance: none; /* Chrome / Safari / modern browsers */
+  -moz-appearance: none; /* Firefox */
+  /* optionally, reset background, border, padding etc. */
+  background: transparent;
+  padding-right: 1.5em; /* leave space if you plan to add custom arrow */
+  /* other styling as needed */
+}
+
+/* For IE / older browsers — hide the expand arrow */
+.my-select::-ms-expand {
+  display: none;
 }
