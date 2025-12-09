@@ -6,6 +6,8 @@ import type {
   tCategory,
   tSubcategory,
   tCollectionsId,
+  tCarouselSegments,
+  tPromoCarouselSegments,
 } from "./types";
 
 export type tMenuCollection = Record<
@@ -22,6 +24,7 @@ export type tCollection = Record<
     items: tProductId[];
     splashImage?: string;
     byline?: string;
+    carousels?: tPromoCarouselSegments[];
   }
 >;
 
@@ -115,23 +118,27 @@ export const collectionById: tCollection = {
       "luxx-f-pants",
     ],
     splashImage: "assets/gallery/luxx/luxx-all-promo.webp",
+    carousels: ["Athletic", "Diverse"],
     byline:
       "Experience luxury in every step. The Luxx collection combines premium materials with cutting-edge design for the ultimate in comfort and style. ",
   },
   expresso: {
     items: ["expresso-shoe", "expresso-shirt", "expresso-pants"],
     splashImage: "assets/gallery/expresso/expresso-all-promo.webp",
+    carousels: ["Casual", "Fun"],
     byline:
       "Speed and Style. Fit in anywhere by fitting into the classic Expresso shoe, part of the Expresso collection.",
   },
   staples: {
     items: ["staples-tee", "staples-hoodie"],
+    carousels: ["Casual", "Fun"],
     splashImage: "assets/gallery/staples/staples-hoodie-promo.webp",
     byline:
       " The Staples collection. The top of the drawer. Everyday essentials redefined. ",
   },
   playtime: {
     items: ["playtime-shoe", "playtime-tee"],
+    carousels: ["Casual", "Fun"],
     splashImage: "assets/gallery/playtime/playtime-shoe-promo.webp",
     byline: " The Playtime collection. Everyday fun for the family.",
   },
@@ -141,11 +148,13 @@ export const collectionById: tCollection = {
       "street-masters-shirt",
       "street-masters-pants",
     ],
+    carousels: ["Casual", "Diverse"],
     splashImage: "assets/gallery/street-masters/street-masters-all-promo.webp",
     byline:
       "Navigate the concrete jungle with style and ease. The Street Masters collection.",
   },
   lazysunday: {
+    carousels: ["Casual", "Fun"],
     items: ["lazy-sunday-shoe", "lazy-sunday-shirt", "lazy-sunday-pants"],
 
     splashImage: "assets/gallery/lazy-sunday/lazy-sunday-shoe-promo.webp",
@@ -223,3 +232,107 @@ export const promoSegments: tPromoSegment[] = [
   //     "Lightweight and flexible training shoes perfect for a variety of workouts. The Slipstream shoes feature breathable uppers, cushioned midsoles, and durable outsoles to keep you comfortable and agile during your fitness routine.",
   // },
 ];
+
+export const carouselSegments: tCarouselSegments = {
+  Platinum: {
+    name: "Platinum",
+    items: [
+      "luxx-shoe",
+      "luxx-m-pants",
+      "luxx-m-shirt",
+      "luxx-f-shirt",
+      "expresso-shoe",
+      "expresso-pants",
+      "expresso-shirt",
+      "glider-shoe",
+      "vertigo-shoe",
+    ],
+  },
+  "New-Arrivals": {
+    name: "New Arrivals",
+    items: [
+      "street-masters-shoe",
+      "ronaldo-shoe",
+      "rodney-mullet-shoe",
+      "acc-cap",
+      "acc-sports-watch",
+      "ronaldo-shoe",
+      "bigshot-shoe",
+      "pele-x-shoe",
+    ],
+  },
+  Diverse: {
+    name: "Fit In",
+    items: [
+      "sweatlodge-shoe",
+      "street-masters-shoe",
+      "tawny-hawkmouth-shoe",
+      "playtime-shoe",
+      "neo-sherpa-shoe",
+      "glider-shoe",
+      "street-masters-shoe",
+      "luxx-shoe",
+    ],
+  },
+  "Best-Sellers": {
+    name: "Bestsellers",
+    items: [
+      "street-masters-shoe",
+      "luxx-shoe",
+      "glider-shoe",
+      "expresso-shoe",
+      "staples-hoodie",
+      "acc-water-bottle",
+      "acc-sports-watch",
+      "tawny-hawkmouth-shoe",
+    ],
+  },
+  Casual: {
+    name: "Casual",
+    items: [
+      "street-masters-shoe",
+      "lazy-sunday-shoe",
+      "lazy-sunday-pants",
+      "lazy-sunday-shirt",
+      "staples-hoodie",
+      "staples-tee",
+      "playtime-tee",
+      "playtime-shoe",
+      "neo-sherpa-shoe",
+      "tawny-hawkmouth-shoe",
+      "space-jammer-shoe",
+      "tawny-hawkmouth-shoe",
+    ],
+  },
+  Athletic: {
+    name: "Athletic",
+    items: [
+      "bigshot-shoe",
+      "cardiac-shoe",
+      "rock-solid-shoe",
+      "slipstream-shoe",
+      "vertigo-shoe",
+      "neo-sherpa-shoe",
+      "pele-x-shoe",
+      "ronaldo-shoe",
+      "sweatlodge-shoe",
+      "space-jammer-shoe",
+    ],
+  },
+  Fun: {
+    name: "Fun",
+    items: [
+      "playtime-shoe",
+      "playtime-tee",
+      "space-jammer-shoe",
+      "acc-smart-band",
+      "rodney-mullet-shoe",
+      "lazy-sunday-shoe",
+      "lazy-sunday-shirt",
+      "staples-tee",
+      "staples-hoodie",
+      "acc-cap",
+      "acc-smart-band",
+    ],
+  },
+};

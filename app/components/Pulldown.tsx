@@ -42,11 +42,11 @@ export function Pulldown() {
         ref={elmRef}
         onClick={() => setPulldownOpen(!pulldownOpen)}
         className={cn(
-          "bg-gradient-to-b from-gray-300 to-gray-500 transition-top pulldown__container   duration-600 absolute z-300 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-fiber-w ",
+          "  transition-top pulldown__container   duration-600 absolute  z-1000 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-fiber-w ",
           !pulldownOpen ? "-top-100" : "top-0"
         )}
       >
-        <div className="absolute top-0 w-full h-full  bg-gradient-to-t from-gray-300/0 via-gray-500/0 to-gray-900 opacity-20 " />
+        <div className="absolute top-0 w-full h-full  bg-gradient-to-t from-gray-300/0 via-gray-500/0 to-gray-900 opacity-20  z-500 " />
         <PullDownItem
           title="Expedited Shipping"
           blurb="We have options to get your gear to you, when and where you need it."
@@ -80,9 +80,9 @@ const PullDownBar = ({
       onClick={() => {
         setPulldownOpen((prev) => !prev);
       }}
-      className="relative w-full h-8 justify-center bg-gray-darker flex items-center  px-4 z-1000 "
+      className="cursor-pointer! relative w-full h-8 justify-center bg-gray-darker flex items-center  px-4 z-1200 "
     >
-      <div className="w-full no-select flex gap-[18px] justify-center items-center z-1000">
+      <div className="w-full no-select flex gap-[18px] justify-center items-center ">
         <ChevronDown />
         <span className=" font-medium uppercase text-center text-sm ">
           Shipping & Free Returns

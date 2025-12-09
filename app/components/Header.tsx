@@ -16,6 +16,7 @@ import { Categories, tCategory } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import useBodyScrollLock from "@/lib/hooks/useBodyScrollLock";
 import toast from "react-hot-toast";
+import { useScreenSizeShared } from "@/lib/useScreenSize";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -23,16 +24,21 @@ interface HeaderMenuProps {
 }
 
 export default function Header({}: HeaderMenuProps) {
-  useBodyScrollLock();
   const searchParams = useSearchParams();
   const selectedQueryCategory = searchParams.get("category") as tCategory;
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { isMobile } = useScreenSizeShared(
+    640, // small
+    768, // medium
+    1024 // large
+  );
+  useBodyScrollLock(dropdownOpen, isMobile);
   const [selectedCategory, setSelectedCategory] = useState<tCategory>(
     selectedQueryCategory || "lifestyle"
   );
 
   const toggleDropdown = () => {
-    toast.success("dropdown");
+    // toast.success("dropdown");
     setDropdownOpen(!dropdownOpen);
   };
   const handleOpenDropdown = () => {
@@ -43,7 +49,7 @@ export default function Header({}: HeaderMenuProps) {
     if (dropdownOpen === false) {
       // setDropdownOpen(true);
     }
-    toast.success(`dropdown: ${dropdownOpen}`);
+    // toast.success(`dropdown: ${dropdownOpen}`);
   }, [selectedCategory]);
 
   return (
@@ -61,6 +67,7 @@ export default function Header({}: HeaderMenuProps) {
         selectedCategory={selectedCategory}
         isOpen={dropdownOpen}
         setIsOpen={setDropdownOpen}
+        isMobile={isMobile}
       />
     </>
   );

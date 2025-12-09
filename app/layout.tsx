@@ -39,6 +39,7 @@ export default function RootLayout({
     <html lang="en">
       <Suspense fallback={<div>Loading search params…</div>}>
         <body
+          // style={{ overflowY: "auto" }}
           className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased relative `}
         >
           <Toaster position="top-center" />

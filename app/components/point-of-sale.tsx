@@ -17,15 +17,15 @@ export function PointOfSale({ promoData }: { promoData: tPromoData | null }) {
           breakpoints={breakpoints}
           breakpointDisplayAmounts={breakpointDisplayAmounts}
           mobile_displayAmount={3}
-          products={[]}
+          // carousels={[]}
         />
-        <Carousel
+        {/* <Carousel
           breakpoints={breakpoints}
           breakpointDisplayAmounts={breakpointDisplayAmounts}
           textAbove="Complete the look"
           mobile_displayAmount={3}
           products={[]}
-        />
+        /> */}
       </div>
     </section>
   );

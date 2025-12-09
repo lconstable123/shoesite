@@ -16,10 +16,15 @@ import "./styling/promo.css";
 import Link from "next/link";
 import { LinkButton } from "./Link-Button";
 // import { useSearchParams } from "next/navigation";
-
+const delay = 0.1;
 export const PromoSegment = () => {
   return (
-    <section className="w-full h-full  flex flex-col gap-4   ">
+    <section className="w-full h-full  flex flex-col    ">
+      {/* <div className="w-full flex justify-start items-center  my-2 ">
+        <h3 className="text-2xl font-light tracking-widest opacity-80 uppercase ">
+          Featured Collections
+        </h3>
+      </div> */}
       <div>
         {promoSegments.map((segment, index) => {
           const product = productsById[segment.id as tProductId];
@@ -65,15 +70,20 @@ function PromoContainer({
   index?: number;
 }) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: delay }}
+      // transition={{ duration: 0.5, delay: index ? index * 0.3 : 0 }}
       key={product.id}
       className={cn(
-        "border group transition-all duration-300 no-select border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
+        " group transition-all duration-300 no-select border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
         "promo__container__closed "
       )}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -150,7 +160,7 @@ function SegmentImage({
       opacity: 1,
       x: 0,
       transition: {
-        delay: i * 0.1,
+        delay: i * 0.1 + delay,
         duration: 0.5,
       },
     }),
@@ -199,7 +209,7 @@ function SegmentText({
       opacity: 1,
       x: 0,
       transition: {
-        delay: i * 0.1,
+        delay: i * 0.1 + delay,
         duration: 0.5,
       },
     }),
@@ -215,7 +225,7 @@ function SegmentText({
         transition={{ duration: 0.5 }}
       >
         <h2 className="uppercase text-5xl! font-bold  ">{segment.title}</h2>
-        <p className=" text-[8pt]! uppercase tracking-[3px]! opacity-95 ">
+        <p className=" text-[8pt]! uppercase tracking-[3px]! opacity-95 py-1 ">
           {product.byline}
         </p>
 

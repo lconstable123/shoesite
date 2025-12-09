@@ -127,6 +127,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/ronaldo/ronaldo-shoe-red.webp",
     greenImageUrl: "assets/gallery/ronaldo/ronaldo-shoe-green.webp",
     blackImageUrl: "assets/gallery/ronaldo/ronaldo-shoe-black.webp",
+    carousels: ["Athletic", "Best-Sellers", "New-Arrivals"],
   },
   {
     id: "pele-x-shoe",
@@ -146,6 +147,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/pele-x/peleX-red.webp",
     whiteImageUrl: "assets/gallery/pele-x/peleX-white.webp",
     blackImageUrl: "assets/gallery/pele-x/peleX-black.webp",
+    carousels: ["Athletic", "Best-Sellers", "New-Arrivals"],
   },
   {
     id: "space-jammer-shoe",
@@ -165,6 +167,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/space-jammer/space-jammer-red.webp",
     whiteImageUrl: "assets/gallery/space-jammer/space-jammer-white.webp",
     blueImageUrl: "assets/gallery/space-jammer/space-jammer-blue.webp",
+    carousels: ["Athletic", "Fun", "Best-Sellers"],
   },
   {
     id: "bigshot-shoe",
@@ -184,6 +187,7 @@ export const productData: tProduct[] = [
     whiteImageUrl: "assets/gallery/bigshot/bigshot-white.webp",
     pinkImageUrl: "assets/gallery/bigshot/bigshot-pink.webp",
     blackImageUrl: "assets/gallery/bigshot/bigshot-black.webp",
+    carousels: ["Athletic", "Best-Sellers", "New-Arrivals"],
   },
   {
     id: "rock-solid-shoe",
@@ -203,6 +207,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/rock-solid/rock-solid-red.webp",
     blueImageUrl: "assets/gallery/rock-solid/rock-solid-blue.webp",
     greenImageUrl: "assets/gallery/rock-solid/rock-solid-green.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "vertigo-shoe",
@@ -222,6 +227,7 @@ export const productData: tProduct[] = [
     pinkImageUrl: "assets/gallery/vertigo/vertigo-pink.webp",
     blueImageUrl: "assets/gallery/vertigo/vertigo-blue.webp",
     blackImageUrl: "assets/gallery/vertigo/vertigo-black.webp",
+    carousels: ["Athletic", "Diverse", "New-Arrivals"],
   },
   {
     id: "neo-sherpa-shoe",
@@ -240,6 +246,7 @@ export const productData: tProduct[] = [
     blackImageUrl: "assets/gallery/neo-sherpa/neo-sherpa-black.webp",
     greenImageUrl: "assets/gallery/neo-sherpa/neo-sherpa-green.webp",
     greyImageUrl: "assets/gallery/neo-sherpa/neo-sherpa-grey.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "cardiac-shoe",
@@ -261,6 +268,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/cardiac/cardiac-grey.webp",
     whiteImageUrl: "assets/gallery/cardiac/cardiac-white.webp",
     redImageUrl: "assets/gallery/cardiac/cardiac-red.webp",
+    carousels: ["Athletic", "New-Arrivals", "Best-Sellers"],
   },
   {
     id: "slipstream-shoe",
@@ -280,6 +288,7 @@ export const productData: tProduct[] = [
     blueImageUrl: "assets/gallery/slipstream/slipstream-blue.webp",
     blackImageUrl: "assets/gallery/slipstream/slipstream-black.webp",
     whiteImageUrl: "assets/gallery/slipstream/slipstream-white.webp",
+    carousels: ["Athletic", "Best-Sellers", "New-Arrivals"],
   },
   {
     id: "sweatlodge-shoe",
@@ -299,6 +308,7 @@ export const productData: tProduct[] = [
     greenImageUrl: "assets/gallery/sweatlodge/sweatlodge-green.webp",
     pinkImageUrl: "assets/gallery/sweatlodge/sweatlodge-pink.webp",
     redImageUrl: "assets/gallery/sweatlodge/sweatlodge-red.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "street-masters-shoe",
@@ -324,6 +334,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/street-masters/street-masters-shoe-red.webp",
     blackImageUrl:
       "assets/gallery/street-masters/street-masters-shoe-black.webp",
+    carousels: ["Casual", "Diverse", "Best-Sellers"],
   },
   {
     id: "street-masters-shirt",
@@ -350,6 +361,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/street-masters/street-masters-shirt-red.webp",
     blackImageUrl:
       "assets/gallery/street-masters/street-masters-shirt-black.webp",
+    carousels: ["Casual", "Diverse", "Best-Sellers"],
   },
   {
     id: "street-masters-pants",
@@ -376,6 +388,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/street-masters/street-masters-pants-red.webp",
     blackImageUrl:
       "assets/gallery/street-masters/street-masters-pants-black.webp",
+    carousels: ["Casual", "Diverse", "Best-Sellers"],
   },
   {
     id: "lazy-sunday-shoe",
@@ -398,6 +411,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shoe-red.webp",
     blackImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shoe-black.webp",
     blueImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shoe-blue.webp",
+    carousels: ["Casual", "Diverse", "Best-Sellers"],
   },
   {
     id: "lazy-sunday-shirt",
@@ -419,6 +433,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shirt-red.webp",
     blackImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shirt-black.webp",
     blueImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-shirt-blue.webp",
+    carousels: ["Casual", "Diverse", "Best-Sellers"],
   },
   {
     id: "lazy-sunday-pants",
@@ -441,6 +456,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-pants-red.webp",
     blackImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-pants-black.webp",
     blueImageUrl: "assets/gallery/lazy-sunday/lazy-sunday-pants-blue.webp",
+    carousels: ["Casual", "Diverse", "Best-Sellers"],
   },
   {
     id: "expresso-shoe",
@@ -460,6 +476,7 @@ export const productData: tProduct[] = [
     whiteImageUrl: "assets/gallery/expresso/expresso-shoe-white.webp",
     greyImageUrl: "assets/gallery/expresso/expresso-shoe-grey.webp",
     blackImageUrl: "assets/gallery/expresso/expresso-shoe-black.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "expresso-shirt",
@@ -479,6 +496,7 @@ export const productData: tProduct[] = [
     whiteImageUrl: "assets/gallery/expresso/expresso-shirt-white.webp",
     greyImageUrl: "assets/gallery/expresso/expresso-shirt-grey.webp",
     blackImageUrl: "assets/gallery/expresso/expresso-shirt-black.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "expresso-pants",
@@ -498,6 +516,7 @@ export const productData: tProduct[] = [
     whiteImageUrl: "assets/gallery/expresso/expresso-pants-white.webp",
     greyImageUrl: "assets/gallery/expresso/expresso-pants-grey.webp",
     blackImageUrl: "assets/gallery/expresso/expresso-pants-black.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "rodney-mullet-shoe",
@@ -518,6 +537,7 @@ export const productData: tProduct[] = [
     blackImageUrl: "assets/gallery/rodney-mullet/rodney-mullet-black.webp",
     pinkImageUrl: "assets/gallery/rodney-mullet/rodney-mullet-pink.webp",
     redImageUrl: "assets/gallery/rodney-mullet/rodney-mullet-red.webp",
+    carousels: ["New-Arrivals", "Athletic", "Best-Sellers"],
   },
   {
     id: "tawny-hawkmouth-shoe",
@@ -537,6 +557,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/tawny-hawkmouth/tawny-hawkmouth-grey.webp",
     greenImageUrl: "assets/gallery/tawny-hawkmouth/tawny-hawkmouth-green.webp",
     pinkImageUrl: "assets/gallery/tawny-hawkmouth/tawny-hawkmouth-pink.webp",
+    carousels: ["New-Arrivals", "Athletic", "Best-Sellers"],
   },
 
   {
@@ -556,6 +577,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/luxx/luxx-shoe-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-shoe-black.webp",
     whiteImageUrl: "assets/gallery/luxx/luxx-shoe-white.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
 
   {
@@ -576,6 +598,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/luxx/luxx-pants-m-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-pants-m-black.webp",
     whiteImageUrl: "assets/gallery/luxx/luxx-pants-m-white.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "luxx-f-pants",
@@ -595,6 +618,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/luxx/luxx-pants-f-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-pants-f-black.webp",
     whiteImageUrl: "assets/gallery/luxx/luxx-pants-f-white.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "luxx-f-shirt",
@@ -614,6 +638,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/luxx/luxx-shirt-f-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-shirt-f-black.webp",
     whiteImageUrl: "assets/gallery/luxx/luxx-shirt-f-white.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "luxx-m-shirt",
@@ -633,6 +658,7 @@ export const productData: tProduct[] = [
     greyImageUrl: "assets/gallery/luxx/luxx-shirt-m-grey.webp",
     blackImageUrl: "assets/gallery/luxx/luxx-shirt-m-black.webp",
     whiteImageUrl: "assets/gallery/luxx/luxx-shirt-m-white.webp",
+    carousels: ["New-Arrivals", "Platinum", "Diverse"],
   },
   {
     id: "glider-shoe",
@@ -650,6 +676,7 @@ export const productData: tProduct[] = [
     promoImageUrl: "assets/gallery/glider/glider-all-promo.webp",
     blackImageUrl: "assets/gallery/glider/glider-black.webp",
     whiteImageUrl: "assets/gallery/glider/glider-white.webp",
+    carousels: ["Athletic", "Diverse", "New-Arrivals"],
   },
   {
     id: "staples-hoodie",
@@ -671,6 +698,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/staples/staples-hoodie-red.webp",
     greyImageUrl: "assets/gallery/staples/staples-hoodie-grey.webp",
     blueImageUrl: "assets/gallery/staples/staples-hoodie-blue.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "staples-tee",
@@ -692,6 +720,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/staples/staples-tee-red.webp",
     greyImageUrl: "assets/gallery/staples/staples-tee-grey.webp",
     blueImageUrl: "assets/gallery/staples/staples-tee-blue.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "playtime-tee",
@@ -711,6 +740,7 @@ export const productData: tProduct[] = [
     yellowImageUrl: "assets/gallery/playtime/playtime-shirt-yellow.webp",
     greenImageUrl: "assets/gallery/playtime/playtime-shirt-green.webp",
     blueImageUrl: "assets/gallery/playtime/playtime-shirt-blue.webp",
+    carousels: ["Casual", "Fun", "Diverse"],
   },
   {
     id: "playtime-shoe",
@@ -730,6 +760,7 @@ export const productData: tProduct[] = [
     redImageUrl: "assets/gallery/playtime/playtime-shoe-red.webp",
     greenImageUrl: "assets/gallery/playtime/playtime-shoe-green.webp",
     blueImageUrl: "assets/gallery/playtime/playtime-shoe-blue.webp",
+    carousels: ["Fun", "Diverse", "Best-Sellers"],
   },
   {
     id: "acc-sports-watch",
@@ -749,6 +780,7 @@ export const productData: tProduct[] = [
     blackImageUrl: "assets/gallery/accessories/acc-watch-black.webp",
     blueImageUrl: "assets/gallery/accessories/acc-watch-blue.webp",
     greenImageUrl: "assets/gallery/accessories/acc-watch-green.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "acc-cap",
@@ -766,6 +798,7 @@ export const productData: tProduct[] = [
     promoImageUrl: "assets/gallery/accessories/acc_cap_promo.webp",
     blackImageUrl: "assets/gallery/accessories/acc-cap-black.webp",
     greenImageUrl: "assets/gallery/accessories/acc-cap-green.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "acc-smart-band",
@@ -782,6 +815,7 @@ export const productData: tProduct[] = [
     primaryImageUrlColor: "green",
     promoImageUrl: "assets/gallery/accessories/acc_smart-band_promo.webp",
     greenImageUrl: "assets/gallery/accessories/acc-wristband.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
   {
     id: "acc-water-bottle",
@@ -797,6 +831,7 @@ export const productData: tProduct[] = [
     primaryImageUrlColor: "black",
     promoImageUrl: "assets/gallery/accessories/acc_water_bottle_promo.webp",
     blackImageUrl: "assets/gallery/accessories/acc-water-bottle.webp",
+    carousels: ["Athletic", "Diverse", "Best-Sellers"],
   },
 ] as const;
 

@@ -151,6 +151,31 @@ export const garmentTypes = [
   "accessory",
   "shoe",
 ] as const;
+
+export const PromoCarouselSegments = [
+  "Platinum",
+  "New-Arrivals",
+  "Best-Sellers",
+  "Diverse",
+  "Casual",
+  "Athletic",
+  "Fun",
+  // "Luxx",
+  // "Expresso",
+  // "Staples",
+  // "Playtime",
+  // "Street-Masters",
+  // "Lazy-Sunday",
+] as const;
+
+export type tCarouselSegments = Record<
+  tPromoCarouselSegments,
+  {
+    name: string;
+    items: tProductId[];
+  }
+>;
+export type tPromoCarouselSegments = (typeof PromoCarouselSegments)[number];
 export type tCategory = (typeof Categories)[number];
 export type tProductId = (typeof productKeys)[number];
 export type tCollectionsId = (typeof Collections)[number];
@@ -240,6 +265,7 @@ export type tProduct = {
   pinkImageUrl?: string;
   yellowImageUrl?: string;
   colors: colors[];
+  carousels?: tPromoCarouselSegments[];
 };
 
 export interface MenuCategory {

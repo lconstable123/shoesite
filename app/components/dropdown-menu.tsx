@@ -23,16 +23,19 @@ import {
 } from "@/lib/utils";
 import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { RedDivider } from "./RedDivider";
 type tMenuDepth = "main" | "submenu" | "range";
 
 export function DropdownMenu({
   selectedCategory,
   isOpen,
   setIsOpen,
+  isMobile,
 }: {
   selectedCategory: tCategory;
   isOpen: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  isMobile?: boolean;
 }) {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
@@ -40,22 +43,17 @@ export function DropdownMenu({
   return (
     <>
       {/* {category && ( */}
-      <div
-        className={`transition-all duration-500 relative w-full z-2 ${
-          isOpen ? "dropdown__animated__container " : "h-0"
-        }  `}
-      >
-        <div
-          className={cn(
-            "transition-all duration-500 w-full  absolute z-0",
-            isOpen ? "translate-y-0" : "-translate-y-full"
-          )}
-        >
+
+      <div className={cn("transition-all duration-500 w-full z-0 ")}>
+        {isOpen && (
           <DropDownDesktopContainer selectedCategory={selectedCategory} />
-        </div>
+        )}
       </div>
+
       {/* )} */}
-      <DropDownMobileContainer isOpen={isOpen} setIsOpen={setIsOpen} />
+      {isMobile && (
+        <DropDownMobileContainer isOpen={isOpen} setIsOpen={setIsOpen} />
+      )}
     </>
   );
 }
@@ -111,6 +109,7 @@ const DropDownMobileContainer = ({
         )}
       >
         <nav className="dropdown__mobile__container  cursor-pointer relative z-900 ">
+          <RedDivider />
           {Categories.map((menucategory) => (
             <DropdownRow
               key={menucategory}
@@ -229,12 +228,16 @@ const DropDownDesktopContainer = ({
   const Tiny = generateTinyUrl2(selectedCategoryData?.splashImage || "");
 
   return (
-    <section className="dropdown__container    ">
+    <section className="dropdown__container bg-fiber-w relative      ">
+      <div className="absolute top-0 left-0 w-full z-100 ">
+        <RedDivider />
+      </div>
       <div className="w-full h-full flex flex-row">
         <DropdownImage
           image={selectedCategoryData?.splashImage || ""}
           thumb={Tiny || ""}
         />
+
         <nav className="dropdown__sections  ">
           {Object.entries(selectedSubcategories).map((subcategory) => (
             <DropdownColumn
@@ -328,7 +331,7 @@ const DropdownRow = ({
       key={title}
       onClick={() => MenuClick()}
       className={cn(
-        "dropdown__mobile__row__container duration-100 delay-100 transition-opacity no-select ",
+        "dropdown__mobile__row__container z-2 duration-100 delay-100 transition-opacity no-select ",
         returning
           ? "flex-row-reverse! justify-end gap-x-5  bg-neutral-400/20"
           : "flex-row! justify-between"
