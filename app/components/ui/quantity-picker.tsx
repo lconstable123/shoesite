@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "../Icons";
+import toast from "react-hot-toast";
 const quantities = Array.from({ length: 10 }, (_, i) => i + 1);
 export function QuantityPicker({
   quantity,
@@ -10,9 +11,10 @@ export function QuantityPicker({
   quantity?: number;
   setQuantity?: (qty: number) => void;
 }) {
-  // const [quantity, setQuantity] = useState(1);
   return (
-    <div className="relative  gap-2 button__border cursor-pointer bg-black   w-12 h-7 flex items-center  justify-between  ">
+    <div
+      className={`relative  gap-2 button__border cursor-pointer bg-black   w-12 h-7 flex items-center  justify-between `}
+    >
       <select
         value={quantity}
         onChange={(e) => setQuantity && setQuantity(Number(e.target.value))}

@@ -299,3 +299,11 @@ export type tPromoData = {
   promoUrl: string | null;
   promoByline: string | null;
 };
+
+export type billItem = {
+  id: tProductId;
+  name: string;
+  price: number;
+  quantity: number;
+  subtotal: number;
+};

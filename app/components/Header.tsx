@@ -13,10 +13,17 @@ import { DropdownMenu } from "./dropdown-menu";
 import { SearchBar } from "./ui/search-bar";
 import "./styling/header.css";
 import { Categories, tCategory } from "@/lib/types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, useParams } from "next/navigation";
 import useBodyScrollLock from "@/lib/hooks/useBodyScrollLock";
 import toast from "react-hot-toast";
 import { useScreenSizeShared } from "@/lib/useScreenSize";
+import {
+  HelpModal,
+  OrderTrackerModal,
+  RefundModal,
+  StoreModal,
+  SustainabilityModal,
+} from "./Modals";
 
 interface HeaderMenuProps {
   isDropdownOpen?: boolean;
@@ -25,6 +32,7 @@ interface HeaderMenuProps {
 
 export default function Header({}: HeaderMenuProps) {
   const searchParams = useSearchParams();
+
   const selectedQueryCategory = searchParams.get("category") as tCategory;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isMobile } = useScreenSizeShared(
@@ -54,6 +62,11 @@ export default function Header({}: HeaderMenuProps) {
 
   return (
     <>
+      <StoreModal />
+      <OrderTrackerModal />
+      <HelpModal />
+      <RefundModal />
+      <SustainabilityModal />
       <div className="flex flex-col items-start w-full h-full relative z-10  ">
         <DropdownBar
           handleToggleDropdown={toggleDropdown}
@@ -126,12 +139,12 @@ function DropdownBar({
 
         <HeaderItems>
           <SearchBar />
-          <a href="#" className="header__heart_right">
+          <a href="/favourites" className="header__heart_right">
             <HeartIcon size={30} className="size-8" />
           </a>
-          <a href="#" className="header__profile_right">
+          {/* <a href="#" className="header__profile_right">
             <ProfileIcon size={32} className="size-9" />
-          </a>
+          </a> */}
           <a href="/checkout" className="header__bag_right">
             <BagIcon size={32} className="size-9" />
           </a>

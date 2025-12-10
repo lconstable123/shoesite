@@ -17,7 +17,7 @@ import { BagButton, HeartButton } from "./ui/buttons";
 import "@/app/components/styling/checkout.css";
 import placeholders from "@/public/assets/gallery/placeholders.json";
 import { chooseProductColorImageUrl, generateTinyUrl2 } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
 import { toast } from "react-hot-toast";
 import Modal from "./modal";
@@ -54,13 +54,6 @@ const ProductContainer = ({
     tGarmentSizing | tShoeSizing | null
   >(null);
 
-  // const {
-  //   checkoutImage,
-  //   // color,
-  //   // quantity,
-  //   handleColourClick,
-  //   handleQuantityChange,
-  // } = useCheckout(product, rangeId, router, searchParams);
   const checkoutImage: string =
     "/" + (chooseProductColorImageUrl(product, colour) || "");
 
@@ -111,6 +104,29 @@ const ProductDetails = ({
   const { likedItems, toggleLikeItem, addToCart } = useCheckoutContext();
   const isLiked = likedItems.includes(product.id);
   const [modalOpen, setModalOpen] = useState(false);
+  const [sizeError, setSizeError] = useState(false);
+
+  const handleAddtoBag = () => {
+    if (selectedSize === null) {
+      setSizeError(true);
+      // toast.error("Please select a size");
+      return;
+    }
+    addToCart({
+      id: product.id,
+      quantity,
+      color,
+      size: selectedSize || "M",
+    });
+    setModalOpen(true);
+  };
+
+  useEffect(() => {
+    if (sizeError && selectedSize) {
+      setSizeError(false);
+    }
+  }, [selectedSize]);
+
   return (
     <>
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
@@ -121,35 +137,38 @@ const ProductDetails = ({
           </div>
           <p className="capitalize font-bold!">{product.name}</p>
           <div className="flex flex-row items-start gap-2">
-            {product.discountPrice && (
-              <p className="font-bold!  text-red strikethrough">
-                ${product.discountPrice}
-              </p>
+            {product.discountPrice ? (
+              <>
+                <p className="font-bold! ">${product.discountPrice}</p>
+                <p className="ml-auto font-bold! text-discount ">
+                  ${product.price}
+                </p>
+              </>
+            ) : (
+              <p className="ml-auto font-bold! ">${product.price}</p>
             )}
-            <p className="ml-auto font-bold! ">${product.price}</p>
           </div>
           <p className="capitalize">Colour: {color}</p>
-          <p className="capitalize">Size: {selectedSize} </p>
-          <p className="capitalize">Quantity: {quantity} </p>
+          <p className="capitalize">Size: {selectedSize || "M"} </p>
+          {/* <p className="capitalize">Quantity: {quantity} </p> */}
         </div>
 
         <Register
+          titleText="Your Bag"
+          // showAmt={true}
+          buttonText="Checkout"
+          clickthrough="/checkout"
           cartItems={[
             { id: product.id, quantity, color, size: selectedSize || "M" },
           ]}
         />
-        <a href="/checkout" className="  flex justify-end mt-5">
-          <BagButton size="lg" text="checkout" />
-        </a>
-
-        {/* <button onClick={() => setModalOpen(false)}>Close</button> */}
       </Modal>
       <div className="flex flex-col  gap-4 py-10  w-auto px-10  ">
         <h2 className=" border-b border-white">{product.name}</h2>
         {product.discountPrice ? (
           <div className="flex gap-[11px]">
-            <h4 className="">${product.discountPrice}</h4>
             <h4 className="text-discount">${product.price}</h4>
+            <h4 className="">${product.discountPrice}</h4>
           </div>
         ) : (
           <h4 className="">${product.price}</h4>
@@ -161,6 +180,7 @@ const ProductDetails = ({
             type={product.garmentType}
             selectedSize={selectedSize}
             setSelectedSize={setSelectedSize}
+            sizeError={sizeError}
           />
         )}
         <div className="flex gap-[22px]">
@@ -175,19 +195,7 @@ const ProductDetails = ({
           />
         </div>
         <div className="flex gap-2   ">
-          <BagButton
-            size="lg"
-            text="Add To Bag"
-            handle={() => {
-              addToCart({
-                id: product.id,
-                quantity,
-                color,
-                size: selectedSize || "M",
-              });
-              setModalOpen(true);
-            }}
-          />
+          <BagButton size="lg" text="Add To Bag" handle={handleAddtoBag} />
           <HeartButton
             liked={isLiked}
             toggle={() => {

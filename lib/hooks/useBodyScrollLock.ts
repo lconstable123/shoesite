@@ -14,6 +14,7 @@ export default function BodyScrollLock(
   useEffect(() => {
     if (dropdownOpen && isVisible) {
       // toast.success("lock");
+      window.scrollTo(0, 0);
       document.body.style.overflowY = "hidden";
     } else {
       // toast.success("unlock");

@@ -38,15 +38,17 @@ function BannerImage() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
-      className=" h-65  relative   w-full no-select  "
+      className=" h-40  relative overflow-hidden     w-full no-select  "
     >
       <Image
         src={image}
         priority
         loading="eager"
         alt="Banner"
-        fill
-        className="object-cover  no-select"
+        // fillhow
+        width={2000}
+        height={40000}
+        className="absolute w-full h-70 object-cover -top-16 overflow-hidden  no-select"
         placeholder="blur"
         blurDataURL={Tiny}
       />

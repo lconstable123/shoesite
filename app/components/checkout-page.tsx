@@ -1,5 +1,11 @@
 "use client";
-import { tCartItem, tProduct, tProductId } from "@/lib/types";
+import {
+  billItem,
+  tCartItem,
+  tCollectionsId,
+  tProduct,
+  tProductId,
+} from "@/lib/types";
 import { BagButton } from "./ui/buttons";
 import { productsById } from "@/lib/product-data";
 
@@ -11,6 +17,11 @@ import { CancelIcon } from "./Icons";
 import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import {
+  calculateDeliveryCost,
+  calculateTotalFromBill,
+  generateBillfromCart,
+} from "@/lib/register-functions";
 
 export const Bag = () => {
   return (
@@ -35,40 +46,56 @@ const BagContainer = () => {
   const { cartItems, likedItems } = useCheckoutContext();
 
   return (
-    <div className=" flex flex-col sm:flex-row gap-10 sm:gap-5 lg:gap-20 w-auto    ">
-      <div className="flex flex-col items-center sm:items-start justify-center sm:justify-start gap-5  min-w-auto lg:min-w-96 ">
-        <h2 className="text-2xl font-bold! uppercase!">Checkout</h2>
+    <BagAndRegisterContainer>
+      <BagSection>
         {cartItems.length === 0 ? (
-          <div className="w-80 lg:w-100 h-20 flex justify-center items-center ">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.1, delay: 0.25 }}
-              className=" text-md!"
-            >
-              Your bag is empty.
-            </motion.p>
-          </div>
+          <EmptyBag />
         ) : (
           <BagItemList cartItems={cartItems} />
-          //   <></>
         )}
-      </div>
+      </BagSection>
 
-      <div>
-        <Register cartItems={cartItems} />
-        <div className="w-full flex justify-end mt-5">
+      <div className="w-full flex flex-col items-center justify-center  ">
+        <Register
+          cartItems={cartItems}
+          titleText="Order Summary"
+          buttonText="Payment"
+          clickthrough="/checkout"
+        />
+        {/* <div className="w-full flex justify-end mt-5">
           <BagButton size="lg" text="Pay" />
-        </div>
+        </div> */}
       </div>
+    </BagAndRegisterContainer>
+  );
+};
+
+const BagAndRegisterContainer = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return (
+    <div className=" flex flex-col items-center sm:flex-row sm:items-start gap-10 sm:gap-5 lg:gap-20 w-auto   ">
+      {children}
     </div>
   );
 };
 
-const BagItemList = ({ cartItems }: { cartItems: tCartItem[] }) => {
+export const BagSection = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className=" flex flex-col items-center gap-2 w-full sm:w-80 lg:w-100  h-full">
-      <p>{cartItems.length} items</p>
+    <div className="flex   flex-col items-center sm:items-start justify-center sm:justify-start gap-5  min-w-auto lg:min-w-96 ">
+      <h2 className="text-2xl font-bold! uppercase!">Checkout</h2>
+      {children}
+    </div>
+  );
+};
+
+export const BagItemList = ({ cartItems }: { cartItems: tCartItem[] }) => {
+  const amount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  return (
+    <section className=" flex flex-col items-start gap-2 w-full sm:w-80 lg:w-100  h-full">
+      <p>{amount} products</p>
       {cartItems.map((cartItem, index) => {
         const item = productsById[cartItem.id] as tProduct;
         if (!item || !item.id || !item) return;
@@ -85,7 +112,26 @@ const BagItemList = ({ cartItems }: { cartItems: tCartItem[] }) => {
   );
 };
 
-const BagItem = ({
+export const EmptyBag = ({
+  text = "Your bag is empty.",
+}: {
+  text?: string;
+}) => {
+  return (
+    <div className="w-80 lg:w-100 h-20 flex justify-center items-center ">
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.1, delay: 0.25 }}
+        className=" text-md!"
+      >
+        {text}
+      </motion.p>
+    </div>
+  );
+};
+
+export const BagItem = ({
   index,
   cartItem,
   item,
@@ -101,12 +147,12 @@ const BagItem = ({
       initial={{ opacity: 0, x: -5 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-black no-select flex tracking-wide flex-row justify-between text-white! border rounded-lg overflow-hidden w-full h-17  "
+      className="bg-black no-select flex tracking-wide flex-row justify-between text-white! border border-gray-mid rounded-lg overflow-hidden w-full h-17  "
     >
       <div className="bg-red-500 w-30 h-full relative">
         <CatalogueImage item={item} color={cartItem.color} />
       </div>
-      <div className="w-full h-full flex flex-col justify-between  px-2 py-1">
+      <div className="w-full h-full flex flex-col justify-between px-2 py-1">
         <div className="flex flex-row justify-between gap-2 ">
           <p className="font-bold!">{item.name}</p>
           <div className="flex flex-row items-end gap-2">
@@ -123,7 +169,7 @@ const BagItem = ({
           <p className="capitalize">Size: {cartItem.size} </p>
         </div>
       </div>
-      <div className="flex flex-col justify-between items-end   w-20 py-1 pr-1 h-full">
+      <div className="flex flex-col justify-between items-end w-20 py-1 pr-1 h-full">
         <CancelIcon
           size={20}
           white={true}
@@ -143,40 +189,42 @@ const BagItem = ({
   );
 };
 
-export const Register = ({ cartItems }: { cartItems: tCartItem[] }) => {
-  const amt = cartItems.length;
-
-  const calculateDeliveryCost = (numItems: number): number => {
-    if (numItems === 0) return 0;
-    if (numItems < 2) return 20;
-    if (numItems >= 2) return 100;
-    return 0;
-  };
+export const Register = ({
+  cartItems,
+  showAmt = false,
+  titleText = "Order Summary",
+  buttonText = "Checkout",
+  clickthrough = "/",
+}: {
+  cartItems: tCartItem[];
+  showAmt?: boolean;
+  titleText?: string;
+  buttonText?: string;
+  clickthrough?: string;
+}) => {
+  const bill = generateBillfromCart(cartItems);
+  const totalPrice = calculateTotalFromBill(bill, "subtotal");
+  const amt = calculateTotalFromBill(bill, "quantity");
   const deliveryCost = calculateDeliveryCost(amt);
 
-  const total =
-    cartItems
-      .map((cartItem) => {
-        const item = productsById[cartItem.id] as tProduct;
-        if (!cartItem.id || !item) return 0;
-        return item.price;
-      })
-      .reduce((a, b) => a + b, 0) + deliveryCost;
   return (
-    <section className="flex flex-col items-end gap-2 w-auto sm:w-60">
-      <h3 className="text-white text-2xl mb-4 font-bold">Order Summary</h3>
+    <section className=" flex flex-col gap-2 w-full max-w-60 sm:w-60 ">
+      <h3 className="text-white text-2xl mb-3 font-bold">{titleText}</h3>
       <div className="flex flex-col gap-1 w-full">
-        <p className="mb-2">
-          {cartItems.length} Item{cartItems.length !== 1 ? "s" : ""}
-        </p>
-        {cartItems.map((cartItem) => {
-          const item = productsById[cartItem.id] as tProduct;
-          if (!cartItem.id || !item) return;
+        {showAmt && (
+          <p className="mb-2">
+            {amt} Item{amt !== 1 ? "s" : ""}
+          </p>
+        )}
+        {bill.map((billItem) => {
+          const item = productsById[billItem.id] as tProduct;
+          if (!billItem.id || !item) return;
           return (
             <RegisterItem
-              key={cartItem.id}
-              label={item.name}
-              amount={item.price}
+              key={billItem.id}
+              label={billItem.name}
+              qty={billItem.quantity}
+              amount={billItem.subtotal}
             />
           );
         })}
@@ -184,8 +232,11 @@ export const Register = ({ cartItems }: { cartItems: tCartItem[] }) => {
           <RegisterItem label="Delivery cost " amount={deliveryCost} />
         </div>
         <hr />
-        <RegisterItem label="Total" amount={total} total={true} />
+        <RegisterItem label="Total" amount={totalPrice} total={true} />
       </div>
+      <a href={clickthrough} className="w-full flex justify-end mt-5">
+        <BagButton size="lg" text={buttonText} />
+      </a>
     </section>
   );
 };
@@ -194,14 +245,19 @@ const RegisterItem = ({
   label,
   amount,
   total,
+  qty,
 }: {
   label: string;
   amount: number;
   total?: boolean;
+  qty?: number;
 }) => {
   return (
     <div className="flex flex-row justify-between">
-      <p className={total ? "font-bold! uppercase!" : ""}>{label}</p>
+      <p className={total ? "font-bold! uppercase!" : ""}>
+        {label}
+        {qty && qty > 1 ? ` x ${qty}` : ""}
+      </p>
       <p className="font-bold!">${amount}</p>
     </div>
   );

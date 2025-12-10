@@ -15,6 +15,7 @@ import "./styling/promo.css";
 // import { useState } from "react";
 import Link from "next/link";
 import { LinkButton } from "./Link-Button";
+import { useSearchParams } from "next/navigation";
 // import { useSearchParams } from "next/navigation";
 const delay = 0.1;
 export const PromoSegment = () => {
@@ -78,7 +79,7 @@ function PromoContainer({
       // transition={{ duration: 0.5, delay: index ? index * 0.3 : 0 }}
       key={product.id}
       className={cn(
-        " group transition-all duration-300 no-select border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
+        " group transition-all duration-300 no-select border border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
         "promo__container__closed "
       )}
     >
@@ -98,9 +99,17 @@ function SegmentContent({
   segment: tPromoSegment;
   index?: number;
 }) {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+
   return (
     <>
-      <div className="promo__primaryImages flex flex-row h-full w-auto">
+      <a
+        href={`/product/${product.id}${
+          category ? `?category=${category}` : ""
+        }`}
+        className="promo__primaryImages flex flex-row h-full   w-auto"
+      >
         <SegmentImage
           productImageUrl={productImageUrl}
           id={product.id}
@@ -115,7 +124,7 @@ function SegmentContent({
           product={product}
           index={index}
         />
-      </div>
+      </a>
       <SegmentText segment={segment} product={product} />
 
       {/* <div className="promo__secondaryImage overflow-hidden  relative w-full h-full ">
@@ -172,22 +181,25 @@ function SegmentImage({
       animate="visible"
       custom={index}
       variants={animVariants}
-      className={`promo__image  ${
-        isPrimary ? "promo__image__primary" : "promo__image__secondary"
-      } relative flex w-130 border-l border-r border-gray-light h-full  aspectRatio: '1 / 1' `}
+      className={`promo__image relative overflow-hidden w-100 h-240  ${
+        isPrimary
+          ? "promo__image__primary bg-red-500  overflow-hidden"
+          : "promo__image__secondary "
+      } flex  border-l border-r border-gray-light h-full   `}
     >
-      {/* public\assets\gallery\street-masters\street-masters-shoe-red.webp */}
       <Image
         priority
         loading="eager"
         src={productImageUrl}
         alt={id}
-        fill
-        className="object-cover no-select"
+        // fill
+        width={800}
+        height={600}
+        className="object-cover absolute w-full h-100 -translate-y-26    overflow-hidden  no-select "
         placeholder="blur"
         blurDataURL={Tiny}
       />
-      <p>{productImageUrl}</p>
+      {/* <p>{productImageUrl}</p> */}
       {/* <p>{productImageUrl}</p> */}
       {/* <p>{Tiny}</p> */}
     </motion.div>

@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { CancelIcon } from "./Icons";
+import { motion } from "framer-motion";
 
 type ModalProps = {
   isOpen: boolean;
@@ -14,7 +15,10 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen || typeof document === "undefined") return null;
 
   return createPortal(
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/60 bg-opacity-50 flex items-center justify-center z-[9999]"
       onClick={onClose} // closes when clicking backdrop
     >
@@ -30,7 +34,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
         />
         {children}
       </div>
-    </div>,
+    </motion.div>,
     document.getElementById("modal-root")!
   );
 }

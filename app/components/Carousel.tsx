@@ -349,12 +349,16 @@ const ProductTextDetails = ({ product }: { product: tProduct }) => {
 
       {/* Price */}
       <div className="absolute flex font-inter font-semibold gap-1 items-center leading-normal left-[7px] text-xs top-[8.5px]">
-        <p className="font-inter text-black">${product.price}</p>
         {product.discountPrice && (
-          <p className="font-inter line-through text-bg-red">
-            ${product.discountPrice}
-          </p>
+          <p className="font-inter text-black  ">${product.discountPrice}</p>
         )}
+        <p
+          className={`font-inter text-black ${
+            product.discountPrice ? "line-through text-red" : "text-black"
+          }`}
+        >
+          ${product.price}
+        </p>
       </div>
 
       {/* Color picker */}

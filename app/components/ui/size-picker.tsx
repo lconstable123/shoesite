@@ -15,10 +15,12 @@ export function SizePicker({
   type,
   selectedSize,
   setSelectedSize,
+  sizeError,
 }: {
   type: tProductSizingType;
   selectedSize: tGarmentSizing | tShoeSizing | null;
   setSelectedSize: (size: tGarmentSizing | tShoeSizing | null) => void;
+  sizeError?: boolean;
 }) {
   const handleSizeClick = (size: tGarmentSizing | tShoeSizing) => {
     if (selectedSize === size) {
@@ -31,7 +33,7 @@ export function SizePicker({
     return (
       <>
         {/* <h1>{type}</h1> */}
-        <div className="grid grid-cols-3 gap-[6pt]">
+        <div className="relative grid grid-cols-3 gap-[6pt]">
           {ShoeSizing.map((size) => (
             <button
               key={size}
@@ -48,12 +50,17 @@ export function SizePicker({
               {size}
             </button>
           ))}
+          {sizeError === true && (
+            <p className="absolute -bottom-5 right-1 text-red-500! text-xs mt-1">
+              Please select a size
+            </p>
+          )}
         </div>
       </>
     );
   } else {
     return (
-      <div className="grid grid-cols-3 gap-[6pt]">
+      <div className="relative grid grid-cols-3 gap-[6pt]">
         {Sizing.map((size) => (
           <button
             key={size}
@@ -70,6 +77,11 @@ export function SizePicker({
             {size}
           </button>
         ))}
+        {sizeError === true && (
+          <p className="absolute -bottom-5 right-1 text-red-500! text-xs mt-1">
+            Please select a size
+          </p>
+        )}
       </div>
     );
   }

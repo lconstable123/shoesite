@@ -10,7 +10,7 @@ import {
   tProductId,
   tSubcategory,
 } from "@/lib/types";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { MenuCollection, tMenuCollection } from "@/lib/curation-data";
 import toast from "react-hot-toast";
@@ -24,6 +24,8 @@ import {
 import Link from "next/link";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { RedDivider } from "./RedDivider";
+import Modal from "./modal";
+import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
 type tMenuDepth = "main" | "submenu" | "range";
 
 export function DropdownMenu({
@@ -262,7 +264,8 @@ const DropdownColumn = ({
 }) => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
-
+  const params = useParams();
+  const id = params?.id; // the dynamic segment
   return (
     <div key={title} className="list__container  text-darker">
       <h3>{title}</h3>
@@ -273,7 +276,13 @@ const DropdownColumn = ({
             className="list__item cursor-pointer"
             href={`/product/${item}${category ? `?category=${category}` : ""}`}
           >
-            <p className="no-select text-black">{productNamesFromId[item]}</p>
+            <p
+              className={`no-select ${
+                id && id === item ? "font-bold!" : "text-black"
+              }`}
+            >
+              {productNamesFromId[item]}
+            </p>
           </Link>
         ))}
       </div>
@@ -357,22 +366,59 @@ const DropdownRow = ({
 };
 
 const DropdownSidemenu = () => {
+  const {
+    setStoreModalOpen,
+    setOrderTrackerModalOpen,
+    setHelpModalOpen,
+    setRefundModalOpen,
+    setSustainabilityModalOpen,
+  } = useCheckoutContext();
   return (
-    <section className="dropdown__sidemenu__container">
-      <nav className="dropdown__sidemenu__nav">
-        {menuData.supportLinks.map((link) => (
-          <p key={link.id} className="text-black">
-            {link.name}
+    <>
+      {/* <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+            <h2 className="mb-4">ADDED TO BAG!</h2>
+         
+    
+           
+          </Modal> */}
+      <section className="dropdown__sidemenu__container">
+        <nav className="dropdown__sidemenu__nav cursor-pointer no-select">
+          {/* {menuData.supportLinks.map((link) => (
+            <p key={link.id} className="text-black">
+              {link.name}
+            </p>
+          ))} */}
+
+          <p onClick={() => setStoreModalOpen(true)} className="text-black">
+            Store Locator
           </p>
-        ))}
-      </nav>
-      <div className="dropdown__sidemenu__region">
-        <FlagIcon size={20} />
-        <p className="font-inter font-normal leading-normal text-xs  text-black text-center">
-          {menuData.region}
-        </p>
-      </div>
-    </section>
+          <p
+            onClick={() => setOrderTrackerModalOpen(true)}
+            className="text-black"
+          >
+            Order Tracker
+          </p>
+          <p onClick={() => setHelpModalOpen(true)} className="text-black">
+            Help & Customer Service
+          </p>
+          <p onClick={() => setRefundModalOpen(true)} className="text-black">
+            Returns & Refunds
+          </p>
+          <p
+            onClick={() => setSustainabilityModalOpen(true)}
+            className="text-black"
+          >
+            Sustainability
+          </p>
+        </nav>
+        <div className="dropdown__sidemenu__region">
+          <FlagIcon size={20} />
+          <p className="font-inter font-normal leading-normal text-xs no-select  text-black text-center">
+            {menuData.region}
+          </p>
+        </div>
+      </section>
+    </>
   );
 };
 
