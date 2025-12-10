@@ -42,7 +42,7 @@ export type tFooterDataItem = {
   items: { id: string; type: "link" | "modal" }[];
 };
 
-export const footerData = [
+export const footerData: tFooterDataItem[] = [
   {
     title: "SPORTS",
     items: [

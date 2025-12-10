@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { colors, tCategory, tProduct } from "./types";
 import placeholders from "@/public/assets/gallery/placeholders.json";
+import { useCheckoutContext } from "./contexts/use-checkout-context";
+import { Dispatch, SetStateAction } from "react";
 export const cn = (...inputs: Parameters<typeof clsx>) => clsx(...inputs);
 
 export const chooseProductColorImageUrl = (
@@ -19,6 +21,31 @@ export const chooseProductColorImageUrl = (
   };
   const url = colorMapper[color] || product.promoImageUrl || "";
   return url;
+};
+
+export const chooseModalOpen = (
+  id: string
+): Dispatch<SetStateAction<boolean>> | undefined => {
+  const {
+    setAboutModalOpen,
+    setCareersModalOpen,
+    setStoreModalOpen,
+    setSustainabilityModalOpen,
+    setOrderTrackerModalOpen,
+    setHelpModalOpen,
+    setRefundModalOpen,
+  } = useCheckoutContext();
+
+  const ModalMapper: { [key: string]: Dispatch<SetStateAction<boolean>> } = {
+    "Store Locator": setStoreModalOpen,
+    "Order Tracker": setOrderTrackerModalOpen,
+    "Customer Service": setHelpModalOpen,
+    About: setAboutModalOpen,
+    Careers: setCareersModalOpen,
+    "Returns & Refunds": setRefundModalOpen,
+    Sustainability: setSustainabilityModalOpen,
+  };
+  return ModalMapper[id];
 };
 
 export const generateTinyUrl = (url: string): string => {

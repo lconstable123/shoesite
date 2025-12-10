@@ -3,6 +3,8 @@ import Modal from "./modal";
 import { CatalogueImage } from "./ui/catalogue-image";
 import { ShoesiteImage } from "./ui/Shoesite-Image";
 import MapComponent from "./Map";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const ModalLayout = ({
   title,
@@ -139,6 +141,72 @@ export const SustainabilityModal = () => {
           <ShoesiteImage
             url="/assets/gallery/promo/sustainability_promo.webp"
             name="Help Image"
+          />
+        </ImageContainer>
+      </ModalLayout>
+    </Modal>
+  );
+};
+
+export const AboutModal = () => {
+  const { AboutModalOpen, setAboutModalOpen } = useCheckoutContext();
+
+  return (
+    <Modal isOpen={AboutModalOpen} onClose={() => setAboutModalOpen(false)}>
+      <ModalLayout title="About">
+        <div className="  flex flex-col gap-2 w-full mb-2">
+          <p>Honestly, this is a totally fake company</p>
+          <p className="">
+            I've built this to show that I can design and develop a slick,
+            modern e-commerce site.
+          </p>
+          {/* <a href="mailto:someone@example.com?subject=Hello">
+            <h3 className="underline text-red  font-bold! mt-3">Contact Us</h3>
+          </a> */}
+        </div>
+        <ImageContainer>
+          <ShoesiteImage
+            url="/assets/gallery/promo/office_promo.webp"
+            name="Help Image"
+          />
+        </ImageContainer>
+      </ModalLayout>
+    </Modal>
+  );
+};
+
+export const CareersModal = () => {
+  const { CareersModalOpen, setCareersModalOpen } = useCheckoutContext();
+  return (
+    <Modal isOpen={CareersModalOpen} onClose={() => setCareersModalOpen(false)}>
+      <ModalLayout title="Careers">
+        <div className="  flex flex-col gap-2 w-full mb-2">
+          <p>Interested in me joining your team as a web developer? </p>
+          <p className="">Check out my other work!</p>
+          <div className="flex flex-row gap-2 underline">
+            <a
+              href="https://www.linkedin.com/in/lukeconstable/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://www.lukeconstable.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Website
+            </a>
+          </div>
+          {/* <a href="mailto:someone@example.com?subject=Hello">
+            <h3 className="underline text-red  font-bold! mt-3">Contact Us</h3>
+          </a> */}
+        </div>
+        <ImageContainer>
+          <ShoesiteImage
+            url="/assets/gallery/promo/office_promo.webp"
+            name="Office Image"
           />
         </ImageContainer>
       </ModalLayout>

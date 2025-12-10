@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import { FlagIcon } from "./Icons";
 import { footerData, tFooterDataItem } from "../../lib/data";
 import "./styling/footer.css";
+import { chooseModalOpen } from "@/lib/utils";
+import toast from "react-hot-toast";
 
 // interface FooterMenuListProps {
 //   title: string;
@@ -14,14 +17,38 @@ function FooterMenuList({ title, items }: FooterProps) {
       <h3>{title}</h3>
       <div className="list__items__container">
         {items.map((item, index) => (
-          <a key={item.id} href="#" className="list__item cursor-pointer">
-            <p>{item.id}</p>
-          </a>
+          <FooterButton key={index} type={item.type} id={item.id} />
         ))}
       </div>
     </div>
   );
 }
+
+const FooterButton = ({ type, id }: { type: "link" | "modal"; id: string }) => {
+  if (!id) return null;
+  if (type === "link") {
+    return (
+      <a key={id} href="#" className="list__item cursor-pointer">
+        <p>{id}</p>
+      </a>
+    );
+  }
+
+  const handleModal = chooseModalOpen(id);
+  return (
+    <p
+      onClick={() => {
+        if (handleModal) {
+          // toast.success(`Modal opened! ${id} `);
+          handleModal(true);
+        }
+      }}
+      className="list__item cursor-pointer "
+    >
+      {id}
+    </p>
+  );
+};
 
 export default function Footer() {
   return (

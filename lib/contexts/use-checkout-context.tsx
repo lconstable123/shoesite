@@ -28,6 +28,10 @@ type tCheckoutContext = {
   setRefundModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   SustainabilityModalOpen: boolean;
   setSustainabilityModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  AboutModalOpen: boolean;
+  setAboutModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  CareersModalOpen: boolean;
+  setCareersModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export const checkoutcontext = createContext<tCheckoutContext | null>(null);
 
@@ -43,6 +47,8 @@ export const CheckoutProvider = ({
   const [HelpModalOpen, setHelpModalOpen] = useState(false);
   const [RefundModalOpen, setRefundModalOpen] = useState(false);
   const [SustainabilityModalOpen, setSustainabilityModalOpen] = useState(false);
+  const [AboutModalOpen, setAboutModalOpen] = useState(false);
+  const [CareersModalOpen, setCareersModalOpen] = useState(false);
 
   // On mount: load from localStorage
   useEffect(() => {
@@ -118,6 +124,10 @@ export const CheckoutProvider = ({
         setRefundModalOpen,
         SustainabilityModalOpen,
         setSustainabilityModalOpen,
+        AboutModalOpen,
+        setAboutModalOpen,
+        CareersModalOpen,
+        setCareersModalOpen,
       }}
     >
       {children}

@@ -18,6 +18,8 @@ import useBodyScrollLock from "@/lib/hooks/useBodyScrollLock";
 import toast from "react-hot-toast";
 import { useScreenSizeShared } from "@/lib/useScreenSize";
 import {
+  AboutModal,
+  CareersModal,
   HelpModal,
   OrderTrackerModal,
   RefundModal,
@@ -67,6 +69,8 @@ export default function Header({}: HeaderMenuProps) {
       <HelpModal />
       <RefundModal />
       <SustainabilityModal />
+      <AboutModal />
+      <CareersModal />
       <div className="flex flex-col items-start w-full h-full relative z-10  ">
         <DropdownBar
           handleToggleDropdown={toggleDropdown}
@@ -112,12 +116,12 @@ function DropdownBar({
           <a href="#" onClick={handleToggleDropdown} className="header__menu">
             <MenuIcon size={24} className=" mx-2" />
           </a>
-          <button
+          {/* <button
             onClick={() => setSearchBarOpen(!SearchBarOpen)}
             className="header__searchbutton"
           >
             <SearchIcon size={23} className="mr-0 ml-0  " color="white" />
-          </button>
+          </button> */}
           <a href="#" className="header__heart_left">
             <HeartIcon size={30} className="size-8" />
           </a>
@@ -138,7 +142,7 @@ function DropdownBar({
         </a>
 
         <HeaderItems>
-          <SearchBar />
+          {/* <SearchBar /> */}
           <a href="/favourites" className="header__heart_right">
             <HeartIcon size={30} className="size-8" />
           </a>
