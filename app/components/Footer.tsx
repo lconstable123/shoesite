@@ -1,22 +1,22 @@
 import React from "react";
 import { FlagIcon } from "./Icons";
-import { footerData } from "../../lib/data";
+import { footerData, tFooterDataItem } from "../../lib/data";
 import "./styling/footer.css";
 
-interface FooterMenuListProps {
-  title: string;
-  items: string[];
-}
-
-function FooterMenuList({ title, items }: FooterMenuListProps) {
+// interface FooterMenuListProps {
+//   title: string;
+//   items: { id?: string; type: "link" | "modal" }[];
+// }
+type FooterProps = tFooterDataItem;
+function FooterMenuList({ title, items }: FooterProps) {
   return (
     <div className="list__container text-on-black">
       <h3>{title}</h3>
       <div className="list__items__container">
         {items.map((item, index) => (
-          <div key={index} className="list__item">
-            <p>{item}</p>
-          </div>
+          <a key={item.id} href="#" className="list__item cursor-pointer">
+            <p>{item.id}</p>
+          </a>
         ))}
       </div>
     </div>

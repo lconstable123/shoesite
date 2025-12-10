@@ -37,38 +37,70 @@ export const menuData: MenuData = {
   region: "Australia",
 } as const;
 
+export type tFooterDataItem = {
+  title: string;
+  items: { id: string; type: "link" | "modal" }[];
+};
+
 export const footerData = [
   {
     title: "SPORTS",
-    items: ["Football", "Outdoors", "Basketball", "Fitness"],
+    items: [
+      { id: "Football", type: "link" },
+      { id: "Running", type: "link" },
+      { id: "Outdoors", type: "link" },
+      { id: "Basketball", type: "link" },
+      { id: "Fitness", type: "link" },
+    ],
   },
   {
     title: "LIFESTYLE",
-    items: ["Casual", "Premium", "Skatewear", "Staples"],
+    items: [
+      { id: "Casual", type: "link" },
+      { id: "Premium", type: "link" },
+      { id: "Skatewear", type: "link" },
+      { id: "Staples", type: "link" },
+    ],
   },
   {
     title: "MEN",
-    items: ["Shoes", "Clothes", "Acessories"],
+    items: [
+      { id: "Shoes", type: "link" },
+      { id: "Clothes", type: "link" },
+      { id: "Accessories", type: "link" },
+    ],
   },
   {
     title: "WOMEN",
-    items: ["Shoes", "Clothes", "Acessories"],
+    items: [
+      { id: "Shoes", type: "link" },
+      { id: "Clothes", type: "link" },
+      { id: "Accessories", type: "link" },
+    ],
   },
   {
     title: "KIDS",
-    items: ["Shoes", "Clothes", "Acessories"],
+    items: [
+      { id: "Shoes", type: "link" },
+      { id: "Clothes", type: "link" },
+      { id: "Accessories", type: "link" },
+    ],
   },
   {
     title: "INFO",
-    items: ["About", "Careers", "Sustainability"],
+    items: [
+      { id: "About", type: "modal" },
+      { id: "Careers", type: "modal" },
+      { id: "Sustainability", type: "modal" },
+    ],
   },
   {
     title: "SUPPORT",
     items: [
-      "Store Locator",
-      "Order Tracker",
-      "Customer Service",
-      "Returns & Refunds",
+      { id: "Store Locator", type: "modal" },
+      { id: "Order Tracker", type: "modal" },
+      { id: "Customer Service", type: "modal" },
+      { id: "Returns & Refunds", type: "modal" },
     ],
   },
 ];

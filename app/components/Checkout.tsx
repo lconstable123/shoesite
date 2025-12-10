@@ -107,7 +107,7 @@ const ProductDetails = ({
   const [sizeError, setSizeError] = useState(false);
 
   const handleAddtoBag = () => {
-    if (selectedSize === null) {
+    if (product.subcategory !== "accessories" && selectedSize === null) {
       setSizeError(true);
       // toast.error("Please select a size");
       return;

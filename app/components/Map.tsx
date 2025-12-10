@@ -1,8 +1,9 @@
+"use client";
 import { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken = "YOUR_MAPBOX_ACCESS_TOKEN";
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN; // ✅ correct
 
 export default function MapComponent() {
   const mapDiv = useRef<HTMLDivElement>(null);
@@ -11,17 +12,14 @@ export default function MapComponent() {
     if (!mapDiv.current) return;
 
     const map = new mapboxgl.Map({
-      container: mapDiv.current, // <-- tell Mapbox to use this div
+      container: mapDiv.current,
       style: "mapbox://styles/mapbox/streets-v12",
-      center: [0, 0],
-      zoom: 2,
+      center: [-122.4, 37.8],
+      zoom: 10,
     });
 
-    // optional cleanup when component unmounts
-    return () => {
-      map.remove();
-    };
+    return () => map.remove();
   }, []);
 
-  return <div ref={mapDiv} style={{ width: "100%", height: "400px" }} />;
+  return <div ref={mapDiv} className="w-full h-96" />;
 }

@@ -21,9 +21,7 @@ const ModalLayout = ({
 
 const ImageContainer = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="relative w-60 sm:w-100 h-60 sm:h-100 bg-amber-200">
-      {children}
-    </div>
+    <div className="relative w-60 sm:w-100 h-60 sm:h-100 ">{children}</div>
   );
 };
 
@@ -33,7 +31,7 @@ export const StoreModal = () => {
     <Modal isOpen={storeModalOpen} onClose={() => setStoreModalOpen(false)}>
       <ModalLayout title="Store Locator">
         <p>Find a store near you!</p>
-        <ImageContainer></ImageContainer>
+        <MapComponent />
       </ModalLayout>
     </Modal>
   );
@@ -62,7 +60,7 @@ export const HelpModal = () => {
     <Modal isOpen={HelpModalOpen} onClose={() => setHelpModalOpen(false)}>
       <ModalLayout title="Help and Customer Service">
         <div className="  flex flex-col gap-2 w-full mb-2">
-          <p>We'd love to help .</p>
+          <p>We'd love to help.</p>
           <p className="">
             We are dedicated to you having the best experience possible. If you
             have any questions or issues with your order, please don't hesitate

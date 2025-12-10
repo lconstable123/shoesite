@@ -39,7 +39,9 @@ export const Favourites = () => {
           likedItems.map((itemId, index) => {
             const product = productsById[itemId as tProductId];
             if (!product) return null;
-            return <FavouriteItem key={index} product={product} />;
+            return (
+              <FavouriteItem key={index} product={product} index={index} />
+            );
           })
           // <BagItemList cartItems={likedItems} />
         )}
@@ -48,7 +50,13 @@ export const Favourites = () => {
   );
 };
 
-const FavouriteItem = ({ product }: { product: tProduct }) => {
+const FavouriteItem = ({
+  product,
+  index,
+}: {
+  product: tProduct;
+  index: number;
+}) => {
   const [colour, setColour] = useState<colors>(product.primaryImageUrlColor);
 
   const checkoutImage: string =
@@ -57,62 +65,67 @@ const FavouriteItem = ({ product }: { product: tProduct }) => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   return (
-    <>
-      <ItemContainer id={product.id}>
-        <CancelIcon
-          handle={() => {
-            toggleLikeItem(product.id);
-          }}
-          white
-          size={20}
-          className="absolute top-2 z-300 right-2 size-10 stroke-gray-mid cursor-pointer hover:stroke-white transition-all duration-200"
-        />
+    <ItemContainer id={product.id} index={index}>
+      <CancelIcon
+        handle={() => {
+          toggleLikeItem(product.id);
+        }}
+        white
+        size={20}
+        className="absolute top-2 z-300 right-2 size-10 stroke-gray-mid cursor-pointer hover:stroke-white transition-all duration-200"
+      />
 
-        <a
-          href={`/product/${product.id}${
-            category ? `?category=${category}` : ""
-          }`}
-          className="absolute inset-0  z-100"
-        />
+      <a
+        href={`/product/${product.id}${
+          category ? `?category=${category}` : ""
+        }`}
+        className="absolute inset-0  z-100"
+      />
 
-        <div className="w-60 h-60 relative rounded-md overflow-hidden ">
-          <div className="absolute top-2 left-2 z-300">
-            <ColorPicker
-              colors={product.colors}
-              selectedColor={colour}
-              handleColorChange={setColour}
-            />
+      <div className="w-60 h-60 relative rounded-md overflow-hidden ">
+        <div className="absolute top-2 left-2 z-300">
+          <ColorPicker
+            colors={product.colors}
+            selectedColor={colour}
+            handleColorChange={setColour}
+          />
+        </div>
+        <ShoesiteImage url={checkoutImage} name={product.name} />;
+      </div>
+      <div className="flex flex-col gap-2 w-65 justify-center ml-4">
+        <h3 className="font-bold">{product.name}</h3>
+        <hr />
+        {product.discountPrice ? (
+          <div className="flex gap-[11px]">
+            <h4 className="text-discount">${product.price}</h4>
+            <h4 className="">${product.discountPrice}</h4>
           </div>
-          <ShoesiteImage url={checkoutImage} name={product.name} />;
-        </div>
-        <div className="flex flex-col gap-2 w-65 justify-center ml-4">
-          <h3 className="font-bold">{product.name}</h3>
-          <hr />
-          {product.discountPrice ? (
-            <div className="flex gap-[11px]">
-              <h4 className="text-discount">${product.price}</h4>
-              <h4 className="">${product.discountPrice}</h4>
-            </div>
-          ) : (
-            <h4 className="">${product.price}</h4>
-          )}
-          <p className="text-white/98">{product.description}</p>
-        </div>
-      </ItemContainer>
-    </>
+        ) : (
+          <h4 className="">${product.price}</h4>
+        )}
+        <p className="text-white/98">{product.description}</p>
+      </div>
+    </ItemContainer>
   );
 };
 
 const ItemContainer = ({
   id,
   children,
+  index,
 }: {
   id: string;
   children: React.ReactNode;
+  index: number;
 }) => {
   return (
-    <div className="w-full sm:w-120 h-full flex  flex-col gap-5 sm:gap-0 items-center sm:items-start sm:flex-row border relative border-gray-mid overflow-hidden py-7 px-4 sm:px-3 sm:py-3 rounded-lg">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: index * 0.05 }}
+      className="w-full sm:w-120 h-full flex  flex-col gap-5 sm:gap-0 items-center sm:items-start sm:flex-row border relative border-gray-mid overflow-hidden py-7 px-4 sm:px-3 sm:py-3 rounded-lg"
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };
