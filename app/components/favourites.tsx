@@ -2,7 +2,7 @@
 import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
 import { BagItemList, BagSection, EmptyBag } from "./checkout-page";
 import { chooseProductColorImageUrl, generateTinyUrl2 } from "@/lib/utils";
-import { colors, tProduct, tProduct, tProductId } from "@/lib/types";
+import { colors, tProduct, tProductId } from "@/lib/types";
 import { productsById } from "@/lib/product-data";
 import { useState } from "react";
 import { ShoesiteImage } from "./ui/Shoesite-Image";
