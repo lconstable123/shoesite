@@ -9,6 +9,7 @@ import { Pulldown } from "./components/Pulldown";
 import { Suspense } from "react";
 import { LoadingIcon } from "./components/Icons";
 import { CheckoutProvider } from "@/lib/contexts/use-checkout-context";
+import { Loadingpage } from "./components/LoadingPage";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,17 +57,6 @@ export default function RootLayout({
         </Suspense>
       </body>
     </html>
-  );
-}
-
-function Loadingpage() {
-  return (
-    <div className="w-full  h-200 flex items-center justify-center">
-      {/* Loading search params… */}
-      <div className="w-20 h-20  animate-spin flex justify-center items-center">
-        <LoadingIcon size={120} />
-      </div>
-    </div>
   );
 }
 

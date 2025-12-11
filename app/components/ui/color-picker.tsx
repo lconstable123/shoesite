@@ -42,7 +42,7 @@ export function ColorPicker({
             key={index + color}
             onClick={() => handleColorSelect(color)}
             className={cn(
-              `${colorBg} w-[16px] h-[16px] hover:scale-110  rounded-full cursor-pointer`,
+              `${colorBg} w-[25px]  h-[25px] sm:w-[16px] sm:h-[16px] hover:scale-110  rounded-full cursor-pointer`,
               { colorBg },
               selectedColor && selectedColor !== color
                 ? "opacity-50"

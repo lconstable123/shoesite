@@ -31,7 +31,7 @@ export function Checkout({ product }: { product: tProduct | tProduct[] }) {
         product.map((prod, index) => (
           <React.Fragment key={prod.id}>
             <ProductContainer product={prod} rangeId={index} />
-            <RedDivider />
+            {/* <RedDivider /> */}
           </React.Fragment>
         ))
       ) : (

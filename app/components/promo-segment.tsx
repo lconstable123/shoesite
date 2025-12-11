@@ -20,7 +20,7 @@ import { useSearchParams } from "next/navigation";
 const delay = 0.1;
 export const PromoSegment = () => {
   return (
-    <section className="w-full h-full  flex flex-col    ">
+    <section className="w-full h-full  flex flex-col overflow-hidden   ">
       {/* <div className="w-full flex justify-start items-center  my-2 ">
         <h3 className="text-2xl font-light tracking-widest opacity-80 uppercase ">
           Featured Collections
@@ -71,12 +71,19 @@ function PromoContainer({
   index?: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: delay }}
-      // transition={{ duration: 0.5, delay: index ? index * 0.3 : 0 }}
+    // <motion.div
+    //   initial={{ opacity: 0 }}
+    //   whileInView={{ opacity: 1 }}
+    //   viewport={{ once: true }}
+    //   transition={{ delay: delay }}
+    //   // transition={{ duration: 0.5, delay: index ? index * 0.3 : 0 }}
+    //   key={product.id}
+    //   className={cn(
+    //     " group transition-all duration-300 no-select border border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
+    //     "promo__container__closed "
+    //   )}
+    // >
+    <div
       key={product.id}
       className={cn(
         " group transition-all duration-300 no-select border border-mid-grey-2/50 relative promo__container w-full flex flex-row odd:flex-row-reverse justify-between items-end bg-fiber ",
@@ -84,7 +91,9 @@ function PromoContainer({
       )}
     >
       {children}
-    </motion.div>
+    </div>
+    //{" "}
+    // </motion.div>
   );
 }
 
@@ -216,7 +225,7 @@ function SegmentText({
   // const searchParams = useSearchParams();
   // const category = searchParams.get("category");
   const animVariants = {
-    hidden: (i: number) => ({ opacity: 0, x: i % 2 === 0 ? -40 : 40 }),
+    hidden: (i: number) => ({ opacity: 0, x: i % 2 === 1 ? -40 : 40 }),
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
