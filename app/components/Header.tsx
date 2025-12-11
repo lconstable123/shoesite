@@ -156,7 +156,7 @@ function DropdownBar({
       </nav>
       {SearchBarOpen && (
         <div className="header__searchbar_bottom pb-4">
-          <SearchBar fullWidth />
+          {/* <SearchBar fullWidth /> */}
         </div>
       )}
       <div className="header__nav_small  mb-5 ">

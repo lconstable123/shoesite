@@ -4,7 +4,9 @@ import { CatalogueImage } from "./ui/catalogue-image";
 import { ShoesiteImage } from "./ui/Shoesite-Image";
 import MapComponent from "./Map";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { SearchBar } from "./ui/search-bar";
+import { useDebounce } from "@/lib/hooks/use-searchBar";
 
 const ModalLayout = ({
   title,
@@ -29,12 +31,34 @@ const ImageContainer = ({ children }: { children?: React.ReactNode }) => {
 
 export const StoreModal = () => {
   const { storeModalOpen, setStoreModalOpen } = useCheckoutContext();
+  const [searchText, setSearchText] = useState("Melbourne, Australia");
+  const debouncedSearchText = useDebounce(searchText, 300);
+  const melbourneLocations = [
+    { lng: 144.9631, lat: -37.8136, popupText: "Melbourne City" },
+    { lng: 144.965, lat: -37.815, popupText: "Federation Square" },
+    { lng: 144.978, lat: -37.82, popupText: "Royal Botanic Gardens" },
+    { lng: 144.81, lat: -37.815, popupText: "Melbourne Zoo" },
+    { lng: 144.97, lat: -37.315, popupText: "Melbourne Zoo" },
+    { lng: 144.964, lat: -37.811, popupText: "Federation Square" },
+    { lng: 144.9643, lat: -37.8138, popupText: "Melbourne City" },
+  ];
+
   return (
     <Modal isOpen={storeModalOpen} onClose={() => setStoreModalOpen(false)}>
       <ModalLayout title="Store Locator">
         <p>Find a store near you!</p>
+        <SearchBar
+          fullWidth
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
+        {/* <p>{debouncedSearchText}</p> */}
         <ImageContainer>
-          <MapComponent />
+          <MapComponent
+            type="stores"
+            searchText={debouncedSearchText}
+            markers={melbourneLocations}
+          />
         </ImageContainer>
       </ModalLayout>
     </Modal>
@@ -42,17 +66,46 @@ export const StoreModal = () => {
 };
 
 export const OrderTrackerModal = () => {
+  const testId = "#test-order-123";
   const { OrderTrackerModalOpen, setOrderTrackerModalOpen } =
     useCheckoutContext();
+  const [searchText, setSearchText] = useState(testId);
+  const debouncedSearchText = useDebounce(searchText, 300);
+  const [locations, setLocations] = useState<
+    { lat: number; lng: number; popupText?: string }[]
+  >([]);
+
+  useEffect(() => {
+    toast.success("Tracking order #" + searchText);
+    if (searchText === testId) {
+      setLocations([
+        { lng: 144.9643, lat: -37.8138, popupText: "Melbourne City" },
+      ]);
+    } else {
+      setLocations([]);
+    }
+  }, [debouncedSearchText]);
+
   return (
     <Modal
       isOpen={OrderTrackerModalOpen}
       onClose={() => setOrderTrackerModalOpen(false)}
     >
       <ModalLayout title="Order Tracker">
-        <p>Track your order here!</p>
+        <p>Track your order here! (Hint: use #test-order-123)</p>
+        <SearchBar
+          fullWidth
+          searchText={searchText}
+          setSearchText={setSearchText}
+        />
+        {searchText === testId && (
+          <p className="text-sm text-green-600">Order found!</p>
+        )}
+        {searchText.length > 0 && searchText !== testId && (
+          <p className="text-sm text-red-600">Order not found.</p>
+        )}
         <ImageContainer>
-          <MapComponent />
+          <MapComponent type="orders" markers={locations} />
         </ImageContainer>
       </ModalLayout>
     </Modal>

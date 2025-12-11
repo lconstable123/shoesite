@@ -51,7 +51,7 @@ function ItemDisplay({ promoData }: { promoData: tPromoData | null }) {
         />
       </div>
 
-      <figcaption className=" flex flex-col text-center gap-[19px] justify-center py-4 items-center w-full ">
+      <figcaption className="px-7 no-select flex flex-col text-center gap-[19px] justify-center py-4 items-center w-full ">
         <p>{promoData?.promoByline}</p>
       </figcaption>
     </figure>
