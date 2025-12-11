@@ -26,6 +26,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { RedDivider } from "./RedDivider";
 import Modal from "./modal";
 import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
+import { title } from "process";
 type tMenuDepth = "main" | "submenu" | "range";
 
 export function DropdownMenu({
@@ -72,24 +73,70 @@ const DropDownMobileContainer = ({
   const category = searchParams.get("category");
   // const [submenuOpen, setSubmenuOpen] = useState<boolean>(false);
   const [menuDepth, setMenuDepth] = useState<tMenuDepth>("main");
-  const [subCategory, setSubCategory] = useState<string | null>(null);
 
+  const [subCategory, setSubCategory] = useState<string | null>(null);
+  const [subSubCategory, setSubSubCategory] = useState<string | null>(null);
+  const [subItems, setSubItems] = useState<string[] | null>(null);
+  const [subSubItems, setSubSubItems] = useState<string[] | null>(null);
   const [selectedCategoryData, setSelectedCategoryData] = useState<
     tMenuCollection[tCategory]
   >(MenuCollection[category as tCategory]);
 
-  const handleSetMenuDepth = (depth?: tMenuDepth, category?: string) => {
-    if (!depth) {
-      setMenuDepth((prev) => {
-        if (prev === "range") return "submenu";
-        if (prev === "submenu") return "main";
-        return "main";
-      });
-    } else {
-      if (category) {
-        setSubCategory(category);
-      }
-      setMenuDepth(depth);
+  useEffect(() => {
+    toast.success("Subcategory changed to " + subCategory);
+    setSubItems(
+      selectedCategoryData?.menuItems[subCategory as tSubcategory] as string[]
+      // selectedCategoryData?.menuItems[subCategory as tSubcategory]
+    );
+  }, [subCategory]);
+  useEffect(() => {
+    toast.success("finalcat to" + subSubCategory);
+    const subsubCatItems =
+      selectedCategoryData?.menuItems[subSubCategory as tSubcategory];
+
+    setSubSubItems(subsubCatItems ? [...subsubCatItems] : null);
+  }, [subSubCategory]);
+
+  // const handleSetMenuDepth = (depth?: tMenuDepth, category?: string) => {
+  //   if (!depth) {
+  //     setMenuDepth((prev) => {
+  //       if (prev === "range") return "submenu";
+  //       if (prev === "submenu") return "main";
+  //       return "main";
+  //     });
+  //   } else {
+  //     if (category) {
+  //       setSubCategory(category);
+  //     }
+  //     setMenuDepth(depth);
+  //   }
+  // };
+  const handleSetMenuDepth2 = (depth?: tMenuDepth, category?: string) => {
+    switch (depth) {
+      case depth && depth === "main":
+        setMenuDepth((prev) => {
+          if (prev === "range") return "submenu";
+          if (prev === "submenu") return "main";
+          return "main";
+        });
+        break;
+
+      case "submenu":
+        setMenuDepth((prev) => {
+          if (prev === "main") return "submenu";
+          if (prev === "submenu") return "main";
+          return "main";
+        });
+        // setMenuDepth("submenu");
+        if (category) setSubCategory(category);
+        break;
+      case "range":
+        if (category) setSubSubCategory(category);
+        setMenuDepth("range");
+        break;
+
+      default:
+        break;
     }
   };
 
@@ -106,12 +153,13 @@ const DropDownMobileContainer = ({
 
       <div
         className={cn(
-          "absolute transition-all duration-300 top-0 w-full h-full z-900 ",
+          "absolute transition-all duration-1000 top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "main" ? "left-0" : "-left-full"
         )}
       >
         <nav className="dropdown__mobile__container  cursor-pointer relative z-900 ">
           <RedDivider />
+          {/* <div className="h-4 w-full bg-red-500" /> */}
           {Categories.map((menucategory) => (
             <DropdownRow
               key={menucategory}
@@ -120,7 +168,7 @@ const DropDownMobileContainer = ({
               router={router}
               isSelected={menucategory === category}
               menuDepth={menuDepth}
-              setMenuDepth={handleSetMenuDepth}
+              setMenuDepth={handleSetMenuDepth2}
             />
           ))}
         </nav>
@@ -128,7 +176,7 @@ const DropDownMobileContainer = ({
       {/* Submenu */}
       <div
         className={cn(
-          "absolute transition-all duration-300 top-0 w-full h-full z-900 ",
+          "absolute transition-all duration-1000  top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "submenu"
             ? "left-0"
             : menuDepth === "range"
@@ -137,13 +185,14 @@ const DropDownMobileContainer = ({
         )}
       >
         <nav className="dropdown__mobile__container cursor-pointer relative z-900 ">
+          <RedDivider />
           <DropdownRow
             key={category}
             title={category || ""}
             searchParams={searchParams}
             router={router}
             returning
-            setMenuDepth={handleSetMenuDepth}
+            setMenuDepth={handleSetMenuDepth2}
           />
           {selectedCategoryData &&
             Object.entries(selectedCategoryData?.menuItems).map(
@@ -154,7 +203,7 @@ const DropDownMobileContainer = ({
                   searchParams={searchParams}
                   router={router}
                   menuDepth={menuDepth}
-                  setMenuDepth={handleSetMenuDepth}
+                  setMenuDepth={handleSetMenuDepth2}
                   submenu
                 />
               )
@@ -164,41 +213,41 @@ const DropDownMobileContainer = ({
       {/* items-menu */}
       <div
         className={cn(
-          "absolute transition-all duration-300 top-0 w-full h-full z-900 ",
+          "dropdown__mobile__container  absolute transition-all duration-1000   w-full h-full z-900 ",
           isOpen && menuDepth === "range" ? "left-0" : "left-full"
         )}
       >
         <nav className="dropdown__mobile__container cursor-pointer relative z-900 ">
+          <RedDivider />
+
           <DropdownRow
             key={category}
             title={subCategory || ""}
             searchParams={searchParams}
             router={router}
             returning
-            setMenuDepth={handleSetMenuDepth}
+            setMenuDepth={handleSetMenuDepth2}
           />
           {selectedCategoryData &&
-            subCategory &&
-            selectedCategoryData?.menuItems[subCategory as tSubcategory]?.map(
-              (menucategory) => (
-                <DropdownRow
-                  key={menucategory}
-                  title={menucategory}
-                  searchParams={searchParams}
-                  router={router}
-                  setMenuDepth={handleSetMenuDepth}
-                  menuDepth={menuDepth}
-                  parentCategory={subCategory || ""}
-                  submenu
-                  setIsOpen={setIsOpen}
-                />
-              )
-            )}
+            subSubCategory &&
+            subSubItems?.map((menucategory) => (
+              <DropdownRow
+                key={menucategory}
+                title={menucategory}
+                searchParams={searchParams}
+                router={router}
+                setMenuDepth={handleSetMenuDepth2}
+                menuDepth={menuDepth}
+                parentCategory={subCategory || ""}
+                submenu
+                setIsOpen={setIsOpen}
+              />
+            ))}
         </nav>
       </div>
       <div
         className={cn(
-          "transition-all duration-300 fixed bottom-0  w-full  h-auto z-1000  ",
+          "transition-all duration-300 fixed bottom-0   w-full  h-auto z-1000  ",
           isOpen
             ? "left-0"
             : menuDepth === "main"
@@ -281,7 +330,7 @@ const DropdownColumn = ({
                 id && id === item ? "font-bold!" : "text-black"
               }`}
             >
-              {productNamesFromId[item]}
+              {item}
             </p>
           </Link>
         ))}
@@ -330,7 +379,7 @@ const DropdownRow = ({
         setMenuDepth && setMenuDepth("range", title);
       }
       if (menuDepth === "range") {
-        setIsOpen && setIsOpen(false);
+        // setIsOpen && setIsOpen(false);
       }
     }
   };
@@ -340,7 +389,7 @@ const DropdownRow = ({
       key={title}
       onClick={() => MenuClick()}
       className={cn(
-        "dropdown__mobile__row__container duration-100 delay-100 transition-opacity no-select ",
+        "dropdown__mobile__row__container  duration-100 delay-1000 transition-opacity no-select ",
         returning
           ? "flex-row-reverse! justify-end gap-x-5  bg-neutral-400/20"
           : "flex-row! justify-between"
@@ -348,15 +397,16 @@ const DropdownRow = ({
     >
       {menuDepth && menuDepth === "range" ? (
         <Link
-          className="list__item cursor-pointer"
+          className=" cursor-pointer"
           href={`/product/${title}${category ? `?category=${category}` : ""}`}
         >
-          <h3 className=" h-5 uppercase flex items-center no-select font-bold text-darker whitespace-nowrap ">
+          <h3 className=" h-5 uppercase flex  no-select font-bold text-darker">
             {productNamesFromId[title as tProductId | tCollectionsId]}
+            {/* {title} */}
           </h3>
         </Link>
       ) : (
-        <h3 className=" h-5  uppercase flex items-center no-select font-bold text-darker whitespace-nowrap ">
+        <h3 className=" h-5  uppercase flex no-select font-bold text-darker  ">
           {title}
         </h3>
       )}
@@ -376,10 +426,7 @@ const DropdownSidemenu = () => {
   return (
     <>
       {/* <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-            <h2 className="mb-4">ADDED TO BAG!</h2>
-         
-    
-           
+            <h2 className="mb-4">ADDED TO BAG!</h2> 
           </Modal> */}
       <section className="dropdown__sidemenu__container">
         <nav className="dropdown__sidemenu__nav cursor-pointer no-select">
@@ -388,7 +435,6 @@ const DropdownSidemenu = () => {
               {link.name}
             </p>
           ))} */}
-
           <p onClick={() => setStoreModalOpen(true)} className="text-black">
             Store Locator
           </p>
