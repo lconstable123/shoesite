@@ -33,7 +33,9 @@ export const StoreModal = () => {
     <Modal isOpen={storeModalOpen} onClose={() => setStoreModalOpen(false)}>
       <ModalLayout title="Store Locator">
         <p>Find a store near you!</p>
-        <MapComponent />
+        <ImageContainer>
+          <MapComponent />
+        </ImageContainer>
       </ModalLayout>
     </Modal>
   );
@@ -90,13 +92,15 @@ export const RefundModal = () => {
       <ModalLayout title="Returns & Refunds">
         <div className="  flex flex-col gap-2 w-full mb-2">
           <p>
-            We're happy to assist you if you find any issues with your order.
+            We're happy to assist you if you find any issues with your order,
+            namley, not reciving the product, becuase this is not a real
+            company, just a showreel demo site.
           </p>
           <p className="">
-            Returns are free within 30 days of delivery. All our products
-            undergo strict quality control to ensure your satisfaction and come
-            with a lifetime warranty. if you find a defect, we will replace it
-            free of charge!
+            If we did exist, returns are free within 30 days of delivery. All
+            our products undergo strict quality control to ensure your
+            satisfaction and come with a lifetime warranty. if you find a
+            defect, we will replace it free of charge!
           </p>
           <a href="mailto:someone@example.com?subject=Hello">
             <h3 className="underline   font-bold! mt-3">Contact Us</h3>
@@ -123,8 +127,8 @@ export const SustainabilityModal = () => {
       <ModalLayout title="Sustainability">
         <div className="  flex flex-col gap-2 w-full mb-2">
           <p>
-            We care about the environment and are committed to sustainable
-            practices.
+            This is a fake comapny, but if we did exist we would care about the
+            environment and are committed to sustainable practices.
           </p>
           <p className="">
             We use eco-friendly materials and processes in our products to

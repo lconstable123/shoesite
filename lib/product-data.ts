@@ -159,7 +159,7 @@ export const productData: tProduct[] = [
     colors: ["red", "white", "blue"],
     purpose: "performance",
     description:
-      "Take your game to new heights with the Space Jammer, designed for ultimate performance and style. Crazy bounce technology for high-flying dunks and quick cuts. Available in Cosmic Red, Lunar White, and Galactic Blue. Featuring advanced cushioning for maximum comfort during intense games. Ergonomic fit for all-day wear on and off the court. Sleek design inspired by the iconic franchise. Zoom air units for superior impact protection and responsiveness.",
+      "Take your game to new heights with the Space Jammer, designed for ultimate performance and style. Crazy bounce technology for high-flying dunks and quick cuts. Featuring advanced cushioning for maximum comfort during intense games. Ergonomic fit for all-day wear on and off the court. Sleek design inspired by the iconic franchise. Zoom air units for superior impact protection and responsiveness.",
     byline:
       "Fun for all ages but dead serious on the court. In no way related to the franchise or its intellectual property holders.",
     primaryImageUrlColor: "blue",
@@ -199,7 +199,7 @@ export const productData: tProduct[] = [
     colors: ["red", "blue", "green"],
     purpose: "bouldering",
     description:
-      "Reinventing the climbing shoe with unparalleled durability and grip. Comes in Berry Red, Medditerranean Blue, and Forest Green. Featuring advanced sole technology for maximum traction on rocky surfaces. Ergonomic fit for all-day comfort while scaling new heights. Embedded gps tracker to ensure you never lose your way. Ironclad toe protection for the toughest climbs. 200 year warranty against rock-induced wear and tear.",
+      "Reinventing the climbing shoe with unparalleled durability and grip. Featuring advanced sole technology for maximum traction on rocky surfaces. Ergonomic fit for all-day comfort while scaling new heights. Embedded gps tracker to ensure you never lose your way. Ironclad toe protection for the toughest climbs.",
     byline:
       "You want a rock solid climbing shoe? Here it is. It it pretty much indestructible and can get you anywhere. ",
     primaryImageUrlColor: "blue",
@@ -219,7 +219,7 @@ export const productData: tProduct[] = [
     colors: ["black", "pink", "blue"],
     purpose: "climbing",
     description:
-      "Reach new heights with confidence using Vertigo climbing shoes. Robust and Elegant. Engineered for superior grip and comfort on the steepest ascents. Available in Midnight Black, Bubblegum Pink, and Sky Blue. Featuring adaptive fit technology that molds to your foot for personalized comfort. Reinforced sole for maximum durability on rugged terrains. Lightweight design to enhance agility and reduce fatigue during climbs. Integrated chalk pouch for quick access during challenging routes. Rubberized toe cap for added protection against rough surfaces. Trained on Martial Artists and Professional Dancers alike.",
+      "Reach new heights with confidence using Vertigo climbing shoes. Robust and Elegant. Engineered for superior grip and comfort on the steepest ascents. Featuring adaptive fit technology that molds to your foot for personalized comfort. Reinforced sole for maximum durability on rugged terrains. Lightweight design to enhance agility and reduce fatigue during climbs. Integrated chalk pouch for quick access during challenging routes. Rubberized toe cap for added protection against rough surfaces. Trained on Martial Artists and Professional Dancers alike.",
     byline:
       "Heights are afraid of you with Vertigo shoes. Conquer all and do it with grace.",
     primaryImageUrlColor: "blue",
@@ -238,7 +238,7 @@ export const productData: tProduct[] = [
     colors: ["black", "green", "grey"],
     purpose: "endurance",
     description:
-      "Made of sutainable open source and free trade synthetic Marmot hair.  Available in Obsidian Black, Moss Green, and Stone Grey. Featuring ultra-cushioned insoles for all-day comfort on long treks. Waterproof exterior to keep your feet dry in wet conditions. Breathable mesh panels for enhanced ventilation during intense hikes. Reinforced ankle support for stability on uneven terrains. Eco-friendly materials that minimize environmental impact without compromising performance. Completely odorlous for one month with embedded oxygenated hemp microstructures.",
+      "Made of sutainable open source and free trade synthetic Marmot hair. Featuring ultra-cushioned insoles for all-day comfort on long treks. Waterproof exterior to keep your feet dry in wet conditions. Breathable mesh panels for enhanced ventilation during intense hikes. Reinforced ankle support for stability on uneven terrains. Eco-friendly materials that minimize environmental impact without compromising performance. Completely odorlous for one month with embedded oxygenated hemp microstructures.",
     byline:
       "Time is an  illusion. Experience endless endurance with Neo-Sherpa. Wherever you need to go, you can find it within yourself with these hiking trailblazers.",
     primaryImageUrlColor: "black",
@@ -258,7 +258,7 @@ export const productData: tProduct[] = [
     colors: ["blue", "green", "grey", "white", "red"],
     purpose: "jogging",
     description:
-      "A cutting edge design in collaboration with leading cardiologists to optimize heart rate and circulation during exercise. Advanced sole technology for superior shock absorption and energy return. Ergonomic fit for all-day comfort during runs. Breathable upper material to keep feet cool and dry. Reflective elements for enhanced visibility during low-light conditions. Sleek design inspired by the rhythm of the heart. Comes in blue, green, grey, white, and red.",
+      "A cutting edge design in collaboration with leading cardiologists to optimize heart rate and circulation during exercise. Advanced sole technology for superior shock absorption and energy return. Ergonomic fit for all-day comfort during runs. Breathable upper material to keep feet cool and dry. Reflective elements for enhanced visibility during low-light conditions. Sleek design inspired by the rhythm of the heart.",
     byline:
       "It's all about the attack. Feel your heart racing with every step.",
     primaryImageUrlColor: "green",
@@ -280,7 +280,7 @@ export const productData: tProduct[] = [
     colors: ["blue", "black", "white"],
     purpose: "crosstraining",
     description:
-      "Engineered for versatility and performance across a range of training activities. Featuring multi-directional grip technology for stability during lateral movements. Wind resistant materials ensure durability in all weather conditions. Ergonomic fit for all-day comfort during intense workouts. Breathable upper material to keep feet cool and dry. Sleek design inspired by the flow of movement. Available in Blue, Black, and White. Tested by NASA in a zero gravity environment.",
+      "Engineered for versatility and performance across a range of training activities. Featuring multi-directional grip technology for stability during lateral movements. Wind resistant materials ensure durability in all weather conditions. Ergonomic fit for all-day comfort during intense workouts. Breathable upper material to keep feet cool and dry. Sleek design inspired by the flow of movement.",
     byline:
       "Slip into something more comfortable for your crossfit workout. Run to the shops, or run to the moon. ",
     primaryImageUrlColor: "black",
@@ -320,7 +320,7 @@ export const productData: tProduct[] = [
     colors: ["green", "black", "white", "grey", "red"],
     purpose: "streetwear",
     description:
-      "Available in Green, Black, White, Grey, and Red. Durable sole for urban exploration and everyday wear. Ergonomic fit for all-day comfort while navigating city streets. Breathable upper material to keep feet cool during long walks. Sleek design inspired by street culture and urban fashion. Featuring graffiti-resistant coating to maintain a fresh look. Embedded with mini air-cushions for added comfort on hard surfaces. ",
+      "Available in Green, Black, White, Grey, and Red. Durable sole for urban exploration and everyday wear. Ergonomic fit for all-day comfort while navigating city streets. Breathable upper material to keep feet cool during long walks. Sleek design inspired by street culture and urban fashion. Embedded with mini air-cushions for added comfort on hard surfaces. ",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
     primaryImageUrlColor: "green",
@@ -346,7 +346,7 @@ export const productData: tProduct[] = [
     colors: ["green", "black", "white", "grey", "red"],
     purpose: "streetwear",
     description:
-      "Swaggy streetwear for everyday urban adventures. Made from breathable, lightweight fabric to keep you cool while navigating the city. Features a relaxed fit for all-day comfort and ease of movement. Durable construction to withstand the rigors of urban life. Stylish design inspired by street culture and urban fashion. Available in Green, Black, White, Grey, and Red. Graffiti-resistant coating to maintain a fresh look.",
+      "Swaggy streetwear for everyday urban adventures. Made from breathable, lightweight fabric to keep you cool while navigating the city. Features a relaxed fit for all-day comfort and ease of movement. Durable construction to withstand the rigors of urban life. Stylish design inspired by street culture and urban fashion.",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
     primaryImageUrlColor: "green",
@@ -373,7 +373,7 @@ export const productData: tProduct[] = [
     colors: ["green", "black", "white", "grey"],
     purpose: "streetwear",
     description:
-      "Swaggy streetwear for everyday urban adventures. Made from breathable, lightweight fabric to keep you cool while navigating the city. Features a relaxed fit for all-day comfort and ease of movement. Durable construction to withstand the rigors of urban life. Stylish design inspired by street culture and urban fashion. Available in Green, Black, White, Grey, and Red. Graffiti-resistant coating to maintain a fresh look.",
+      "Swaggy streetwear for everyday urban adventures. Made from breathable, lightweight fabric to keep you cool while navigating the city. Features a relaxed fit for all-day comfort and ease of movement. Durable construction to withstand the rigors of urban life. Stylish design inspired by street culture and urban fashion.",
     byline:
       "Navigate the concrete jungle with style and ease. Part of the Street Masters collection.",
     primaryImageUrlColor: "grey",
@@ -400,7 +400,7 @@ export const productData: tProduct[] = [
     colors: ["red", "blue", "green", "black", "white", "grey"],
     purpose: "streetwear",
     description:
-      "Relaxed and comfortable footwear for laid-back days. Made from soft, breathable materials to keep your feet cozy. Features a cushioned sole for all-day comfort and support. Stylish design inspired by casual streetwear and bedroom fashion. Available in Red, Blue, Green, Black, White, and Grey. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
+      "Relaxed and comfortable footwear for laid-back days. Made from soft, breathable materials to keep your feet cozy. Features a cushioned sole for all-day comfort and support. Stylish design inspired by casual streetwear and bedroom fashion. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
     byline:
       "Comfort meets style for your laid-back days. No worries, lazy sunday takes care of it. Part of the Lazy Sunday collection.",
     primaryImageUrlColor: "blue",
@@ -422,7 +422,7 @@ export const productData: tProduct[] = [
     colors: ["red", "blue", "green", "black", "white", "grey"],
     purpose: "streetwear",
     description:
-      "Relaxed and comfortable shirt for laid-back days. Made from soft, breathable materials to keep you cozy. Comfortable design inspired by casual bed fashion. Available in Red, Blue, Green, Black, White, and Grey. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
+      "Relaxed and comfortable shirt for laid-back days. Made from soft, breathable materials to keep you cozy. Comfortable design inspired by casual bed fashion. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
     byline:
       "Comfort meets style for your laid-back days. No worries, lazy sunday takes care of it. Part of the Lazy Sunday collection.",
     primaryImageUrlColor: "green",
@@ -445,7 +445,7 @@ export const productData: tProduct[] = [
     colors: ["red", "blue", "green", "black", "white", "grey"],
     purpose: "streetwear",
     description:
-      "Relaxed and comfortable slacks for laid-back days. Made from soft, breathable materials to keep you cozy. Comfortable design inspired by casual bed fashion. Available in Red, Blue, Green, Black, White, and Grey. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
+      "Relaxed and comfortable slacks for laid-back days. Made from soft, breathable materials to keep you cozy. Comfortable design inspired by casual bed fashion. Made of sustainable materials. Perfect for lazy Sundays and everyday wear.",
     byline:
       "Comfort meets style for your laid-back days. No worries, lazy sunday takes care of it. Part of the Lazy Sunday collection.",
     primaryImageUrlColor: "red",
@@ -468,7 +468,7 @@ export const productData: tProduct[] = [
     colors: ["grey", "black", "white"],
     purpose: "classic",
     description:
-      "Inspired by timeless design and everyday comfort. Golden era and modern style blended into one. The practical features include premium materials for durability and comfort. Ergonomic fit for all-day wear. Breathable upper to keep feet cool and dry. Sleek design that complements any outfit. Perfect for casual outings or dressing up. A versatile addition to your wardrobe. Runner base and premium leather finish, the best of all worlds.",
+      "Inspired by timeless design and everyday comfort. Golden era and modern style blended into one. The practical features include premium materials for durability and comfort. Ergonomic fit for all-day wear. Breathable upper to keep feet cool and dry. Sleek design that complements any outfit. Perfect for casual outings or dressing up. Runner base and premium leather finish, the best of all worlds.",
     byline:
       "Speed and Style. Fit in anywhere by fitting into the classic Expresso shoe, part of the Expresso collection.",
     primaryImageUrlColor: "black",
@@ -488,7 +488,7 @@ export const productData: tProduct[] = [
     colors: ["grey", "black", "white"],
     purpose: "classic",
     description:
-      "Inspired by timeless design and everyday comfort. Golden era and modern style blended into one. The practical features include premium materials for durability and comfort. Ergonomic fit for all-day wear. Premium fabric to keep you cool and dry. Sleek design that complements any outfit. Perfect for casual outings or dressing up. A versatile addition to your wardrobe. Classic button-down style with a modern twist.",
+      "Inspired by timeless design and everyday comfort. Golden era and modern style blended into one. The practical features include premium materials for durability and comfort.",
     byline:
       "Speed and Style. Fit in anywhere by fitting into the classic Expresso shirt, part of the Expresso collection.",
     primaryImageUrlColor: "black",
@@ -527,7 +527,7 @@ export const productData: tProduct[] = [
     colors: ["black", "pink", "red", "yellow", "green"],
     purpose: "skateboarding",
     description:
-      "Comes in black, pink, red, yellow, and green. Durable sole for skateboarding tricks and everyday wear. Ergonomic fit for all-day comfort while skating. Breathable upper material to keep feet cool during intense sessions. Sleek design inspired by skate culture and freestyle legends. Featuring reinforced toe cap for added protection during tricks. Vibrant color options. Kickflip-tested and ollie-approved.",
+      "Features durable sole for skateboarding tricks and everyday wear. Ergonomic fit for all-day comfort while skating. Breathable upper material to keep feet cool during intense sessions. Sleek design inspired by skate culture and freestyle legends. Featuring reinforced toe cap for added protection during tricks. Vibrant color options. Kickflip-tested and ollie-approved.",
     byline:
       "Inspired by the freestlyle legend, get on board with this iconic skate shoe.",
     primaryImageUrlColor: "green",
@@ -549,7 +549,7 @@ export const productData: tProduct[] = [
     colors: ["grey", "green", "pink"],
     purpose: "skateboarding",
     description:
-      "A shoe designed for aerial tricks and stylish landings. Durable sole for skateboarding tricks and everyday wear. Ergonomic fit for all-day comfort while skating. Breathable upper material to keep feet cool during intense sessions. Sleek design inspired by skate culture and halfpipe legends. Featuring reinforced ankle support for added stability during high-flying maneuvers. Wingtip design elements for a unique look. Oversized tongue for air control.",
+      "A shoe designed for aerial tricks and stylish landings. Durable sole for skateboarding tricks and everyday wear. Ergonomic fit for all-day comfort while skating. Breathable upper material to keep feet cool during intense sessions. Sleek design inspired by skate culture and halfpipe legends. Featuring reinforced ankle support for added stability. Wingtip design elements for a unique look. Oversized tongue for air control.",
     byline:
       "Inspired by the legendary halfpipe pro-skater, classic game, and the legendary bird. Take flight with style. Game the system.",
     primaryImageUrlColor: "green",
@@ -569,7 +569,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "grey"],
     purpose: "professional",
     description:
-      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
+      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication.",
     byline:
       "Fit In anywhere with Luxx premium shoes. These baddies are the talk of the town. Part of the Luxx collection.",
     primaryImageUrlColor: "black",
@@ -590,7 +590,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "grey"],
     purpose: "professional",
     description:
-      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world.   A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
+      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world.   A timeless addition to your wardrobe that exudes sophistication.",
     byline:
       "Fit In anywhere with Luxx premium pants. These baddies are the talk of the town. Part of the Luxx collection.",
     primaryImageUrlColor: "black",
@@ -610,7 +610,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "grey"],
     purpose: "professional",
     description:
-      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
+      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication.",
     byline:
       "Fit In anywhere with Luxx premium pants. These baddies are the talk of the town. Part of the Luxx collection.",
     primaryImageUrlColor: "grey",
@@ -630,7 +630,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "grey"],
     purpose: "professional",
     description:
-      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
+      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication.",
     byline:
       "Fit In anywhere with Luxx premium shirts. These baddies are the talk of the town. Part of the Luxx collection.",
     primaryImageUrlColor: "white",
@@ -650,7 +650,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "grey"],
     purpose: "professional",
     description:
-      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class. Availiable in black, white and grey.",
+      "Have a swag abundance with Luxx premium designer range. Made with the finest materials sourced from around the world. Expertly crafted to provide unparalleled comfort and style. Perfect for making a statement at any professional or formal event. A timeless addition to your wardrobe that exudes sophistication and class.",
     byline:
       "Fit In anywhere with Luxx premium shirts. These baddies are the talk of the town. Part of the Luxx collection.",
     primaryImageUrlColor: "grey",
@@ -670,7 +670,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white"],
     purpose: "professional",
     description:
-      "Glider shoes combine sleek design with unmatched comfort, perfect for professionals on the go. Crafted with premium materials to ensure durability and style. Available in black, white, and grey to match any outfit.",
+      "Glider shoes combine sleek design with unmatched comfort, perfect for professionals on the go. Crafted with premium materials to ensure durability and style.",
     byline: "Glider shoes: where elegance meets performance.",
     primaryImageUrlColor: "black",
     promoImageUrl: "assets/gallery/glider/glider-all-promo.webp",
@@ -688,7 +688,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "red", "grey", "blue"],
     purpose: "professional",
     description:
-      "Staples hoodie: your go-to for everyday comfort and style. Made from soft, durable fabric to keep you cozy all day long. Available in black, white, red, grey, and blue to suit any wardrobe.",
+      "Staples hoodie: your go-to for everyday comfort and style. Made from soft, durable fabric to keep you cozy all day long.",
     byline:
       "The top of the drawer. Everyday essentials redefined. Part of the Staples collection.",
     primaryImageUrlColor: "blue",
@@ -710,7 +710,7 @@ export const productData: tProduct[] = [
     colors: ["black", "white", "red", "grey", "blue"],
     purpose: "professional",
     description:
-      "Staples tee: your go-to for everyday comfort and style. Made from soft, durable fabric to keep you cozy all day long. Available in black, white, red, grey, and blue to suit any wardrobe.",
+      "Staples tee: your go-to for everyday comfort and style. Made from soft, durable fabric to keep you cozy all day long.",
     byline:
       "The top of the drawer. Everyday essentials redefined. Part of the Staples collection.",
     primaryImageUrlColor: "black",
@@ -732,7 +732,7 @@ export const productData: tProduct[] = [
     colors: ["blue", "pink", "yellow", "green"],
     purpose: "playwear",
     description:
-      "A tough tee for everyday fun. Made from durable materials to withstand all kinds of play. Features a comfortable fit for all-day wear. Available in blue, pink, red, and green to suit any playful wardrobe.",
+      "A tough tee for everyday fun. Made from durable materials to withstand all kinds of play. Features a comfortable fit for all-day wear.",
 
     primaryImageUrlColor: "blue",
     promoImageUrl: "assets/gallery/playtime/playtime-all-promo.webp",
@@ -752,7 +752,7 @@ export const productData: tProduct[] = [
     colors: ["blue", "pink", "red", "green"],
     purpose: "playwear",
     description:
-      "A tough shoe for everyday fun. Made from durable materials to withstand all kinds of play. Features a comfortable fit for all-day wear. Available in blue, pink, red, and green to suit any playful wardrobe.",
+      "A tough shoe for everyday fun. Made from durable materials to withstand all kinds of play. Features a comfortable fit for all-day wear.",
     byline: "Everyday fun for the family. Part of the Playtime collection.",
     primaryImageUrlColor: "red",
     promoImageUrl: "assets/gallery/playtime/playtime-shoe-promo.webp",

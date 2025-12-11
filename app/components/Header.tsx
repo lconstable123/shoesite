@@ -122,7 +122,7 @@ function DropdownBar({
           >
             <SearchIcon size={23} className="mr-0 ml-0  " color="white" />
           </button> */}
-          <a href="#" className="header__heart_left">
+          <a href="/favourites" className="header__heart_left">
             <HeartIcon size={30} className="size-8" />
           </a>
         </HeaderItems>

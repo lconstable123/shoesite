@@ -21,5 +21,5 @@ export default function MapComponent() {
     return () => map.remove();
   }, []);
 
-  return <div ref={mapDiv} className="w-full h-96" />;
+  return <div ref={mapDiv} className="w-full h-full" />;
 }

@@ -39,11 +39,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Suspense fallback={<Loadingpage />}>
-        <body
-          // style={{ overflowY: "auto" }}
-          className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased relative `}
-        >
+      <body
+        // style={{ overflowY: "auto" }}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased relative `}
+      >
+        <Suspense fallback={<Loadingpage />}>
           <Toaster position="top-center" />
           <CheckoutProvider>
             <Pulldown />
@@ -53,15 +53,15 @@ export default function RootLayout({
             {children}
             <Footer />
           </CheckoutProvider>
-        </body>
-      </Suspense>
+        </Suspense>
+      </body>
     </html>
   );
 }
 
 function Loadingpage() {
   return (
-    <div className="w-full  h-150 flex items-center justify-center">
+    <div className="w-full  h-200 flex items-center justify-center">
       {/* Loading search params… */}
       <div className="w-20 h-20  animate-spin flex justify-center items-center">
         <LoadingIcon size={120} />

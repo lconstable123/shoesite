@@ -61,8 +61,9 @@
   min-height: 400px;
   height: 100%;
   /* height: auto; */
-  flex: 1;
+  /* flex: 1; */
   width: 500px;
+  /* @apply border; */
   /* background-color: red; */
   /* display: flex; */
   transform-origin: center bottom;

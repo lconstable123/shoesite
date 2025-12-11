@@ -5,6 +5,7 @@ import { footerData, tFooterDataItem } from "../../lib/data";
 import "./styling/footer.css";
 import { chooseModalOpen } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { productNamesFromId, tCollectionsId, tProductId } from "@/lib/types";
 
 // interface FooterMenuListProps {
 //   title: string;
@@ -28,8 +29,8 @@ const FooterButton = ({ type, id }: { type: "link" | "modal"; id: string }) => {
   if (!id) return null;
   if (type === "link") {
     return (
-      <a key={id} href="#" className="list__item cursor-pointer">
-        <p>{id}</p>
+      <a key={id} href={`/product/${id}`} className="list__item cursor-pointer">
+        <p>{productNamesFromId[id as tProductId | tCollectionsId]}</p>
       </a>
     );
   }
@@ -60,7 +61,7 @@ export default function Footer() {
       </nav>
       <div className="footer__byline">
         <p className="opacity-80 leading-relaxed">
-          Site designed by Luke Constable | VirtuallyAnything 2025
+          Site designed and developed by Luke Constable | VirtuallyAnything 2025
         </p>
       </div>
     </footer>

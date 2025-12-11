@@ -17,18 +17,22 @@ import { BagButton, HeartButton } from "./ui/buttons";
 import "@/app/components/styling/checkout.css";
 import placeholders from "@/public/assets/gallery/placeholders.json";
 import { chooseProductColorImageUrl, generateTinyUrl2 } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCheckoutContext } from "@/lib/contexts/use-checkout-context";
 import { toast } from "react-hot-toast";
 import Modal from "./modal";
 import { Register } from "./checkout-page";
 import { CatalogueImage } from "./ui/catalogue-image";
+import { RedDivider } from "./RedDivider";
 export function Checkout({ product }: { product: tProduct | tProduct[] }) {
   return (
-    <section className="w-full h-full flex flex-col   ">
+    <section className="w-full h-full flex flex-col    ">
       {Array.isArray(product) ? (
         product.map((prod, index) => (
-          <ProductContainer key={index} product={prod} rangeId={index} />
+          <React.Fragment key={prod.id}>
+            <ProductContainer product={prod} rangeId={index} />
+            <RedDivider />
+          </React.Fragment>
         ))
       ) : (
         <ProductContainer product={product} rangeId={0} />
@@ -59,7 +63,7 @@ const ProductContainer = ({
 
   const Tiny = generateTinyUrl2(checkoutImage);
   return (
-    <div className="checkout__product__container__layout no-select relative  ">
+    <div className="checkout__product__container__layout  no-select relative   ">
       {/* <p className="absolute z-20">{checkoutImage}</p> */}
       <div className="checkout__product__image     ">
         <Image

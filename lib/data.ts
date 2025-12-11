@@ -1,3 +1,4 @@
+import { tCollection } from "./curation-data";
 import { productData } from "./product-data";
 import {
   Categories,
@@ -7,6 +8,7 @@ import {
   Products,
   purposes,
   tCategory,
+  tCollectionsId,
   tProduct,
 } from "./types";
 
@@ -37,53 +39,67 @@ export const menuData: MenuData = {
   region: "Australia",
 } as const;
 
+const footerModalIds = [
+  "Store Locator",
+  "Order Tracker",
+  "Customer Service",
+  "Returns & Refunds",
+  "About",
+  "Careers",
+  "Sustainability",
+] as const;
+
+export type tfooterModalIds = (typeof footerModalIds)[number];
+
+type extendedMenuId = tCollectionsId | tfooterModalIds;
+
 export type tFooterDataItem = {
   title: string;
-  items: { id: string; type: "link" | "modal" }[];
+  items: { id: extendedMenuId; type: "link" | "modal" }[];
 };
 
 export const footerData: tFooterDataItem[] = [
   {
     title: "SPORTS",
     items: [
-      { id: "Football", type: "link" },
-      { id: "Running", type: "link" },
-      { id: "Outdoors", type: "link" },
-      { id: "Basketball", type: "link" },
-      { id: "Fitness", type: "link" },
+      { id: "football", type: "link" },
+      { id: "running", type: "link" },
+      { id: "outdoors", type: "link" },
+      { id: "basketball", type: "link" },
+      { id: "fitness", type: "link" },
     ],
   },
   {
     title: "LIFESTYLE",
     items: [
-      { id: "Casual", type: "link" },
-      { id: "Premium", type: "link" },
-      { id: "Skatewear", type: "link" },
-      { id: "Staples", type: "link" },
+      { id: "casual", type: "link" },
+      { id: "premium", type: "link" },
+      { id: "skatewear", type: "link" },
+      { id: "staples", type: "link" },
     ],
   },
   {
     title: "MEN",
     items: [
-      { id: "Shoes", type: "link" },
-      { id: "Clothes", type: "link" },
-      { id: "Accessories", type: "link" },
+      { id: "shoes-m", type: "link" },
+      { id: "clothes-m", type: "link" },
+      { id: "accessories", type: "link" },
     ],
   },
   {
     title: "WOMEN",
     items: [
-      { id: "Shoes", type: "link" },
-      { id: "Clothes", type: "link" },
-      { id: "Accessories", type: "link" },
+      { id: "shoes-w", type: "link" },
+      { id: "clothes-w", type: "link" },
+      { id: "accessories", type: "link" },
     ],
   },
   {
     title: "KIDS",
     items: [
-      { id: "Shoes", type: "link" },
-      { id: "Clothes", type: "link" },
-      { id: "Accessories", type: "link" },
+      { id: "shoes-k", type: "link" },
+      { id: "clothes-k", type: "link" },
+      { id: "accessories", type: "link" },
     ],
   },
   {

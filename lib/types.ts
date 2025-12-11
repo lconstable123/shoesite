@@ -129,6 +129,21 @@ export const Collections = [
   "playtime",
   "streetmasters",
   "lazysunday",
+  "football",
+  "running",
+  "outdoors",
+  "basketball",
+  "fitness",
+  "casual",
+  "premium",
+  "skatewear",
+  "shoes-m",
+  "clothes-m",
+  "accessories",
+  "shoes-w",
+  "clothes-w",
+  "shoes-k",
+  "clothes-k",
 ] as const;
 
 export const colors = [
@@ -194,10 +209,7 @@ export type tCartItem = {
   color: colors;
   size: tGarmentSizing | tShoeSizing;
 };
-export const productNamesFromId: Record<
-  tProductId | tCollectionsId,
-  tProductName
-> = {
+export const productNamesFromId: Record<tProductId | tCollectionsId, string> = {
   "ronaldo-shoe": "Ronaldo",
   "pele-x-shoe": "Pele-X",
   "space-jammer-shoe": "Space Jammer",
@@ -240,6 +252,21 @@ export const productNamesFromId: Record<
   playtime: "Playtime",
   streetmasters: "Street Masters",
   lazysunday: "Lazy Sunday",
+  football: "Football",
+  running: "Running",
+  outdoors: "Outdoors",
+  basketball: "Basketball",
+  fitness: "Fitness",
+  casual: "Casual",
+  premium: "Premium",
+  skatewear: "Skatewear",
+  "shoes-m": "Shoes",
+  "clothes-m": "Clothes",
+  accessories: "Accessories",
+  "shoes-w": "Shoes",
+  "clothes-w": "Clothes",
+  "shoes-k": "Shoes",
+  "clothes-k": "Clothes",
 };
 
 export type tProductAvailability = {

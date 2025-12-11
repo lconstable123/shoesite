@@ -159,6 +159,168 @@ export const collectionById: tCollection = {
 
     splashImage: "assets/gallery/lazy-sunday/lazy-sunday-shoe-promo.webp",
   },
+  football: {
+    carousels: ["Athletic", "Best-Sellers"],
+    items: ["ronaldo-shoe", "pele-x-shoe"],
+    splashImage: "assets/gallery/ronaldo/ronaldo-promo.webp",
+
+    byline:
+      "Unleash your inner champion with our football collection, featuring top-tier shoes and gear designed for speed, agility, and precision on the field.",
+  },
+  running: {
+    carousels: ["Athletic", "Diverse"],
+    items: [
+      "cardiac-shoe",
+      "slipstream-shoe",
+      "sweatlodge-shoe",
+      "glider-shoe",
+      "expresso-shoe",
+      "acc-smart-band",
+      "acc-sports-watch",
+    ],
+    splashImage: "assets/gallery/cardiac/cardiac-promo-2.webp",
+    byline:
+      "Hit your stride with our running collection, offering high-performance shoes engineered for comfort, durability, and speed to elevate your running experience.",
+  },
+  outdoors: {
+    carousels: ["Athletic", "Diverse"],
+    items: [
+      "rock-solid-shoe",
+      "vertigo-shoe",
+      "neo-sherpa-shoe",
+      "sweatlodge-shoe",
+      "acc-cap",
+      "acc-smart-band",
+      "acc-sports-watch",
+      "acc-water-bottle",
+    ],
+    splashImage: "assets/gallery/neo-sherpa/neo-sherpa-promo.webp",
+    byline:
+      "Explore the great outdoors with our rugged collection, featuring durable shoes and apparel designed to withstand the elements while providing comfort and style on every adventure.",
+  },
+  basketball: {
+    carousels: ["Athletic", "Best-Sellers"],
+    items: ["bigshot-shoe", "space-jammer-shoe"],
+    splashImage: "assets/gallery/bigshot/bigshot-promo.webp",
+    byline:
+      "Elevate your game with our basketball collection, showcasing high-performance shoes and gear crafted for agility, support, and style on the court.",
+  },
+  fitness: {
+    carousels: ["Athletic", "Diverse"],
+    items: [
+      "cardiac-shoe",
+      "slipstream-shoe",
+      "sweatlodge-shoe",
+      "acc-smart-band",
+      "acc-sports-watch",
+      "acc-water-bottle",
+    ],
+    splashImage: "assets/gallery/sweatlodge/sweatlodge-promo.webp",
+    byline:
+      "Stay fit and active with our fitness collection, featuring shoes and gear designed for optimal performance, support, and style during your workouts.",
+  },
+  casual: {
+    carousels: ["Casual", "Fun"],
+    items: [
+      "lazy-sunday-shoe",
+      "street-masters-shoe",
+      "playtime-shoe",
+      "tawny-hawkmouth-shoe",
+      "rodney-mullet-shoe",
+    ],
+    splashImage: "assets/gallery/lazy-sunday/lazy-sunday-shoe-promo.webp",
+    byline:
+      "Embrace everyday comfort and style with our casual collection, offering versatile shoes and apparel perfect for any laid-back occasion.",
+  },
+  premium: {
+    carousels: ["Platinum", "Best-Sellers"],
+    items: [
+      "luxx-shoe",
+      "glider-shoe",
+      "expresso-shoe",
+      "tawny-hawkmouth-shoe",
+    ],
+    splashImage: "assets/gallery/luxx/luxx-shoes-promo.webp",
+    byline:
+      "Indulge in luxury with our premium collection, featuring high-end shoes and apparel crafted from the finest materials for unparalleled comfort and style.",
+  },
+  skatewear: {
+    carousels: ["Casual", "Fun"],
+    items: [
+      "rodney-mullet-shoe",
+      "tawny-hawkmouth-shoe",
+      "street-masters-pants",
+      "street-masters-shirt",
+    ],
+    splashImage: "assets/gallery/rodney-mullet/rodney-mullet-promo.webp",
+    byline:
+      "Skate in style with our skatewear collection, featuring durable and trendy shoes designed for performance and street credibility.",
+  },
+  "shoes-m": {
+    items: [
+      "rock-solid-shoe",
+      "luxx-shoe",
+      "expresso-shoe",
+      "street-masters-shoe",
+      "neo-sherpa-shoe",
+      "lazy-sunday-shoe",
+      "rodney-mullet-shoe",
+      "vertigo-shoe",
+      "space-jammer-shoe",
+    ],
+    splashImage: "assets/gallery/rock-solid/rock-solid-promo-2.webp",
+    byline: "Experience the perfect blend of style and performance.",
+  },
+  "shoes-w": {
+    items: [
+      "glider-shoe",
+      "slipstream-shoe",
+      "sweatlodge-shoe",
+      "street-masters-shoe",
+      "lazy-sunday-shoe",
+      "neo-sherpa-shoe",
+      "tawny-hawkmouth-shoe",
+      "vertigo-shoe",
+      "bigshot-shoe",
+    ],
+    splashImage: "assets/gallery/glider/glider-all-promo.webp",
+    byline: "Step into comfort and elegance.",
+  },
+  "clothes-m": {
+    items: ["luxx-m-shirt", "expresso-shirt", "staples-tee", "staples-hoodie"],
+    byline: "Elevate your wardrobe with our stylish collections.",
+    splashImage: "assets/gallery/luxx/luxx-shirt-promo.webp",
+  },
+  "clothes-w": {
+    items: [
+      "luxx-f-shirt",
+      "lazy-sunday-shirt",
+      "staples-tee",
+      "staples-hoodie",
+    ],
+    splashImage: "assets/gallery/luxx/luxx-shirt-promo.webp",
+    byline: "Elevate your wardrobe with our stylish collections.",
+  },
+  accessories: {
+    items: [
+      "acc-sports-watch",
+      "acc-water-bottle",
+      "acc-cap",
+      "acc-smart-band",
+    ],
+    splashImage: "assets/gallery/accessories/acc_watch_promo.webp",
+    byline: "Complete your look with our trendy accessories.",
+  },
+  "shoes-k": {
+    items: ["playtime-shoe", "space-jammer-shoe", "street-masters-shoe"],
+    byline: "Fun and functional footwear for kids.",
+    splashImage: "assets/gallery/playtime/playtime-shoe-promo.webp",
+  },
+  "clothes-k": {
+    items: ["playtime-tee", "staples-tee", "lazy-sunday-shirt"],
+    byline: "Comfortable and stylish shirts for kids.",
+    splashImage: "assets/gallery/playtime/playtime-shirt-promo.webp",
+  },
 };
 
 export const promoSegments: tPromoSegment[] = [
