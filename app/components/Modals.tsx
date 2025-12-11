@@ -76,7 +76,7 @@ export const OrderTrackerModal = () => {
   >([]);
 
   useEffect(() => {
-    toast.success("Tracking order #" + searchText);
+    // toast.success("Tracking order #" + searchText);
     if (searchText === testId) {
       setLocations([
         { lng: 144.9643, lat: -37.8138, popupText: "Melbourne City" },

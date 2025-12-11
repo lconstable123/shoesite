@@ -21,8 +21,8 @@ export default function MapComponent({
   markers?: Marker[];
 }) {
   const mapDiv = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<mapboxgl.Map>();
-  const geocoderRef = useRef<MapboxGeocoder>();
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const geocoderRef = useRef<MapboxGeocoder | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
   useEffect(() => {
     if (!mapDiv.current) return;
@@ -36,8 +36,8 @@ export default function MapComponent({
     mapRef.current = map;
 
     const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl,
+      accessToken: mapboxgl.accessToken as string,
+      mapboxgl: mapboxgl as any,
       marker: true, // Adds a pin at the found location
       placeholder: "Search for a location",
     });
@@ -49,7 +49,7 @@ export default function MapComponent({
 
     geocoderRef.current = geocoder;
     map.addControl(geocoder, "top-left");
-    const container = geocoderRef.current?.container;
+    const container = (geocoderRef.current as any)?.container;
     if (container) container.style.display = "none";
 
     return () => map.remove();
@@ -77,7 +77,7 @@ export default function MapComponent({
     if (!searchText) return;
 
     // Set the input value
-    const input = geocoderRef.current.container.querySelector<HTMLInputElement>(
+    const input = document.querySelector<HTMLInputElement>(
       "input.mapboxgl-ctrl-geocoder--input"
     );
 
