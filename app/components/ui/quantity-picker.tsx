@@ -13,7 +13,7 @@ export function QuantityPicker({
 }) {
   return (
     <div
-      className={`relative  gap-2 button__border cursor-pointer bg-black   w-12 h-7 flex items-center  justify-between `}
+      className={`relative  gap-2 button__border cursor-pointer bg-black   w-14 sm:w-12 h-8 sm:h-7 flex items-center  justify-between `}
     >
       <select
         value={quantity}
@@ -27,7 +27,7 @@ export function QuantityPicker({
           </option>
         ))}
       </select>
-      <ChevronDown className="absolute pointer-events-none no-select right-2 top-[5px] size-10 stroke-white" />
+      <ChevronDown className="absolute pointer-events-none no-select right-2 top-[7px] sm:top-[5px] size-10 stroke-white" />
     </div>
   );
 }

@@ -42,7 +42,7 @@ export function Pulldown() {
         ref={elmRef}
         onClick={() => setPulldownOpen(!pulldownOpen)}
         className={cn(
-          "  transition-top pulldown__container   duration-600 absolute  z-1000 no-select grid  grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-fiber-w ",
+          "  transition-top pulldown__container   duration-600 absolute  z-1000 no-select grid px-5 grid-cols-3 gap-0 right-0 left-0 w-full h-auto border-b border-neutral-800 bg-fiber ",
           !pulldownOpen ? "-top-100" : "top-0"
         )}
       >
@@ -82,7 +82,7 @@ const PullDownBar = ({
       }}
       className="cursor-pointer! relative w-full h-8 justify-center bg-gray-darker flex items-center  px-4 z-1200 "
     >
-      <div className="w-full no-select flex gap-[18px] justify-center items-center ">
+      <div className="w-full no-select flex gap-[15px] justify-center items-center  ">
         <ChevronDown />
         <span className=" font-medium uppercase text-center text-sm ">
           Shipping & Free Returns
@@ -104,8 +104,8 @@ const PullDownItem = ({
 }) => {
   const Tiny = generateTinyUrl2(url);
   return (
-    <div className="w-full flex flex-col items-center gap-2   text-center text-black font-bold">
-      <div className="border border-gray-light/50 w-30 h-30 relative rounded-full overflow-hidden  ">
+    <div className="w-full flex flex-col items-center gap-2 px-3  text-center text-on-black font-bold">
+      <div className="border border-gray-light/50 w-25 sm:w-30 h-25 sm:h-30 relative rounded-full overflow-hidden  ">
         <Image
           src={url}
           alt={title}
@@ -115,8 +115,8 @@ const PullDownItem = ({
           blurDataURL={Tiny}
         />
       </div>
-      <h3 className="flex-wrap! text-wrap! ">{title}</h3>
-      <p> {blurb}</p>
+      <h3 className="flex-wrap! text-wrap!  ">{title}</h3>
+      <p className="text-[8pt]! sm:text-[9pt]!"> {blurb}</p>
     </div>
   );
 };

@@ -39,7 +39,7 @@ export function SizePicker({
               key={size}
               onClick={() => handleSizeClick(size)}
               className={cn(
-                "transition-all   rounded-sm px-2 py-1 text-[9pt]  hover:bg-mid-grey-3",
+                "transition-all h-10 sm:h-8   rounded-sm px-2 py-1 text-[9pt]  hover:bg-mid-grey-3",
                 selectedSize
                   ? selectedSize === size
                     ? "bg-red cursor-default"

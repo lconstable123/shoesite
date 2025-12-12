@@ -61,6 +61,11 @@ body {
   width: 100%;
 }
 
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
 p {
   font-family: "Inter", san-serif;
   line-height: 1.27;

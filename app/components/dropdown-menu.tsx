@@ -47,7 +47,7 @@ export function DropdownMenu({
     <>
       {/* {category && ( */}
 
-      <div className={cn("transition-all duration-500 w-full z-0 ")}>
+      <div className={cn("transition-all duration-300 w-full z-0 ")}>
         {isOpen && (
           <DropDownDesktopContainer selectedCategory={selectedCategory} />
         )}
@@ -76,41 +76,47 @@ const DropDownMobileContainer = ({
 
   const [subCategory, setSubCategory] = useState<string | null>(null);
   const [subSubCategory, setSubSubCategory] = useState<string | null>(null);
-  const [subItems, setSubItems] = useState<string[] | null>(null);
-  const [subSubItems, setSubSubItems] = useState<string[] | null>(null);
+  const [subItems, setSubItems] = useState<
+    { id: string; name: string }[] | null
+  >(null);
+  const [subSubItems, setSubSubItems] = useState<
+    { id: string; name: string }[] | null
+  >(null);
   const [selectedCategoryData, setSelectedCategoryData] = useState<
     tMenuCollection[tCategory]
   >(MenuCollection[category as tCategory]);
 
   useEffect(() => {
-    toast.success("Subcategory changed to " + subCategory);
-    setSubItems(
-      selectedCategoryData?.menuItems[subCategory as tSubcategory] as string[]
-      // selectedCategoryData?.menuItems[subCategory as tSubcategory]
-    );
+    // toast.success("Subcategory changed to " + subCategory);
+    const itemkeys = selectedCategoryData?.menuItems[
+      subCategory as tSubcategory
+    ] as string[];
+    const names = itemkeys?.map((item) => {
+      return {
+        id: item,
+        name: productNamesFromId[item as tProductId | tCollectionsId],
+      };
+    });
+    //
+    setSubItems(names || null);
   }, [subCategory]);
+
   useEffect(() => {
-    toast.success("finalcat to" + subSubCategory);
-    const subsubCatItems =
+    // toast.success("finalcat to" + subSubCategory);
+
+    const subsubCatItemkeys =
       selectedCategoryData?.menuItems[subSubCategory as tSubcategory];
 
-    setSubSubItems(subsubCatItems ? [...subsubCatItems] : null);
+    const names = subsubCatItemkeys?.map((item) => {
+      return {
+        id: item,
+        name: productNamesFromId[item as tProductId | tCollectionsId],
+      };
+    });
+
+    setSubSubItems(names || null);
   }, [subSubCategory]);
 
-  // const handleSetMenuDepth = (depth?: tMenuDepth, category?: string) => {
-  //   if (!depth) {
-  //     setMenuDepth((prev) => {
-  //       if (prev === "range") return "submenu";
-  //       if (prev === "submenu") return "main";
-  //       return "main";
-  //     });
-  //   } else {
-  //     if (category) {
-  //       setSubCategory(category);
-  //     }
-  //     setMenuDepth(depth);
-  //   }
-  // };
   const handleSetMenuDepth2 = (depth?: tMenuDepth, category?: string) => {
     switch (depth) {
       case depth && depth === "main":
@@ -128,13 +134,20 @@ const DropDownMobileContainer = ({
           return "main";
         });
         // setMenuDepth("submenu");
-        if (category) setSubCategory(category);
+        if (category) {
+          // const textName =
+          //   productNamesFromId[category as tProductId | tCollectionsId];
+          setSubCategory(category);
+        }
         break;
       case "range":
-        if (category) setSubSubCategory(category);
+        if (category) {
+          // const textName =
+          //   productNamesFromId[category as tProductId | tCollectionsId];
+          setSubSubCategory(category);
+        }
         setMenuDepth("range");
         break;
-
       default:
         break;
     }
@@ -148,16 +161,25 @@ const DropDownMobileContainer = ({
 
   return (
     // <div className=" inset-0 absolute z-700">
-    <nav className="dropdown__mobile__root absolute z-900   w-full h-screen overflow-hidden">
+    <nav className="dropdown__mobile__root absolute z-900 no-select pointer-events-none w-full h-screen overflow-hidden">
+      {/* Nav Bg */}
+      <div
+        className={cn(
+          " absolute w-full h-full  z-800  bg-white transition-all duration-400",
+          isOpen ? "left-0" : menuDepth === "main" ? "-left-full" : "left-full"
+        )}
+      >
+        <RedDivider />
+      </div>
       {/* Main Menu */}
 
       <div
         className={cn(
-          "absolute transition-all duration-1000 top-0 w-full h-full z-900 ",
+          "absolute transition-all duration-400 pointer-events-auto cursor-pointer  top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "main" ? "left-0" : "-left-full"
         )}
       >
-        <nav className="dropdown__mobile__container  cursor-pointer relative z-900 ">
+        <nav className="dropdown__mobile__container cursor-pointer relative z-900 ">
           <RedDivider />
           {/* <div className="h-4 w-full bg-red-500" /> */}
           {Categories.map((menucategory) => (
@@ -176,7 +198,7 @@ const DropDownMobileContainer = ({
       {/* Submenu */}
       <div
         className={cn(
-          "absolute transition-all duration-1000  top-0 w-full h-full z-900 ",
+          "absolute transition-all duration-300 pointer-events-auto cursor-pointer   top-0 w-full h-full z-900 ",
           isOpen && menuDepth === "submenu"
             ? "left-0"
             : menuDepth === "range"
@@ -213,7 +235,7 @@ const DropDownMobileContainer = ({
       {/* items-menu */}
       <div
         className={cn(
-          "dropdown__mobile__container  absolute transition-all duration-1000   w-full h-full z-900 ",
+          "dropdown__mobile__container pointer-events-auto cursor-pointer   absolute transition-all duration-300   w-full h-full z-900 ",
           isOpen && menuDepth === "range" ? "left-0" : "left-full"
         )}
       >
@@ -232,8 +254,9 @@ const DropDownMobileContainer = ({
             subSubCategory &&
             subSubItems?.map((menucategory) => (
               <DropdownRow
-                key={menucategory}
-                title={menucategory}
+                key={menucategory.id}
+                id={menucategory.id}
+                title={menucategory.name}
                 searchParams={searchParams}
                 router={router}
                 setMenuDepth={handleSetMenuDepth2}
@@ -247,7 +270,7 @@ const DropDownMobileContainer = ({
       </div>
       <div
         className={cn(
-          "transition-all duration-300 fixed bottom-0   w-full  h-auto z-1000  ",
+          "transition-all duration-300 fixed bottom-0 pointer-events-auto cursor-pointer  w-full  h-auto z-1000  ",
           isOpen
             ? "left-0"
             : menuDepth === "main"
@@ -341,6 +364,7 @@ const DropdownColumn = ({
 
 const DropdownRow = ({
   title,
+  id,
   searchParams,
   router,
   returning = false,
@@ -354,6 +378,7 @@ const DropdownRow = ({
   setSelectedCategory,
 }: {
   title: string;
+  id?: string;
   searchParams: URLSearchParams;
   router: AppRouterInstance;
   returning?: boolean;
@@ -379,17 +404,17 @@ const DropdownRow = ({
         setMenuDepth && setMenuDepth("range", title);
       }
       if (menuDepth === "range") {
-        // setIsOpen && setIsOpen(false);
+        setIsOpen && setIsOpen(false);
       }
     }
   };
 
   return (
     <div
-      key={title}
+      key={id || title}
       onClick={() => MenuClick()}
       className={cn(
-        "dropdown__mobile__row__container  duration-100 delay-1000 transition-opacity no-select ",
+        "dropdown__mobile__row__container  duration-500  transition-opacity no-select ",
         returning
           ? "flex-row-reverse! justify-end gap-x-5  bg-neutral-400/20"
           : "flex-row! justify-between"
@@ -398,11 +423,11 @@ const DropdownRow = ({
       {menuDepth && menuDepth === "range" ? (
         <Link
           className=" cursor-pointer"
-          href={`/product/${title}${category ? `?category=${category}` : ""}`}
+          href={`/product/${id}${category ? `?category=${category}` : ""}`}
         >
           <h3 className=" h-5 uppercase flex  no-select font-bold text-darker">
-            {productNamesFromId[title as tProductId | tCollectionsId]}
-            {/* {title} */}
+            {/* {productNamesFromId[title as tProductId | tCollectionsId]} */}
+            {title}
           </h3>
         </Link>
       ) : (

@@ -263,7 +263,7 @@ const CarouselHeader = ({
                 if (!isActive) setSelectedCategory(category);
               }}
               className={cn(
-                "button__state no-select",
+                "button__state no-select h-10! sm:h-8! ",
                 !isActive ? "button__state__inactive" : "button__state__active"
               )}
             >

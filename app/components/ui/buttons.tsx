@@ -24,7 +24,7 @@ export const BagButton = ({
     return (
       <button
         onClick={handle}
-        className="button__border button__bg__black cursor-pointer  flex-center gap-2   h-[32px] px-4  "
+        className="button__border button__bg__black cursor-pointer  flex-center gap-2   h-[50px] sm:h-[32px] px-4  "
       >
         <h3 className="font-bold uppercase tracking-widest">
           {text || "Add To Bag"}
@@ -34,7 +34,7 @@ export const BagButton = ({
     );
   } else {
     return (
-      <button className="button__border button__bg__black capitalize  flex-center gap-2   h-[24px] px-4   ">
+      <button className="button__border button__bg__black capitalize  flex-center gap-2 h-[50px] sm:h-[24px] px-4   ">
         <p>{text || "Add To Bag"}</p>
         <BagIcon size={16} className="" />
       </button>
@@ -54,7 +54,7 @@ export const HeartButton = ({
     <button
       onClick={toggle}
       className={cn(
-        "button__border flex-center h-[32px] px-4",
+        "button__border flex-center h-[50px] sm:h-[32px] px-4",
         liked ? "button__bg_red" : "button__bg__black"
       )}
     >
