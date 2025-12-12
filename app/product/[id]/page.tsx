@@ -21,7 +21,8 @@ export function generateMetadata(): Metadata {
       siteName: "Shoe Store",
       images: [
         {
-          url: "/assets/gallery/rodney-mullet/rodney-mullet-promo.webp",
+          url: "https://shoesite-sooty.vercel.app/assets/gallery/rodney-mullet/rodney-mullet-promo.webp",
+
           width: 1200,
           height: 630,
           alt: "Featured Shoe",
