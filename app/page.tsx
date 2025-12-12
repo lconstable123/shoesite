@@ -4,10 +4,10 @@ import { Suspense } from "react";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "VirtaullyAnything Ecommerce Demo",
+    title: "VirtuallyAnything Ecommerce Demo",
     description: "Discover premium footwear.",
     openGraph: {
-      title: "VirtaullyAnything Ecommerce Demo",
+      title: "VirtuallyAnything Ecommerce Demo",
       description: "Discover premium footwear with style and comfort.",
       url: "https://shoesite-sooty.vercel.app/",
       siteName: "Shoe Store",
