@@ -353,7 +353,7 @@ const DropdownColumn = ({
                 id && id === item ? "font-bold!" : "text-black"
               }`}
             >
-              {item}
+              {productNamesFromId[item as tProductId | tCollectionsId] || item}
             </p>
           </Link>
         ))}
