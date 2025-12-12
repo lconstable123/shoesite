@@ -7,7 +7,7 @@ export function generateMetadata(): Metadata {
     title: "VirtaullyAnything Ecommerce Demo",
     description: "Discover premium footwear.",
     openGraph: {
-      title: "Home Page – Shoe Store",
+      title: "VirtaullyAnything Ecommerce Demo",
       description: "Discover premium footwear with style and comfort.",
       url: "https://shoesite-sooty.vercel.app/",
       siteName: "Shoe Store",
