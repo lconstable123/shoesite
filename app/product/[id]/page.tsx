@@ -12,8 +12,24 @@ import { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Product Page",
-    description: "Welcome to the product page of our shoe site.",
+    title: "VirtaullyAnything Ecommerce Demo",
+    description: "Discover premium footwear.",
+    openGraph: {
+      title: "Home Page – Shoe Store",
+      description: "Discover premium footwear with style and comfort.",
+      url: "https://shoesite-sooty.vercel.app/",
+      siteName: "Shoe Store",
+      images: [
+        {
+          url: "/assets/gallery/rodney-mullet/rodney-mullet-promo.webp",
+          width: 1200,
+          height: 630,
+          alt: "Featured Shoe",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
   };
 }
 
